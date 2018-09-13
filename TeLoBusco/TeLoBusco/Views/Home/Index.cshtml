@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Bienvenidos";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Wapo</title>
+    @Styles.Render("~/Content/css")
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Shadows+Into+Light" rel="stylesheet">
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body style="padding: 0px;">
+    <!-- MENÚ -->
+    <header>
+        <nav class="navbar navbar-dark bg-dark navbar-custom fixed-top">
+            <a class="navbar-brand navbar-title" href="/Home/Index">
+                <img src="~/Images/logo.png" class="logo" width="92" height="52" alt="Logo">
+                Wapo
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse navbar-margin" id="navbarNav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Home/Index">Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Pedidos/Index">Pedidos</a>
+                        </li>
+                    </ul>
+                }            
+                @Html.Partial("_LoginPartial")
+            </div>         
+        </nav>
+    </header>
+
+    <div class="landing-page-principal">
+
+        <!-- SECCIÓN PRINCIPAL -->
+        <div id="seccionPrincipal">
+            <div class="content">
+                <hgroup>
+                    <h1 class="tituloLanding">Wapo</h1>
+                    <h2 class="subtituloLanding">¿Necesitás un delivery?.</h2>
+                </hgroup>
+            </div>
+            <div class="overlay"></div>
+        </div>
+        <div  id="callToAction" class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4 titleCallToAction">¿Compraste comida y no tenés cómo buscarla?</h1>
+                <p class="subtitleCallToAction">Wapo te ayuda a <b>conectarte</b> con el mejor delivery para vos</p>               
+                <a id="registerBtn" class="btn btn-outline-secondary btn-lg" href="/Account/Register" role="button">¡Registrate!</a> 
+                <br/>
+                <p class="subtitleCallToAction">¡Es fácil, rápido y <b>gratis</b>!</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="featureTitle">Encontrá tu delivery</h2>
+                    <p class="feature">¿Compraste comida pero no tenés como buscarla?  No te preocupes, en Wapo podrás encontrar
+                    deliverys dispuestos a recoger tu pedido y elegir al que más te convenga, 
+                    teniendo en cuenta tiempos de demora, valoraciones y costos.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="featureTitle">Encontrá tu pedido</h2>
+                    <p class="feature">¿Sos delivery? ¿Necesitás un ingreso extra? Cualquiera sea el motivo, podrás postularte como delivery,
+                    de esta manera tendrás acceso a los pedidos que las personas cercanas a ti realizan y podrás postularte como delivery.
+                    Si te escogen, ¡no tardes en llegar!</p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="featureTitle">Valorá a los demás usuarios</h2>
+                    <p class="feature">Podrás valorar tanto a los deliverys si sos un consumidor del servicio. O a los consumidores si sos delivery.
+                    De esta forma todos mantendremos nuestra reputación, ¿fácil no?</p>
+                </div>
+            </div>
+        </div>
+      
+        <!-- FOOTER -->
+        <footer class="footerLandingPage">
+            <div class="col">
+                <label>&copy; @DateTime.Now.Year - </label>
+                <label class="wapoFooter">Wapo</label>
+            </div>
+        </footer>       
+    </div>
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

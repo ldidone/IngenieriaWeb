@@ -1,0 +1,182 @@
+﻿body {
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.logo {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.navbar-custom {
+    background-color: black !important;
+}
+
+.navbar-margin{
+    margin: 5px !important;
+}
+
+.navbar-margin-bottom{
+    margin-bottom: 15px;
+}
+
+.landing-page-principal {
+    font-family: 'Amatic SC', cursive;
+    background-image: url('../Images/plato-landing.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 631px;
+}
+
+.navbar-title{
+    font-family: 'Shadows Into Light', cursive;
+    /*font-family: 'Amatic SC', cursive;*/
+    font-size: 35px;
+    /*color: yellow !important;*/
+}
+
+.btnLogin{
+    color: white !important;
+}
+
+#seccionPrincipal {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+}
+
+#seccionPrincipal .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+#seccionPrincipal h1,
+#seccionPrincipal h2 {
+  margin: 0;
+}
+
+#seccionPrincipal hgroup {
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: inline-block;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  border: 5px solid #fff;
+  padding: 0.5em 3em;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+#seccionPrincipal .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #333 center no-repeat;
+  background-size: cover;
+  z-index: 0;
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.tituloLanding{
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: bold;
+    font-size: 60px;
+    text-shadow: 5px 5px 2px #333;
+    color: white;
+}
+
+.subtituloLanding{
+    /*font-family: 'Shadows Into Light', cursive;*/
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+}
+
+.titleCallToAction {
+    font-weight: bold;
+}
+
+.subtitleCallToAction{
+    font-size: 30px;
+}
+
+#callToAction{
+    text-align: center;
+}
+
+#registerBtn{
+    font-size: 1.50rem;
+    font-weight: bold;
+}
+
+.footerLandingPage{
+    background-color: black;
+    width: 100%;
+    height: 70px;
+    padding: 20px;    
+    text-align: center;
+    font-size: 20px;   
+    color: white;
+}
+
+.footerPrincipal{
+    text-align: center;
+    font-size: 20px;   
+    color: black;
+}
+
+.footerPrincipalAño{
+    font-family: 'Amatic SC', cursive;
+    font-size: 20px; 
+}
+.wapoFooter{
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.featureTitle{
+    font-size: 30px;   
+    font-weight: bold; 
+    text-align: center;
+}
+
+.feature{
+    font-size: 25px;
+}
+
+.userName{
+    color: white;
+}

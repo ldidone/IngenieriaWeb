@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="052240936d6b490e8026db67c4aec575" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="TeloBuscoModel.sysdiagrams" PointX="9.125" PointY="0.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TeloBuscoModel.C__MigrationHistory" Width="1.5" PointX="6.375" PointY="5.5" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetRoles" Width="1.5" PointX="6.375" PointY="2.875" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUserClaims" Width="1.5" PointX="2.625" PointY="5.75" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUserLogins" Width="1.5" PointX="6.375" PointY="0.5" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUsers" Width="1.5" PointX="2.5" PointY="0.5" />
+        <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TeloBuscoModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
