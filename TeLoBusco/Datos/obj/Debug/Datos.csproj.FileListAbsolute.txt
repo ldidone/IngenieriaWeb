@@ -1,0 +1,12 @@
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\Datos.dll.config
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\Datos.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\Datos.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\EntityFramework.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\EntityFramework.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\obj\Debug\Datos.csprojResolveAssemblyReference.cache
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\obj\Debug\Datos.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Datos\obj\Debug\Datos.pdb
