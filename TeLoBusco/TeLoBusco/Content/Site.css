@@ -1,4 +1,19 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+﻿/*@import url('https://fonts.googleapis.com/css?family=Amatic+SC');*/
+
+@font-face {
+    font-family: 'AmaticSC-Bold';
+    src: url('../Fonts/AmaticSC-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AmaticSC-Regular';
+    src: url('../Fonts/AmaticSC-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ShadowsIntoLight';
+    src: url('../Fonts/ShadowsIntoLight.ttf') format('truetype');
+}
 
 body {
     /*padding-top: 50px;
@@ -43,7 +58,7 @@ textarea {
 }
 
 .landing-page-principal {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'AmaticSC-Regular', cursive;
     background-image: url('../Images/plato-landing.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -51,8 +66,8 @@ textarea {
 }
 
 .navbar-title{
-    font-family: 'Shadows Into Light', cursive;
-    /*font-family: 'Amatic SC', cursive;*/
+    font-family: 'ShadowsIntoLight', cursive;
+    /*font-family: 'AmaticSC-Regular', cursive;*/
     font-size: 35px;
     /*color: yellow !important;*/
 }
@@ -114,7 +129,7 @@ textarea {
 }
 
 .tituloLanding{
-    font-family: 'Shadows Into Light', cursive;
+    font-family: 'ShadowsIntoLight', cursive;
     font-weight: bold;
     font-size: 60px;
     text-shadow: 5px 5px 2px #333;
@@ -122,7 +137,7 @@ textarea {
 }
 
 .subtituloLanding{
-    /*font-family: 'Shadows Into Light', cursive;*/
+    /*font-family: 'ShadowsIntoLight', cursive;*/
     font-weight: bold;
     font-size: 50px;
     color: white;
@@ -162,11 +177,11 @@ textarea {
 }
 
 .footerPrincipalAño{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'AmaticSC-Regular', cursive;
     font-size: 20px; 
 }
 .wapoFooter{
-    font-family: 'Shadows Into Light', cursive;
+    font-family: 'ShadowsIntoLight', cursive;
 }
 
 .featureTitle{
@@ -184,14 +199,14 @@ textarea {
 }
 
 .tituloPagina{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'AmaticSC-Regular', cursive;
     font-size: 50px;   
     /*font-weight: bold; */
     text-align: center;
 }
 
 .subtituloPagina{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'AmaticSC-Regular', cursive;
     font-size: 35px;   
     font-weight: bold; 
     text-align: center;
@@ -202,7 +217,7 @@ textarea {
 }
 
 .fontBtn{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'AmaticSC-Regular', cursive;
     font-size: 1.50rem;
     font-weight: bold;
 }

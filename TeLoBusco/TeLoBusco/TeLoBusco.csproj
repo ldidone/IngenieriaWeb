@@ -223,6 +223,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Fonts\OFLAmaticSC.txt" />
+    <Content Include="Fonts\OFLShadows_Into_Light.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
@@ -254,6 +256,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Fonts\AmaticSC-Bold.ttf" />
+    <Content Include="Fonts\AmaticSC-Regular.ttf" />
+    <Content Include="Fonts\ShadowsIntoLight.ttf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
