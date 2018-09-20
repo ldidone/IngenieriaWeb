@@ -5,8 +5,68 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<hr/>
-<div class="grillaPedidos">
+<hr />
+@Html.ActionLink("Nuevo Usuario", "Create", null, null, new{ @class = "btn btn-dark float-right"})
+<div id="grillaUsuarios">
     @Html.Partial("_UsuariosGrilla", Model)
 </div>
 
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message");
+            });
+        </script>
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", ".eliminarUsuario", function () {
+                var idUsuario = $(this).attr("id");
+                swal({
+                    title: "¿Está seguro que desea eliminar el usuario?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false
+                },
+                function () {
+                    $.post("/Usuarios/Delete?id=" + idUsuario, function (response) {
+                        if (!response.success)
+                            swal("Error", "Se ha producido un error al eliminar el usuario", "error");
+                        else {
+                            $("#grillaUsuarios").empty();
+                            $.get("/Usuarios/_UsuariosGrilla", function (data) {
+                                $("#grillaUsuarios").empty();
+                                $("#grillaUsuarios").load('@Url.Action("_UsuariosGrilla", "Usuarios")');
+                            });
+                            swal("Eliminado", "Se ha eliminado el usuario correctamente", "success");
+                        }
+                    });
+                });
+            });
+
+            $('#btnLimpiarBusqueda').click(function () {
+                $.get("/Vehiculos/_VehiculosGrilla", function (data) {
+                    $("#grilla").load('@Url.Action("_VehiculosGrilla", "Vehiculos")');
+                });
+            });
+
+            $("#btnBuscar").click(function () {
+                var patente = $("#Patente").val();
+                var nombreVehiculo = $("#nombreVehiculo").val();
+
+                $.get("/Vehiculos/_VehiculosGrilla?patente=" + patente + "&nombreVehiculo=" + nombreVehiculo, function (data) {
+                    $("#grilla").html(data);
+                });
+            });
+        });
+
+    </script>
+}

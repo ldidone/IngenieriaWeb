@@ -1,6 +1,14 @@
 ﻿@model TeLoBusco.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrarse";
+    if (ViewBag.Message != null)
+    {
+        ViewBag.Title = ViewBag.Message;
+    }
+    else
+    {
+        ViewBag.Title = "Registrarse";
+    }
+
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -51,7 +59,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrarse" />
+            <input type="submit" class="btn btn-default" value="@ViewBag.Title" />
         </div>
     </div>
 }

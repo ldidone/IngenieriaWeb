@@ -13,8 +13,15 @@ namespace TeLoBusco.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
+            ViewBag.Message = TempData["Message"];
             var listaUsuarios = Servicios.AspNetUsersServicio.obtenerTodos();
             return View(listaUsuarios);
+        }
+
+        public ActionResult _UsuariosGrilla()
+        {
+            var listaUsuarios = Servicios.AspNetUsersServicio.obtenerTodos();
+            return PartialView(listaUsuarios);
         }
 
         // GET: Usuarios/Details/5
@@ -26,7 +33,8 @@ namespace TeLoBusco.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            return View();
+            TempData["Admin"] = "Nuevo Usuario";
+            return RedirectToAction("Register", "Account");
         }
 
         // POST: Usuarios/Create
@@ -104,26 +112,21 @@ namespace TeLoBusco.Controllers
             }
         }
 
-        // GET: Usuarios/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: Usuarios/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id)
         {
+            var resultado = new { success = true };
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                if(!Servicios.AspNetUsersServicio.Eliminar(id))
+                    resultado = new { success = false };
             }
             catch
             {
-                return View();
+                resultado = new { success = false };
             }
+            return Json(resultado);
         }
     }
 }

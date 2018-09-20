@@ -154,6 +154,21 @@ namespace TeLoBusco.Controllers
         public ActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
+            ViewBag.Message = TempData["Admin"];
+            if (TempData["Admin"] != null)
+            {
+                TempData["Administrador"] = true;
+            }
+            //var admin = TempData["Admin"];
+            //if (admin != null)
+            //{
+            //    bool esAdmin = Convert.ToBoolean(admin);
+            //    if (esAdmin)
+            //    {
+            //        ViewBag.Message = "Nuevo Usuario";
+            //        TempData["Admin"] = true;
+            //    }
+            //}
             return View(model);
         }
 
@@ -170,11 +185,9 @@ namespace TeLoBusco.Controllers
                 var result = await UserManager.CreateAsync(user, model.Contraseña);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
                     //PRUEBA AGREGAR ROL A USUARIO -> FUNCIONA
-                    string role = "Administrador";
-                    await UserManager.AddToRoleAsync(user.Id, role);
+                    //string role = "Administrador";
+                    //await UserManager.AddToRoleAsync(user.Id, role);
 
                     //var creacionExitosa = UsuariosServicio.crear(model.NombreApellido, model.Email, model.Contraseña, model.Roles);
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
@@ -184,6 +197,17 @@ namespace TeLoBusco.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
                     //return RedirectToAction("Index", "Home");
+                    var admin = TempData["Administrador"];
+                    if (admin != null)
+                    {
+                        bool esAdmin = Convert.ToBoolean(admin);
+                        if (esAdmin)
+                        {
+                            TempData["Message"] = "El usuario ha sido creado exitosamente";
+                            return RedirectToAction("Index", "Usuarios");
+                        }
+                    }
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     return RedirectToAction("Index", "Pedidos");
                 }
                 AddErrors(result);

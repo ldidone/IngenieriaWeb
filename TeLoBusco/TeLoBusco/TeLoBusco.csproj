@@ -225,6 +225,7 @@
     <Content Include="Content\dataTables.bootstrap4.min.css" />
     <Content Include="Content\dataTables.jqueryui.min.css" />
     <Content Include="Content\datatables.min.css" />
+    <Content Include="Content\sweetalert.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\OFLAmaticSC.txt" />
     <Content Include="Fonts\OFLShadows_Into_Light.txt" />
@@ -283,6 +284,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sweetalert.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />

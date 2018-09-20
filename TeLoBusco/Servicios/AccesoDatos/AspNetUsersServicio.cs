@@ -108,5 +108,23 @@ namespace Servicios
                 }
             }
         }
+
+        public static bool Eliminar(string id)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    var usuario = db.AspNetUsers.Where(x => x.Id == id).FirstOrDefault();
+                    db.AspNetUsers.Remove(usuario);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
