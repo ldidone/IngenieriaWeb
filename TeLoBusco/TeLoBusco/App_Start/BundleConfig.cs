@@ -26,12 +26,15 @@ namespace TeLoBusco
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/dataTables.bootstrap.min.css",
+                      "~/Content/dataTables.bootstrap4.min.css",
+                      "~/Content/datables.min.css",
+                      "~/Content/dataTables.jqueryui.min.css",
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/js").Include(
-                    "~/Scripts/jquery.dataTables.min.js",
-                    "~/Scripts/dataTables.bootstrap.min.js"
+                    "~/Scripts/datatables.min.js",
+                    "~/Scripts/dataTables.bootstrap4.min.js",
+                    "~/Scripts/dataTables.jqueryui.min.js"
                 ));
         }
     }
