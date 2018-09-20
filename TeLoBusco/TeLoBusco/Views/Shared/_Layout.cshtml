@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Wappo</title>
+    @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Shadows+Into+Light" rel="stylesheet">
     @Scripts.Render("~/bundles/modernizr")
@@ -27,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/Pedidos/Index">Pedidos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Pedidos/PedidosCliente">Mis Pedidos</a>
+                </li>
             </ul>
             @Html.Partial("_LoginPartial")
         </div>
@@ -35,16 +39,15 @@
     <div class="container body-content">
         <div class="bodyPages">
             @RenderBody()
-        </div>    
+        </div>         
         <hr/>
         <footer class="footerPrincipal">
             <label class="footerPrincipalAño">&copy; @DateTime.Now.Year - </label>
             <label class="wapoFooter">Wappo</label>
         </footer>
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/js")
+        @RenderSection("scripts", required: false)
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

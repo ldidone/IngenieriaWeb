@@ -1,0 +1,13 @@
+﻿@using Datos
+@model List<Pedidos>
+
+@{
+    ViewBag.Title = "Mis Pedidos";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<div class="grillaPedidos">
+    @Html.Partial("_PedidosClienteGrilla", Model)
+</div>
+

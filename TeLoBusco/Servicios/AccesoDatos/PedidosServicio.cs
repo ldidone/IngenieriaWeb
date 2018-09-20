@@ -17,9 +17,28 @@ namespace Servicios.AccesoDatos
                 {
                     return db.Pedidos.Include("Estados_Pedidos")
                                      .Include("Localidades")
+                                     .Include("AspNetUsers")
                                      .ToList();
                 }
                 catch(Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static List<Pedidos> obtenerPedidosCliente(string idCliente)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.Pedidos.Include("Estados_Pedidos")
+                                     .Include("Localidades")
+                                     .Where(x => x.idCliente == idCliente)
+                                     .ToList();
+                }
+                catch (Exception ex)
                 {
                     return null;
                 }

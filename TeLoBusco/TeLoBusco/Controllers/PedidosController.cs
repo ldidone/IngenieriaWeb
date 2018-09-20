@@ -14,6 +14,7 @@ namespace TeLoBusco.Controllers
         // GET: Pedidos
         public ActionResult Index()
         {
+            ViewBag.Message = TempData["Message"];
             return View();
         }
 
@@ -23,10 +24,24 @@ namespace TeLoBusco.Controllers
             return View();
         }
 
+        public ActionResult Pedidos()
+        {
+            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.obtenerTodos();
+            return View(listaPedidos);
+        }
+
+        public ActionResult PedidosCliente()
+        {
+            var userName = User.Identity.Name;
+            var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.obtenerPedidosCliente(IdCliente);
+            return View(listaPedidos);
+        }
+
         // GET: Pedidos/Create
         public ActionResult Create()
         {
-            ViewBag.Localidades = Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas();       
+            ViewBag.Localidades = new SelectList(Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas(), "idLocalidad", "Nombre");       
             return View();
         }
 
@@ -40,14 +55,15 @@ namespace TeLoBusco.Controllers
                 var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
                 var nroDirOrigen = pedido.nroDirOrigen;
                 var calleOrigen = pedido.calleOrigen;
-                //var idLocalidadOrigen = pedido.idLocalidadOrigen;
+                var idLocalidadOrigen = pedido.idLocalidadOrigen;
                 var nroDirDestino = pedido.nroDirDestino;
                 var calleDestino = pedido.calleDestino;
-                //var idLocalidadDestino = pedido.idLocalidadDestino;
+                var idLocalidadDestino = pedido.idLocalidadDestino;
                 var precioPedido = pedido.precioPedido;
-                if (Servicios.AccesoDatos.PedidosServicio.crear(IdCliente, nroDirOrigen, calleOrigen, /*idLocalidadOrigen*/ 1,
-                                                                nroDirDestino, calleDestino, /*idLocalidadDestino*/ 1, precioPedido))
+                if (Servicios.AccesoDatos.PedidosServicio.crear(IdCliente, nroDirOrigen, calleOrigen, idLocalidadOrigen,
+                                                                nroDirDestino, calleDestino, idLocalidadDestino, precioPedido))
                 {
+                    TempData["Message"] = "El pedido se publicó correctamente";
                     return RedirectToAction("Index");
                 }
                 return View(pedido);

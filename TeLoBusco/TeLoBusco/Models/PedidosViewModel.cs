@@ -16,9 +16,9 @@ namespace TeLoBusco.Models
         [Display(Name = "Calle")]
         public string calleOrigen { get; set; }
 
-        //[Required]
-        //[Display(Name = "Localidad")]
-        //public int idLocalidadOrigen { get; set; }
+        [Required]
+        [Display(Name = "Localidad")]
+        public int idLocalidadOrigen { get; set; }
 
         [Required]
         [Display(Name = "Nro. domicilio")]
@@ -28,9 +28,9 @@ namespace TeLoBusco.Models
         [Display(Name = "Calle")]
         public string calleDestino{ get; set; }
 
-        //[Required]
-        //[Display(Name = "Localidad")]
-        //public int idLocalidadDestino { get; set; }
+        [Required]
+        [Display(Name = "Localidad")]
+        public int idLocalidadDestino { get; set; }
 
         [Required]
         [Display(Name = "Precio pedido")]
