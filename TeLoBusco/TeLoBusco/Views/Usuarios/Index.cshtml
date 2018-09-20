@@ -1,0 +1,12 @@
+﻿@using Datos
+@model List<AspNetUsers>
+@{
+    ViewBag.Title = "Administración de Usuarios";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+<div class="grillaPedidos">
+    @Html.Partial("_UsuariosGrilla", Model)
+</div>
+

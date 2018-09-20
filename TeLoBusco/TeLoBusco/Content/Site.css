@@ -206,3 +206,16 @@ textarea {
     font-size: 1.50rem;
     font-weight: bold;
 }
+
+.bg-black{
+    background-color: black;
+}
+
+.itemsPrincipal{
+    color: white !important;
+}
+
+.itemsPrincipal:hover{
+    color: black !important;
+    background-color: #646262 !important;
+}

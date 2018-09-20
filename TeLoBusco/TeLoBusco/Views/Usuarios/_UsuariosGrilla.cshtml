@@ -1,0 +1,52 @@
+﻿@using Datos
+@model List<AspNetUsers>
+
+<head>
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>*@
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+</head>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nombre y apellido</th>
+                        <th>Email</th>
+                        <th>UserName</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Nombre y apellido</th>
+                        <th>Email</th>
+                        <th>UserName</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var usuario in Model)
+                    {
+                        <tr>
+                            <td class="celdaBotones">
+                                <a href="@Url.Action("Edit", new { id = usuario.Id })">Modificar</a>
+                                <a href="#" id=@usuario.Id class="eliminarUsuario">Eliminar</a>
+                            </td>
+                            <td>@usuario.NombreApellido</td>
+                            <td>@usuario.Email</td>
+                            <td>@usuario.UserName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+</script>

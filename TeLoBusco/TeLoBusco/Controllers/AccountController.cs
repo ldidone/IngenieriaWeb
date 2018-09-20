@@ -173,8 +173,8 @@ namespace TeLoBusco.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     //PRUEBA AGREGAR ROL A USUARIO -> FUNCIONA
-                    //string role = "Administrador";
-                    //await UserManager.AddToRoleAsync(user.Id, role);
+                    string role = "Administrador";
+                    await UserManager.AddToRoleAsync(user.Id, role);
 
                     //var creacionExitosa = UsuariosServicio.crear(model.NombreApellido, model.Email, model.Contraseña, model.Roles);
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
