@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TeLoBusco.Models;
 
 namespace TeLoBusco.Controllers
 {
@@ -25,18 +26,31 @@ namespace TeLoBusco.Controllers
         // GET: Pedidos/Create
         public ActionResult Create()
         {
+            ViewBag.Localidades = Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas();       
             return View();
         }
 
         // POST: Pedidos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PedidosViewModel pedido)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                var userName = User.Identity.Name;
+                var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+                var nroDirOrigen = pedido.nroDirOrigen;
+                var calleOrigen = pedido.calleOrigen;
+                //var idLocalidadOrigen = pedido.idLocalidadOrigen;
+                var nroDirDestino = pedido.nroDirDestino;
+                var calleDestino = pedido.calleDestino;
+                //var idLocalidadDestino = pedido.idLocalidadDestino;
+                var precioPedido = pedido.precioPedido;
+                if (Servicios.AccesoDatos.PedidosServicio.crear(IdCliente, nroDirOrigen, calleOrigen, /*idLocalidadOrigen*/ 1,
+                                                                nroDirDestino, calleDestino, /*idLocalidadDestino*/ 1, precioPedido))
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(pedido);
             }
             catch
             {

@@ -1,0 +1,83 @@
+﻿@using TeLoBusco.Models
+@model PedidosViewModel
+
+@{
+    ViewBag.Title = "Nuevo Pedido";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <h4>¡Tu pedido no tarda en llegar!</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.nroDirOrigen, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.nroDirOrigen, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.nroDirOrigen, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.calleOrigen, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.calleOrigen, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.calleOrigen, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.idLocalidadDestino, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">*@
+                        @*@Html.TextBoxFor(m => m.nroDirOrigen, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.nroDirOrigen, "", new { @class = "text-danger" })*@
+                    @*</div>*@
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.nroDirDestino, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.nroDirDestino, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.nroDirDestino, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.calleDestino, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.calleDestino, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.calleDestino, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.idLocalidadDestino, new { @class = "col-md-2 control-label" })*@
+                    @*<div class="col-md-10">*@
+                        @*@Html.TextBoxFor(m => m.nroDirDestino, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.nroDirDestino, "", new { @class = "text-danger" })*@
+                    @*</div>*@
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.precioPedido, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.precioPedido, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.precioPedido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Publicar pedido" class="btn btn-default" />
+                    </div>
+                </div>
+                @*<p>
+                    @Html.ActionLink("Registrar como nuevo usuario", "Register")
+                </p>*@
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

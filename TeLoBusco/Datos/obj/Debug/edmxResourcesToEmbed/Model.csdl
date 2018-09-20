@@ -1,22 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TeloBuscoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
-    <Property Name="principal_id" Nullable="false" Type="Int32" />
-    <Property Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" MaxLength="Max" FixedLength="false" Type="Binary" />
-  </EntityType>
   <EntityContainer Name="TeloBuscoEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="C__MigrationHistory" EntityType="TeloBuscoModel.C__MigrationHistory" />
     <EntitySet Name="AspNetRoles" EntityType="TeloBuscoModel.AspNetRoles" />
     <EntitySet Name="AspNetUserClaims" EntityType="TeloBuscoModel.AspNetUserClaims" />
     <EntitySet Name="AspNetUserLogins" EntityType="TeloBuscoModel.AspNetUserLogins" />
     <EntitySet Name="AspNetUsers" EntityType="TeloBuscoModel.AspNetUsers" />
+    <EntitySet Name="Estados_Pedidos" EntityType="TeloBuscoModel.Estados_Pedidos" />
+    <EntitySet Name="Localidades" EntityType="TeloBuscoModel.Localidades" />
+    <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
+    <EntitySet Name="sysdiagrams" EntityType="TeloBuscoModel.sysdiagrams" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -24,6 +17,26 @@
     <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedidos_AspNetUsersDelivery" Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedidos_Estados_Pedidos" Association="TeloBuscoModel.FK_Pedidos_Estados_Pedidos">
+      <End Role="Estados_Pedidos" EntitySet="Estados_Pedidos" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedidos_Localidades" Association="TeloBuscoModel.FK_Pedidos_Localidades">
+      <End Role="Localidades" EntitySet="Localidades" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pedidos_Localidades_Destino" Association="TeloBuscoModel.FK_Pedidos_Localidades_Destino">
+      <End Role="Localidades" EntitySet="Localidades" />
+      <End Role="Pedidos" EntitySet="Pedidos" />
     </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -88,7 +101,59 @@
     <Property Name="NombreApellido" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
+    <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
     <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Estados_Pedidos">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Estados_Pedidos" ToRole="Pedidos" />
+  </EntityType>
+  <EntityType Name="Localidades">
+    <Key>
+      <PropertyRef Name="idLocalidad" />
+    </Key>
+    <Property Name="idLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cod_Postal" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Localidades" ToRole="Pedidos" />
+    <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Localidades" ToRole="Pedidos" />
+  </EntityType>
+  <EntityType Name="Pedidos">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+    </Key>
+    <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="idDelivery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="nro_calle_origen" Type="Int32" Nullable="false" />
+    <Property Name="calle_origen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="id_localidad_origen" Type="Int32" Nullable="false" />
+    <Property Name="nro_calle_destino" Type="Int32" Nullable="false" />
+    <Property Name="calle_destino" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="id_localidad_destino" Type="Int32" Nullable="false" />
+    <Property Name="precio_predido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="precio_transporte" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="id_estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Estados_Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Pedidos" ToRole="Estados_Pedidos" />
+    <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
+    <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -115,6 +180,66 @@
       </Principal>
       <Dependent Role="AspNetUserLogins">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedidos_AspNetUsers">
+    <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+    <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="idCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedidos_AspNetUsersDelivery">
+    <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="idDelivery" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedidos_Estados_Pedidos">
+    <End Type="TeloBuscoModel.Estados_Pedidos" Role="Estados_Pedidos" Multiplicity="1" />
+    <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados_Pedidos">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="id_estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedidos_Localidades">
+    <End Type="TeloBuscoModel.Localidades" Role="Localidades" Multiplicity="1" />
+    <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localidades">
+        <PropertyRef Name="idLocalidad" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="id_localidad_origen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pedidos_Localidades_Destino">
+    <End Type="TeloBuscoModel.Localidades" Role="Localidades" Multiplicity="1" />
+    <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Localidades">
+        <PropertyRef Name="idLocalidad" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="id_localidad_destino" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

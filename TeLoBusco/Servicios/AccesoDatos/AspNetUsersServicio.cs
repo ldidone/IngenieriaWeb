@@ -10,6 +10,19 @@ namespace Servicios
 {
     public class AspNetUsersServicio
     {
-
+        public static string obtenerIdUsuarioPorUserName(string UserName)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.AspNetUsers.Where(x => x.UserName == UserName).FirstOrDefault().Id;
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
