@@ -1,5 +1,0 @@
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Utilidades\bin\Debug\Utilidades.dll
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Utilidades\bin\Debug\Utilidades.pdb
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Utilidades\obj\Debug\Utilidades.csprojResolveAssemblyReference.cache
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Utilidades\obj\Debug\Utilidades.dll
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\Utilidades\obj\Debug\Utilidades.pdb
