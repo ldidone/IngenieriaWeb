@@ -33,7 +33,14 @@ namespace TeLoBusco.Models
         public int idLocalidadDestino { get; set; }
 
         [Required]
-        [Display(Name = "Precio pedido")]
+        [Display(Name = "Precio del pedido")]
         public decimal precioPedido { get; set; }
+
+        [Required]
+        [Display(Name = "Descripción del pedido")]
+        public string Descripcion { get; set; }
+
+        [Display(Name = "Observaciones del pedido")]
+        public string Observaciones { get; set; }
     }
 }

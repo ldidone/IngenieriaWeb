@@ -26,6 +26,8 @@ namespace Datos
         public decimal precio_predido { get; set; }
         public Nullable<decimal> precio_transporte { get; set; }
         public int id_estado { get; set; }
+        public string descripcion_pedido { get; set; }
+        public string observaciones_pedido { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

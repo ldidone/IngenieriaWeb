@@ -98,6 +98,8 @@
           <Property Name="precio_predido" Type="money" Nullable="false" />
           <Property Name="precio_transporte" Type="money" />
           <Property Name="id_estado" Type="int" Nullable="false" />
+          <Property Name="descripcion_pedido" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="observaciones_pedido" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -285,7 +287,6 @@
           <EntitySet Name="AspNetUsers" EntityType="TeloBuscoModel.AspNetUsers" />
           <EntitySet Name="Estados_Pedidos" EntityType="TeloBuscoModel.Estados_Pedidos" />
           <EntitySet Name="Localidades" EntityType="TeloBuscoModel.Localidades" />
-          <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
           <EntitySet Name="sysdiagrams" EntityType="TeloBuscoModel.sysdiagrams" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -295,6 +296,11 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
           <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -314,10 +320,6 @@
           <AssociationSet Name="FK_Pedidos_Localidades_Destino" Association="TeloBuscoModel.FK_Pedidos_Localidades_Destino">
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Pedidos" EntitySet="Pedidos" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -378,9 +380,9 @@
           <Property Name="NombreApellido" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
-          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Estados_Pedidos">
           <Key>
@@ -399,29 +401,7 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Localidades" ToRole="Pedidos" />
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Localidades" ToRole="Pedidos" />
-        </EntityType>
-        <EntityType Name="Pedidos">
-          <Key>
-            <PropertyRef Name="IdPedido" />
-          </Key>
-          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="idDelivery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="nro_calle_origen" Type="Int32" Nullable="false" />
-          <Property Name="calle_origen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="id_localidad_origen" Type="Int32" Nullable="false" />
-          <Property Name="nro_calle_destino" Type="Int32" Nullable="false" />
-          <Property Name="calle_destino" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="id_localidad_destino" Type="Int32" Nullable="false" />
-          <Property Name="precio_predido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="precio_transporte" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="id_estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Estados_Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Pedidos" ToRole="Estados_Pedidos" />
-          <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
-          <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -460,6 +440,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="IdPedido" />
+          </Key>
+          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="idDelivery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="nro_calle_origen" Type="Int32" Nullable="false" />
+          <Property Name="calle_origen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="id_localidad_origen" Type="Int32" Nullable="false" />
+          <Property Name="nro_calle_destino" Type="Int32" Nullable="false" />
+          <Property Name="calle_destino" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="id_localidad_destino" Type="Int32" Nullable="false" />
+          <Property Name="precio_predido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="precio_transporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="id_estado" Type="Int32" Nullable="false" />
+          <Property Name="descripcion_pedido" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones_pedido" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Estados_Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Pedidos" ToRole="Estados_Pedidos" />
+          <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
+          <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
+        </EntityType>
         <Association Name="FK_Pedidos_AspNetUsers">
           <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
@@ -519,10 +527,6 @@
               <PropertyRef Name="id_localidad_destino" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -603,24 +607,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Pedidos">
-            <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
-              <MappingFragment StoreEntitySet="Pedidos">
-                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
-                <ScalarProperty Name="precio_transporte" ColumnName="precio_transporte" />
-                <ScalarProperty Name="precio_predido" ColumnName="precio_predido" />
-                <ScalarProperty Name="id_localidad_destino" ColumnName="id_localidad_destino" />
-                <ScalarProperty Name="calle_destino" ColumnName="calle_destino" />
-                <ScalarProperty Name="nro_calle_destino" ColumnName="nro_calle_destino" />
-                <ScalarProperty Name="id_localidad_origen" ColumnName="id_localidad_origen" />
-                <ScalarProperty Name="calle_origen" ColumnName="calle_origen" />
-                <ScalarProperty Name="nro_calle_origen" ColumnName="nro_calle_origen" />
-                <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
-                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TeloBuscoModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -640,6 +626,26 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="observaciones_pedido" ColumnName="observaciones_pedido" />
+                <ScalarProperty Name="descripcion_pedido" ColumnName="descripcion_pedido" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="precio_transporte" ColumnName="precio_transporte" />
+                <ScalarProperty Name="precio_predido" ColumnName="precio_predido" />
+                <ScalarProperty Name="id_localidad_destino" ColumnName="id_localidad_destino" />
+                <ScalarProperty Name="calle_destino" ColumnName="calle_destino" />
+                <ScalarProperty Name="nro_calle_destino" ColumnName="nro_calle_destino" />
+                <ScalarProperty Name="id_localidad_origen" ColumnName="id_localidad_origen" />
+                <ScalarProperty Name="calle_origen" ColumnName="calle_origen" />
+                <ScalarProperty Name="nro_calle_origen" ColumnName="nro_calle_origen" />
+                <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

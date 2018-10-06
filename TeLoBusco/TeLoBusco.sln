@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeLoBusco", "TeLoBusco\TeLoBusco.csproj", "{86B598B1-802B-47DE-8A4E-90427C2C4432}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "Servicios\Servicios.csproj", "{5EA84282-C1CB-446D-A827-5BF7BF29C1AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilidades", "Utilidades\Utilidades.csproj", "{6C15822F-FB9D-4334-8BEA-FF78F2277023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositorioClases", "RepositorioClases\RepositorioClases.csproj", "{E826A780-08D9-48FF-A179-91B5C8D145B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,15 @@ Global
 		{6C15822F-FB9D-4334-8BEA-FF78F2277023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C15822F-FB9D-4334-8BEA-FF78F2277023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C15822F-FB9D-4334-8BEA-FF78F2277023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE44831A-0CDC-4B02-A4F5-F58FC431328A}
 	EndGlobalSection
 EndGlobal

@@ -41,6 +41,7 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Newtonsoft.Json.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Owin.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\RepositorioClases.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Helpers.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Mvc.dll
@@ -52,7 +53,10 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\WebGrease.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Datos.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Datos.dll.config
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\RepositorioClases.pdb
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.dll.config
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.pdb
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.AI.ServerTelemetryChannel.xml
@@ -102,6 +106,8 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\es\Microso
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csprojResolveAssemblyReference.cache
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csprojAssemblyReference.cache
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CoreCompileInputs.cache
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CopyComplete
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.pdb

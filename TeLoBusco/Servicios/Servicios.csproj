@@ -61,6 +61,10 @@
       <Project>{7e276d2f-056b-4b2d-80a6-899edbf76bfe}</Project>
       <Name>Datos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RepositorioClases\RepositorioClases.csproj">
+      <Project>{e826a780-08d9-48ff-a179-91b5c8d145b4}</Project>
+      <Name>RepositorioClases</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utilidades\Utilidades.csproj">
       <Project>{6c15822f-fb9d-4334-8bea-ff78f2277023}</Project>
       <Name>Utilidades</Name>

@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -358,6 +359,10 @@
     <ProjectReference Include="..\Datos\Datos.csproj">
       <Project>{7E276D2F-056B-4B2D-80A6-899EDBF76BFE}</Project>
       <Name>Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepositorioClases\RepositorioClases.csproj">
+      <Project>{e826a780-08d9-48ff-a179-91b5c8d145b4}</Project>
+      <Name>RepositorioClases</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
       <Project>{5ea84282-c1cb-446d-a827-5bf7bf29c1ac}</Project>

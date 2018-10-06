@@ -32,7 +32,7 @@ namespace Datos
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Estados_Pedidos> Estados_Pedidos { get; set; }
         public virtual DbSet<Localidades> Localidades { get; set; }
-        public virtual DbSet<Pedidos> Pedidos { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Pedidos> Pedidos { get; set; }
     }
 }

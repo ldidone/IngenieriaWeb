@@ -12,16 +12,16 @@
         <EntityTypeShape EntityType="TeloBuscoModel.AspNetUsers" Width="1.5" PointX="0.75" PointY="7.875" />
         <EntityTypeShape EntityType="TeloBuscoModel.Estados_Pedidos" Width="1.5" PointX="0.75" PointY="5.5" />
         <EntityTypeShape EntityType="TeloBuscoModel.Localidades" Width="1.5" PointX="0.75" PointY="2.25" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Pedidos" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="TeloBuscoModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="3.75" />
         <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="TeloBuscoModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Pedidos" Width="1.5" PointX="3" PointY="2" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsers" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Localidades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Localidades_Destino" />
-        <AssociationConnector Association="TeloBuscoModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
