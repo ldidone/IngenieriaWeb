@@ -89,12 +89,14 @@ namespace Servicios.AccesoDatos
                     pedidoAlmacenar.idCliente = pedido.IdCliente;
                     pedidoAlmacenar.nro_calle_origen = pedido.NroCalleOrigen;
                     pedidoAlmacenar.calle_origen = pedido.CalleOrigen;
-                    Localidades localidadOrigen = LocalidadesServicio.obtener(pedido.IdLocalidadOrigen);
+                    //Localidades localidadOrigen = LocalidadesServicio.obtener(pedido.IdLocalidadOrigen);
+                    Localidades localidadOrigen = db.Localidades.Where(x => x.idLocalidad == pedido.IdLocalidadOrigen).FirstOrDefault();
                     pedidoAlmacenar.Localidades = localidadOrigen;
                     pedidoAlmacenar.id_localidad_origen = pedido.IdLocalidadOrigen;
                     pedidoAlmacenar.nro_calle_destino = pedido.NroCalleDestino;
                     pedidoAlmacenar.calle_destino = pedido.CalleDestino;
-                    Localidades localidadDestino = LocalidadesServicio.obtener(pedido.IdLocalidadDestino);
+                    //Localidades localidadDestino = LocalidadesServicio.obtener(pedido.IdLocalidadDestino);
+                    Localidades localidadDestino = db.Localidades.Where(x => x.idLocalidad == pedido.IdLocalidadDestino).FirstOrDefault();
                     pedidoAlmacenar.Localidades1 = localidadDestino;
                     pedidoAlmacenar.id_localidad_destino = pedido.IdLocalidadDestino;
                     pedidoAlmacenar.precio_predido = pedido.PrecioPedido;
