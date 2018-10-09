@@ -97,7 +97,6 @@ namespace TeLoBusco.Controllers
                     // ViewBag.Link = callbackUrl;
                     ViewBag.errorMessage = "Debe tener un correo electrónico confirmado para iniciar sesión."
                                                       + "El token de confirmación ha sido reenviado a su cuenta de correo electrónico.";
-
                     return View("Error");
                 }
             }
