@@ -86,6 +86,23 @@ namespace TeLoBusco.Controllers
                 return View(model);
             }
 
+            // Requiere que el usuario tenga un correo electrónico confirmado antes de poder iniciar sesión.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmar cuenta - email reenviado");
+                    // Uncomment to debug locally  
+                    // ViewBag.Link = callbackUrl;
+                    ViewBag.errorMessage = "Debe tener un correo electrónico confirmado para iniciar sesión."
+                                                      + "El token de confirmación ha sido reenviado a su cuenta de correo electrónico.";
+
+                    return View("Error");
+                }
+            }
+
+
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -159,16 +176,6 @@ namespace TeLoBusco.Controllers
             {
                 TempData["Administrador"] = true;
             }
-            //var admin = TempData["Admin"];
-            //if (admin != null)
-            //{
-            //    bool esAdmin = Convert.ToBoolean(admin);
-            //    if (esAdmin)
-            //    {
-            //        ViewBag.Message = "Nuevo Usuario";
-            //        TempData["Admin"] = true;
-            //    }
-            //}
             return View(model);
         }
 
@@ -188,27 +195,24 @@ namespace TeLoBusco.Controllers
                     //PRUEBA AGREGAR ROL A USUARIO -> FUNCIONA
                     //string role = "Administrador";
                     //await UserManager.AddToRoleAsync(user.Id, role);
-
                     //var creacionExitosa = UsuariosServicio.crear(model.NombreApellido, model.Email, model.Contraseña, model.Roles);
-                    // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Enviar correo electrónico con este vínculo
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    //return RedirectToAction("Index", "Home");
-                    var admin = TempData["Administrador"];
-                    if (admin != null)
+                    //Inicia sesión
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false); 
+
+                    var esAdministrador = TempData["Administrador"];
+                    if (esAdministrador != null)
                     {
-                        bool esAdmin = Convert.ToBoolean(admin);
-                        if (esAdmin)
-                        {
-                            TempData["Message"] = "El usuario ha sido creado exitosamente";
-                            return RedirectToAction("Index", "Usuarios");
-                        }
+                        return RedirectToAction("Index", "Usuarios");
                     }
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Index", "Pedidos");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmar cuenta");
+
+                    // Uncomment to debug locally 
+                    // TempData["ViewBagLink"] = callbackUrl;
+
+                    ViewBag.Message = "Verifique su correo y confirme su cuenta, debe confirmarla "
+                            + "para poder iniciar sesión.";
+                    return View("Info");               
                 }
                 AddErrors(result);
             }
@@ -257,10 +261,10 @@ namespace TeLoBusco.Controllers
 
                 // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                 // Enviar correo electrónico con este vínculo
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -467,6 +471,17 @@ namespace TeLoBusco.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        {
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account",
+               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(userID, subject,
+               "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
+
+            return callbackUrl;
         }
 
         #region Aplicaciones auxiliares

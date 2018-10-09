@@ -11,17 +11,39 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using TeLoBusco.Models;
+using SendGrid;
+using System.Net;
+using System.Configuration;
+using System.Diagnostics;
+using SendGrid.Helpers.Mail;
+using System.Net.Http;
+using System.Net.Mail;
 
 namespace TeLoBusco
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        /* ORIGNIAL */
+        //public Task SendAsync(IdentityMessage message)
+        //{
+        //    // Conecte su servicio de correo electrónico aquí para enviar correo electrónico.
+        //    return Task.FromResult(0);
+        //}
+
+        /*MANDA MAIL*/
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Conecte su servicio de correo electrónico aquí para enviar correo electrónico.
-            return Task.FromResult(0);
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("wappo.pedidos@hotmail.com", "Wappo");
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var plainTextContent = message.Body;
+            var htmlContent = message.Body;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
-    }
+}
 
     public class SmsService : IIdentityMessageService
     {
