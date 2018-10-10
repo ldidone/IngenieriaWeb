@@ -30,8 +30,8 @@ namespace TeLoBusco
         //    return Task.FromResult(0);
         //}
 
-        /*MANDA MAIL*/
-        public async Task SendAsync(IdentityMessage message)
+        /*MANDA MAIL SENDGRID - FUNCIONA: PROBLEMA: CUENTA DE PAGO*/
+        /*public async Task SendAsync(IdentityMessage message)
         {
             var apiKey = "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";
             var client = new SendGridClient(apiKey);
@@ -42,8 +42,27 @@ namespace TeLoBusco
             var htmlContent = message.Body;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
+        }*/
+
+        /*ALTERNATIVA - NO ASÍNCRONO (aunque el método lo sea)*/
+        public async Task SendAsync(IdentityMessage message)
+        {
+            MailMessage mail = new MailMessage("wappo.pedidos@gmail.com", message.Destination, message.Subject, message.Body)
+            {
+                From = new MailAddress(message.Destination, "Wappo"),
+                IsBodyHtml = true
+            };
+
+            NetworkCredential credential = new NetworkCredential("wappo.pedidos@gmail.com", "wappopedidos123*");
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = credential
+            };
+            client.Send(mail); 
         }
-}
+    }
 
     public class SmsService : IIdentityMessageService
     {
