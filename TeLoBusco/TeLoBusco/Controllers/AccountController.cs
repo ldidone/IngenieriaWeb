@@ -477,8 +477,13 @@ namespace TeLoBusco.Controllers
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+            /* PARA ELIMINAR LOS CARACTERES CORRESPONDIENTES AL HOST (cuando se mandan los correos desde app harbor)*/
+            if (!Url.IsLocalUrl(callbackUrl))
+            {
+                callbackUrl = callbackUrl.Remove(23, 5);
+            }
             await UserManager.SendEmailAsync(userID, subject,
-               "Para confirmar la cuenta, haga clic <a href=www.wappo.apphb.com\"" + callbackUrl + "\">aquí</a>");
+               "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
             return callbackUrl;
         }
