@@ -12,6 +12,7 @@ using TeLoBusco.Models;
 using Servicios;
 using Datos;
 using System.Collections.Generic;
+using System.Web.Routing;
 
 namespace TeLoBusco.Controllers
 {
@@ -476,11 +477,18 @@ namespace TeLoBusco.Controllers
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            /* PARA ELIMINAR LOS CARACTERES CORRESPONDIENTES AL HOST (cuando se mandan los correos desde app harbor)*/
-            if (!Url.IsLocalUrl(callbackUrl))
+               new RouteValueDictionary(new { userId = userID, code = code }), protocol: Request.Url.Scheme, hostName: Request.Url.Host);
+            
+            /*LÓGICA NECESARIA PARA ELIMINAR EL NRO. DE PUERTO EN LA APLICACIÓN PUBLICADA EN APPHARBOR AL MOMENTO DE GENERAR EL ENLACE*/
+            var host = Request.Url.Host;               
+            if (host != "localhost")
             {
-                callbackUrl = callbackUrl.Remove(23, 5);
+                string puerto = Request.Url.Port.ToString();
+                int startIndex = callbackUrl.IndexOf(puerto);
+                startIndex = startIndex > 0 ? startIndex - 1 : startIndex; //Para remover ':'
+                int count = puerto.Length;
+                callbackUrl = callbackUrl.Remove(startIndex, count);
+                //callbackUrl = callbackUrl.Remove(23, 5);
             }
             await UserManager.SendEmailAsync(userID, subject,
                "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
