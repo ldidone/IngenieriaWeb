@@ -114,3 +114,5 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLo
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CopyComplete
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\GoogleMapsGeocoding.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.dll.config

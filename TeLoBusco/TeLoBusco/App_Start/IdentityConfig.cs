@@ -47,13 +47,13 @@ namespace TeLoBusco
         /*ALTERNATIVA - NO ASÍNCRONO (aunque el método lo sea)*/
         public async Task SendAsync(IdentityMessage message)
         {
-            MailMessage mail = new MailMessage("wappo.pedidos@gmail.com", message.Destination, message.Subject, message.Body)
+            MailMessage mail = new MailMessage("wappo.info@gmail.com", message.Destination, message.Subject, message.Body)
             {
                 From = new MailAddress(message.Destination, "Wappo"),
                 IsBodyHtml = true
             };
 
-            NetworkCredential credential = new NetworkCredential("wappo.pedidos@gmail.com", "wappopedidos123*");
+            NetworkCredential credential = new NetworkCredential("wappo.info@gmail.com", "wappoinfo123*");
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
                 EnableSsl = true,
