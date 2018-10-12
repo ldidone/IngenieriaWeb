@@ -12,18 +12,16 @@ namespace Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class Estados_Pedidos
+    public partial class Notificaciones
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Estados_Pedidos()
-        {
-            this.Pedidos = new HashSet<Pedidos>();
-        }
-    
-        public int IdEstado { get; set; }
+        public int IdNotificacion { get; set; }
+        public int IdTipoActividad { get; set; }
+        public int IdEstadoNotificacion { get; set; }
         public string Descripcion { get; set; }
+        public string IdUsuarioReceptor { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedidos> Pedidos { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Estados Estados { get; set; }
+        public virtual TiposActividades TiposActividades { get; set; }
     }
 }

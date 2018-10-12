@@ -42,6 +42,7 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Newtonsoft.Json.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Owin.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\RepositorioClases.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Helpers.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Mvc.dll
@@ -65,6 +66,8 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.ApplicationInsights.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Newtonsoft.Json.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Helpers.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Mvc.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.Optimization.xml
@@ -111,6 +114,3 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLo
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CopyComplete
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.pdb
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.dll
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.pdb
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\SendGrid.xml

@@ -16,7 +16,7 @@ namespace Servicios.AccesoDatos
             {
                 try
                 {
-                    return db.Pedidos.Include("Estados_Pedidos")
+                    return db.Pedidos.Include("Estados")
                                      .Include("Localidades")
                                      .Include("AspNetUsers")
                                      .ToList();
@@ -34,7 +34,7 @@ namespace Servicios.AccesoDatos
             {
                 try
                 {
-                    return db.Pedidos.Include("Estados_Pedidos")
+                    return db.Pedidos.Include("Estados")
                                      .Include("Localidades")
                                      .Where(x => x.idCliente == idCliente)
                                      .ToList();
@@ -100,9 +100,10 @@ namespace Servicios.AccesoDatos
                     pedidoAlmacenar.Localidades1 = localidadDestino;
                     pedidoAlmacenar.id_localidad_destino = pedido.IdLocalidadDestino;
                     pedidoAlmacenar.precio_predido = pedido.PrecioPedido;
+                    pedidoAlmacenar.id_estado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Pendiente");
                     pedidoAlmacenar.descripcion_pedido = pedido.Descripcion;
-                    pedidoAlmacenar.observaciones_pedido = pedido.Observaciones;
-                    pedidoAlmacenar.id_estado = EstadosPedidoServicio.obtenerIdPorDescripcion("Pendiente");
+                    pedidoAlmacenar.observaciones_pedido = pedido.Observaciones;                   
+                    pedidoAlmacenar.IdTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Pedido");
 
                     db.Pedidos.Add(pedidoAlmacenar);
                     db.SaveChanges();
