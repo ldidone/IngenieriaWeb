@@ -486,7 +486,7 @@ namespace TeLoBusco.Controllers
                 string puerto = Request.Url.Port.ToString();
                 int startIndex = callbackUrl.IndexOf(puerto);
                 startIndex = startIndex > 0 ? startIndex - 1 : startIndex; //Para remover ':'
-                int count = puerto.Length;
+                int count = puerto.Length + 1; //Para remover ':'
                 callbackUrl = callbackUrl.Remove(startIndex, count);
                 //callbackUrl = callbackUrl.Remove(23, 5);
             }
