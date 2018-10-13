@@ -123,6 +123,10 @@
           <Property Name="descripcion_pedido" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="observaciones_pedido" Type="varchar" MaxLength="256" />
           <Property Name="IdTipoActividad" Type="int" Nullable="false" />
+          <Property Name="lat_origen" Type="float" />
+          <Property Name="lng_origen" Type="float" />
+          <Property Name="lat_destino" Type="float" />
+          <Property Name="lng_destino" Type="float" />
         </EntityType>
         <EntityType Name="Postulaciones">
           <Key>
@@ -932,6 +936,10 @@
           <Property Name="descripcion_pedido" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="observaciones_pedido" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <Property Name="lat_origen" Type="Double" />
+          <Property Name="lng_origen" Type="Double" />
+          <Property Name="lat_destino" Type="Double" />
+          <Property Name="lng_destino" Type="Double" />
           <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
           <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Pedidos_Estados" FromRole="Pedidos" ToRole="Estados" />
@@ -1168,6 +1176,10 @@
           <EntitySetMapping Name="Pedidos">
             <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
               <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="lng_destino" ColumnName="lng_destino" />
+                <ScalarProperty Name="lat_destino" ColumnName="lat_destino" />
+                <ScalarProperty Name="lng_origen" ColumnName="lng_origen" />
+                <ScalarProperty Name="lat_origen" ColumnName="lat_origen" />
                 <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
                 <ScalarProperty Name="observaciones_pedido" ColumnName="observaciones_pedido" />
                 <ScalarProperty Name="descripcion_pedido" ColumnName="descripcion_pedido" />

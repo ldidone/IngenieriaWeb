@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasesAuxiliares\Coordenada.cs" />
+    <Compile Include="ClasesAuxiliares\PedidoMapa.cs" />
     <Compile Include="Comunes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

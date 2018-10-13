@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilidades.ClasesAuxiliares;
 
 namespace Servicios.AccesoDatos
 {
@@ -105,6 +106,28 @@ namespace Servicios.AccesoDatos
                     pedidoAlmacenar.observaciones_pedido = pedido.Observaciones;                   
                     pedidoAlmacenar.IdTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Pedido");
 
+                    /*ALMACENAR COORDENADAS*/                 
+                    string Provincia = "Santa Fe";
+                    string Pais = "Argentina";
+
+                    /*ORIGEN*/
+                    string DireccionOrigen = pedido.CalleOrigen + " " + pedido.NroCalleOrigen + ", " + localidadOrigen.Nombre + ", " + Provincia + ", " + Pais;
+                    var coordenadasOrigen = Utilidades.Comunes.ObtenerCoordenada(DireccionOrigen);
+                    if (coordenadasOrigen != null)
+                    {
+                        pedidoAlmacenar.lat_origen = coordenadasOrigen.lat;
+                        pedidoAlmacenar.lng_origen = coordenadasOrigen.lng;
+                    }
+
+                    /*DESTINO*/
+                    string DireccionDestino = pedido.CalleDestino + " " + pedido.NroCalleDestino + ", " + localidadDestino.Nombre + ", " + Provincia + ", " + Pais;
+                    var coordenadasDestino = Utilidades.Comunes.ObtenerCoordenada(DireccionDestino);
+                    if (coordenadasDestino != null)
+                    {
+                        pedidoAlmacenar.lat_destino = coordenadasDestino.lat;
+                        pedidoAlmacenar.lng_destino = coordenadasDestino.lng;
+                    }
+
                     db.Pedidos.Add(pedidoAlmacenar);
                     db.SaveChanges();
                     return true;
@@ -112,6 +135,51 @@ namespace Servicios.AccesoDatos
                 catch (Exception ex)
                 {
                     return false;
+                }
+            }
+        }
+
+        public static List<PedidoMapa> ObtenerPedidosCercanos(Coordenada posicionUsuario, int distancia)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    db.Configuration.ProxyCreationEnabled = false;
+
+                    var pedidos = db.Pedidos.Include("AspNetUsers")
+                                            .Include("Localidades")
+                                            .ToList();
+                    List<PedidoMapa> pedidosCercanos = new List<PedidoMapa>();
+                    foreach (var pedido in pedidos)
+                    {
+                        if (pedido.lat_origen != null && pedido.lng_origen != null)
+                        {
+                            Coordenada posicionPedido = new Coordenada();
+                            posicionPedido.lat = Convert.ToDouble(pedido.lat_origen);
+                            posicionPedido.lng = Convert.ToDouble(pedido.lng_origen);
+                            double distanciaPedido = Utilidades.Comunes.DistanciaEntreDosPuntosEnKM(posicionUsuario, posicionPedido);
+                            if (distanciaPedido <= distancia)
+                            {
+                                PedidoMapa pedidoMapa = new PedidoMapa();
+                                pedidoMapa.NombreCliente = pedido.AspNetUsers.NombreApellido;
+                                pedidoMapa.DescripcionPedido = pedido.descripcion_pedido;
+                                pedidoMapa.ObservacionesPedido = pedido.observaciones_pedido != null ? pedido.observaciones_pedido : "Ninguna";
+                                pedidoMapa.DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre;
+                                pedidoMapa.DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre;
+                                pedidoMapa.Precio = pedido.precio_predido;
+                                pedidoMapa.latOrigen = Convert.ToDouble(pedido.lat_origen);
+                                pedidoMapa.lngOrigen = Convert.ToDouble(pedido.lng_origen);
+                                pedidosCercanos.Add(pedidoMapa);
+                            }
+                        }
+                    }                
+                    return pedidosCercanos;
+                }
+                catch(Exception)
+                {
+                    return null;
                 }
             }
         }

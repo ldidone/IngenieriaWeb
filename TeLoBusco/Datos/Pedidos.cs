@@ -35,6 +35,10 @@ namespace Datos
         public string descripcion_pedido { get; set; }
         public string observaciones_pedido { get; set; }
         public int IdTipoActividad { get; set; }
+        public Nullable<double> lat_origen { get; set; }
+        public Nullable<double> lng_origen { get; set; }
+        public Nullable<double> lat_destino { get; set; }
+        public Nullable<double> lng_destino { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

@@ -2,12 +2,164 @@
 @model List<Pedidos>
 
 @{
-    ViewBag.Title = "Pedidos";
+    ViewBag.Title = "Pedidos cercanos";
 }
 
 <h2>@ViewBag.Title</h2>
-<hr/>
-<div class="grillaPedidos">
-    @Html.Partial("_PedidosGrilla", Model)
+
+<!-- NAVEGADOR SOPORTADO-->
+<div id="navegadorSoportado" class="alert alert-success" role="alert">
+    ¡Tu navegador admite el posicionamiento!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
+<div id="navegadorNoSoportado" class="alert alert-danger" role="alert">
+    Tu navegador no admite el posicionamiento. Debido a esto tomaremos a tu posición como el centro de Rafaela.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<hr />
+<!-- DISTANCIA -->
+<div class="card">
+    <h5 class="card-header">Distancia de los pedidos.</h5>
+    <div class="card-body">
+        
+            <label for="DistanciaSeleccionada">Seleccione la distancia</label>
+            <input type="range" class="custom-range" min="0" max="5" step="1" id="DistanciaSeleccionada" style="margin: 2px 20px 2px 5px;">
+            <label id="DistanciaSeleccionadaInfo">Distancia seleccionada: 5km </label>
+        
+        <!-- RADIO BUTTON -->
+        @*<div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="5km" value="option1" checked>
+            <label class="form-check-label" for="5km">
+                5 km
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="15km" value="option2">
+            <label class="form-check-label" for="15km">
+                15 Km
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="45Km" value="option3">
+            <label class="form-check-label" for="45Km">
+                45 Km
+            </label>
+        </div>*@
+    </div>
+</div>
+
+<!-- MAPA -->
+<div id="map"></div>
+@*<div class="grillaPedidos">
+        @Html.Partial("_PedidosGrilla", Model)
+    </div>*@
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm9iOzpnEzKPKWmwKhPOVW811qMoxvZDM"></script>
+    <script src="~/Scripts/map.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*Ocultamos los mensajes*/
+            $("#navegadorSoportado").hide();
+            $("#navegadorNoSoportado").hide();
+
+            /*TAMAÑO DEL MAPA*/
+            adaptarTamañoMapa();
+
+            /*ADAPTAR EL TAMAÑO DEL MAPA CUANDOCAMBIA LA RESOLUCIÓN*/
+            $(window).resize(function () {
+                adaptarTamañoMapa();
+            });
+
+            /*INICIALIZAR EL MAPA*/
+            initMap();
+
+            /*DISTANCIA*/
+            /*DISTANCIA INICIAL*/
+            $("#DistanciaSeleccionada").val(1);
+            var distancia = 10;
+            $("#DistanciaSeleccionadaInfo").html("Distancia seleccionada: <b>" + distancia + "</b> Km.");
+
+            /*DISTANCIA SELECCIONADA*/
+            $("#DistanciaSeleccionada").change(function () {
+                var valor = $("#DistanciaSeleccionada").val();
+
+                switch (valor) {
+                    case "0":
+                        distancia = 1;
+                        break;
+                    case "1":
+                        distancia = 10;
+                        break;
+                    case "2":
+                        distancia = 20;
+                        break;
+                    case "3":
+                        distancia = 30;
+                        break;
+                    case "4":
+                        distancia = 40;
+                        break;
+                    case "5":
+                        distancia = 50;
+                        break;
+                }
+                $("#DistanciaSeleccionadaInfo").html("Distancia seleccionada: <b>" + distancia + "</b> Km.");
+                
+                posicionarPedidos();
+            });
+
+            /* MENSAJES*/
+            if ("geolocation" in navigator) {
+                $("#navegadorSoportado").show();
+                $("#navegadorNoSoportado").hide();
+            } else {
+                $("#navegadorSoportado").hide();
+                $("#navegadorNoSoportado").show();
+            }
+
+            /*FUNCIONES NECESARIAS PARA EL POSICIONAMIENTO */
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            function success(pos) {
+                var crd = pos.coords;
+                var lat = crd.latitude;
+                var lng = crd.longitude;
+                obtenerPedidos(lat, lng);
+            };
+
+            function error(err) {    
+                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+                var lat = -31.2531394;
+                var lng = -61.4937747;
+                obtenerPedidos(lat, lng);
+            };
+            /*OBTENER LA INFORMACIÓN Y LUEGO POSICIONAR LOS PEDIDOS */
+            function obtenerPedidos(lat, lng) {
+                $.get("/Pedidos/ObtenerPedidosCeranos?lat=" + lat + "&lng=" + lng + "&distancia=" + distancia, function (data) {
+                    var obj = JSON.parse(data);
+                    //console.log(obj);
+                    posicionarPedidosMapa(obj);
+                });
+            }
+
+            /* POSICIONAR LOS PEDIDOS */
+            function posicionarPedidos() {     
+                /*Obtiene la posición actual*/
+                navigator.geolocation.getCurrentPosition(success, error, options);
+            }
+
+            posicionarPedidos();
+        });
+    </script>
+}
 

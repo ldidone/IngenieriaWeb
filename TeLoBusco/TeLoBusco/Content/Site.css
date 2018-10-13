@@ -235,3 +235,13 @@ textarea {
     color: black !important;
     background-color: #646262 !important;
 }
+
+/*MAPA*/
+#map {
+    height: 500px;
+    margin: 10px 0px;
+}
+
+.infoPedidoMap {
+    font-size: 14px;
+}

@@ -1,4 +1,6 @@
-﻿using RepositorioClases;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RepositorioClases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,25 @@ namespace TeLoBusco.Controllers
         {
             var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
             return View(listaPedidos);
+        }
+
+        public JObject ObtenerPedidosCeranos(double lat, double lng, int distancia)
+        {
+            Utilidades.ClasesAuxiliares.Coordenada posicionUsuario = new Utilidades.ClasesAuxiliares.Coordenada();
+            if (lat != 0 && lng!= 0)
+            {
+                posicionUsuario.lat = lat;
+                posicionUsuario.lng = lng;
+            }
+            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidosCercanos(posicionUsuario, distancia);
+
+            //var json = JsonConvert.SerializeObject(listaPedidos, Formatting.Indented,
+            //new JsonSerializerSettings
+            //{
+            //    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            //});
+            var json = new JObject(new JProperty("Pedidos", JToken.FromObject(listaPedidos)));
+            return json;
         }
 
         public ActionResult PedidosCliente()

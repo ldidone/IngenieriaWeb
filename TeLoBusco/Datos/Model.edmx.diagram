@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="052240936d6b490e8026db67c4aec575" Name="Diagram1" ZoomLevel="72">
-        <EntityTypeShape EntityType="TeloBuscoModel.C__MigrationHistory" Width="1.5" PointX="5.375" PointY="1.375" />
+        <EntityTypeShape EntityType="TeloBuscoModel.C__MigrationHistory" Width="1.5" PointX="5" PointY="1" />
         <EntityTypeShape EntityType="TeloBuscoModel.AspNetRoles" Width="1.5" PointX="5.125" PointY="10.625" />
         <EntityTypeShape EntityType="TeloBuscoModel.AspNetUserClaims" Width="1.5" PointX="3.125" PointY="10.375" />
-        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUserLogins" Width="1.5" PointX="3.25" PointY="7" />
-        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUsers" Width="1.5" PointX="0.5" PointY="6.875" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUserLogins" Width="1.5" PointX="3.25" PointY="7.375" />
+        <EntityTypeShape EntityType="TeloBuscoModel.AspNetUsers" Width="1.5" PointX="0.5" PointY="7.375" />
         <EntityTypeShape EntityType="TeloBuscoModel.Localidades" Width="1.5" PointX="0.5" PointY="3.625" />
-        <EntityTypeShape EntityType="TeloBuscoModel.sysdiagrams" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="TeloBuscoModel.sysdiagrams" Width="1.5" PointX="5" PointY="3.125" />
         <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="TeloBuscoModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="TeloBuscoModel.Actividades" Width="1.5" PointX="7.75" PointY="1.25" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Estados" Width="1.5" PointX="5.375" PointY="6.875" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Notificaciones" Width="1.5" PointX="7.625" PointY="6.625" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Estados" Width="1.5" PointX="5.375" PointY="7.25" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Notificaciones" Width="1.5" PointX="7.5" PointY="7.25" />
         <EntityTypeShape EntityType="TeloBuscoModel.Postulaciones" Width="1.5" PointX="9.75" PointY="1.25" />
         <EntityTypeShape EntityType="TeloBuscoModel.TiposActividades" Width="1.5" PointX="0.5" PointY="0.5" />
         <AssociationConnector Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" />
@@ -30,7 +30,7 @@
         <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_Estados" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_TiposActividades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_TiposActividades" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Pedidos" Width="1.5" PointX="2.875" PointY="1.375" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Pedidos" Width="1.5" PointX="2.75" PointY="0.875" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsers" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Estados" />
@@ -38,7 +38,7 @@
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Localidades_Destino" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_TiposActividades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_Pedidos" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
