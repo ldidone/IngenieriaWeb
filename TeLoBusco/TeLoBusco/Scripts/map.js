@@ -1,9 +1,9 @@
 ﻿var map;
 
-function initMap() {
+function initMap(zoom) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: -31.2531394, lng: -61.4937747 },
-        zoom: 15
+        zoom: zoom
     });
 }
 
@@ -65,3 +65,4 @@ function limpiarPedidosMapa() {
     }
     markersPedidos = [];
 }
+

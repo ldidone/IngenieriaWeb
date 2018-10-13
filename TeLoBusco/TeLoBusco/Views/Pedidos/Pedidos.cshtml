@@ -23,33 +23,16 @@
 <hr />
 <!-- DISTANCIA -->
 <div class="card">
-    <h5 class="card-header">Distancia de los pedidos.</h5>
-    <div class="card-body">
-        
+    <h5 id="DistanciaPedidos" class="card-header" data-toggle="collapse" data-target="#seleccionarDistancia">
+        Distancia de los pedidos.
+    </h5>
+    <div class="collapse" id="seleccionarDistancia">
+        <div class="card-body">
             <label for="DistanciaSeleccionada">Seleccione la distancia</label>
             <input type="range" class="custom-range" min="0" max="5" step="1" id="DistanciaSeleccionada" style="margin: 2px 20px 2px 5px;">
             <label id="DistanciaSeleccionadaInfo">Distancia seleccionada: 5km </label>
-        
-        <!-- RADIO BUTTON -->
-        @*<div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="5km" value="option1" checked>
-            <label class="form-check-label" for="5km">
-                5 km
-            </label>
         </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="15km" value="option2">
-            <label class="form-check-label" for="15km">
-                15 Km
-            </label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="45Km" value="option3">
-            <label class="form-check-label" for="45Km">
-                45 Km
-            </label>
-        </div>*@
-    </div>
+    </div>   
 </div>
 
 <!-- MAPA -->
@@ -64,6 +47,12 @@
     <script src="~/Scripts/map.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            /*Mostrar seleccionador de distancia*/
+            $('.collapse').collapse();
+            $("#DistanciaPedidos").mouseover(function () {
+                $(this).css("cursor", "pointer");
+            });
+
             /*Ocultamos los mensajes*/
             $("#navegadorSoportado").hide();
             $("#navegadorNoSoportado").hide();
@@ -77,7 +66,7 @@
             });
 
             /*INICIALIZAR EL MAPA*/
-            initMap();
+            initMap(15);
 
             /*DISTANCIA*/
             /*DISTANCIA INICIAL*/
@@ -91,21 +80,27 @@
 
                 switch (valor) {
                     case "0":
+                        initMap(16);
                         distancia = 1;
                         break;
                     case "1":
+                        initMap(15);
                         distancia = 10;
                         break;
                     case "2":
+                        initMap(12);
                         distancia = 20;
                         break;
                     case "3":
+                        initMap(11);
                         distancia = 30;
                         break;
                     case "4":
+                        initMap(10);
                         distancia = 40;
                         break;
                     case "5":
+                        initMap(9);
                         distancia = 50;
                         break;
                 }
