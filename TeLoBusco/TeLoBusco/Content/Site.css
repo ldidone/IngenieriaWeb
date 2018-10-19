@@ -245,3 +245,10 @@ textarea {
 .infoPedidoMap {
     font-size: 14px;
 }
+
+.nota {
+    color: grey;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 5px 2px;
+}

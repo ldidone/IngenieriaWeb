@@ -53,12 +53,14 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.Web.WebPages.Razor.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\WebGrease.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\GoogleMapsGeocoding.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Datos.pdb
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Datos.dll.config
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\RepositorioClases.pdb
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.pdb
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Servicios.dll.config
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.dll.config
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.AI.Web.xml
@@ -114,5 +116,3 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLo
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CopyComplete
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.pdb
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\GoogleMapsGeocoding.dll
-C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Utilidades.dll.config

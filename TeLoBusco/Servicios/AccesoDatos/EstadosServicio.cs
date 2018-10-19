@@ -55,6 +55,24 @@ namespace Servicios.AccesoDatos
                     return 0;
                 }
             }
-        } 
+        }
+
+        public static int obtenerIdEstadoPostulacionPorDescripcion(string descripcion)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    int idTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación");
+                    return db.Estados.Where(x => x.IdTipoActividad == idTipoActividad
+                                              && x.Descripcion == descripcion)
+                                              .FirstOrDefault().IdEstado;
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
+            }
+        }
     }
 }

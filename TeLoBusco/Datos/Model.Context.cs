@@ -35,8 +35,8 @@ namespace Datos
         public virtual DbSet<Actividades> Actividades { get; set; }
         public virtual DbSet<Estados> Estados { get; set; }
         public virtual DbSet<Notificaciones> Notificaciones { get; set; }
-        public virtual DbSet<Postulaciones> Postulaciones { get; set; }
         public virtual DbSet<TiposActividades> TiposActividades { get; set; }
         public virtual DbSet<Pedidos> Pedidos { get; set; }
+        public virtual DbSet<Postulaciones> Postulaciones { get; set; }
     }
 }

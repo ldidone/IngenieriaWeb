@@ -47,6 +47,24 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        public static Pedidos ObtenerPedidoPorId(int IdPedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.Pedidos.Include("AspNetUsers")
+                                     .Include("Localidades")
+                                     .Where(x => x.IdPedido == IdPedido)
+                                     .FirstOrDefault();                                  
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         //public static bool crear(string idCliente, int nroDirOrigen, string calleOrigen, int idLocalidadOrigen,
         //                         int nroDirDestino, string calleDestino, int idLocalidadDestino, decimal precioPedido)
         //{
@@ -163,15 +181,7 @@ namespace Servicios.AccesoDatos
                             double distanciaPedido = Utilidades.Comunes.DistanciaEntreDosPuntosEnKM(posicionUsuario, posicionPedido);
                             if (distanciaPedido <= distancia)
                             {
-                                PedidoMapa pedidoMapa = new PedidoMapa();
-                                pedidoMapa.NombreCliente = pedido.AspNetUsers.NombreApellido;
-                                pedidoMapa.DescripcionPedido = pedido.descripcion_pedido;
-                                pedidoMapa.ObservacionesPedido = pedido.observaciones_pedido != null ? pedido.observaciones_pedido : "Ninguna";
-                                pedidoMapa.DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre;
-                                pedidoMapa.DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre;
-                                pedidoMapa.Precio = pedido.precio_predido;
-                                pedidoMapa.latOrigen = Convert.ToDouble(pedido.lat_origen);
-                                pedidoMapa.lngOrigen = Convert.ToDouble(pedido.lng_origen);
+                                PedidoMapa pedidoMapa = ConvertirPedidoAPedidoMapa(pedido);
                                 pedidosCercanos.Add(pedidoMapa);
                             }
                         }
@@ -183,6 +193,30 @@ namespace Servicios.AccesoDatos
                     return null;
                 }
             }
+        }
+
+        public static bool ValidarPrecio(decimal precioMinimo, decimal precio, decimal precioMaximo)
+        {
+            return precio >= precioMinimo && precio <= precioMaximo;
+        }
+
+        public static PedidoMapa ConvertirPedidoAPedidoMapa (Pedidos pedido)
+        {
+            PedidoMapa pedidoDetalles = new PedidoMapa
+            {
+                IdPedido = pedido.IdPedido,
+                IdCliente = pedido.idCliente,
+                NombreCliente = pedido.AspNetUsers.NombreApellido,
+                DescripcionPedido = pedido.descripcion_pedido,
+                ObservacionesPedido = pedido.observaciones_pedido != null ? pedido.observaciones_pedido : "Ninguna",
+                DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre,
+                DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
+                Precio = pedido.precio_predido,
+                LatOrigen = Convert.ToDouble(pedido.lat_origen),
+                LngOrigen = Convert.ToDouble(pedido.lng_origen)
+            };
+
+            return pedidoDetalles;
         }
     }
 }

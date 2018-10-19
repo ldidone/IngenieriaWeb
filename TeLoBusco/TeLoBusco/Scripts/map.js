@@ -30,6 +30,9 @@ function añadirPedido(lat, lng, pedido) {
             fillOpacity: 1// opacidad del relleno
         }
     });
+
+    var urlPostulaciones = "/Pedidos/Postularse?idPedido=" + pedido.IdPedido;
+
     var contentString = '<div id="content">' +
         '<div id="infoPedido">' +
         '<h4 class="firstHeading">Información del pedido</h4>' +
@@ -40,7 +43,7 @@ function añadirPedido(lat, lng, pedido) {
         '<p><b>Dirección origen: </b>' + pedido.DireccionOrigen + '</p>' +
         '<p><b>Dirección destino: </b>' + pedido.DireccionDestino + '</p>' +
         '<p><b>Precio: </b>' + '$' + pedido.Precio + '</p>' +
-        '<a class="btn btn-secondary" href="#">Postularse!</a>' +
+        '<a class="btn btn-secondary" href="' + urlPostulaciones +'">Postularse!</a>' +
         '</div>' +
         '</div>' +
         '</div>';
@@ -57,8 +60,8 @@ function posicionarPedidosMapa(obj) {
     limpiarPedidosMapa();
     var pedidos = obj.Pedidos;
     for (var i = 0; i < pedidos.length; i++) {
-        var lat = pedidos[i].latOrigen;
-        var lng = pedidos[i].lngOrigen;
+        var lat = pedidos[i].LatOrigen;
+        var lng = pedidos[i].LngOrigen;
         añadirPedido(lat, lng, pedidos[i]);     
     }
 }

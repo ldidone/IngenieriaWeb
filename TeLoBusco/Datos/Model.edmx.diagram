@@ -18,18 +18,14 @@
         <EntityTypeShape EntityType="TeloBuscoModel.Actividades" Width="1.5" PointX="7.75" PointY="1.25" />
         <EntityTypeShape EntityType="TeloBuscoModel.Estados" Width="1.5" PointX="5.375" PointY="7.25" />
         <EntityTypeShape EntityType="TeloBuscoModel.Notificaciones" Width="1.5" PointX="7.5" PointY="7.25" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Postulaciones" Width="1.5" PointX="9.75" PointY="1.25" />
         <EntityTypeShape EntityType="TeloBuscoModel.TiposActividades" Width="1.5" PointX="0.5" PointY="0.5" />
         <AssociationConnector Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" />
         <AssociationConnector Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" />
         <AssociationConnector Association="TeloBuscoModel.FK_Actividades_TiposActividades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_AspNetUsers" />
-        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_AspNetUsers" />
         <AssociationConnector Association="TeloBuscoModel.FK_Estados_TiposActividades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_Estados" />
-        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_Estados" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_TiposActividades" />
-        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_TiposActividades" />
         <EntityTypeShape EntityType="TeloBuscoModel.Pedidos" Width="1.5" PointX="2.75" PointY="0.875" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsers" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" />
@@ -37,7 +33,11 @@
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Localidades" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_Localidades_Destino" />
         <AssociationConnector Association="TeloBuscoModel.FK_Pedidos_TiposActividades" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Postulaciones" Width="1.5" PointX="10" PointY="1.25" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_AspNetUsers" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_Estados" />
         <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_Pedidos" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Postulaciones_TiposActividades" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

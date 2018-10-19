@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ClasesAuxiliares\Coordenada.cs" />
     <Compile Include="ClasesAuxiliares\PedidoMapa.cs" />
+    <Compile Include="ClasesAuxiliares\PrecioMinimoMaximo.cs" />
     <Compile Include="Comunes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

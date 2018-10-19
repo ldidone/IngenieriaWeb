@@ -29,6 +29,7 @@ namespace TeLoBusco.Controllers
 
         public ActionResult Pedidos()
         {
+            ViewBag.Message = TempData["Message"];
             var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
             return View(listaPedidos);
         }
@@ -158,5 +159,96 @@ namespace TeLoBusco.Controllers
                 return View();
             }
         }
-    }
+
+        public ActionResult Postularse(int idPedido)
+        {
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(idPedido);
+            PostulacionesViewModel postulacion = new PostulacionesViewModel();
+            postulacion.IdPedido = idPedido;
+            if (pedido != null)
+            {              
+                postulacion.pedidoDetalles = Servicios.AccesoDatos.PedidosServicio.ConvertirPedidoAPedidoMapa(pedido);
+                Utilidades.ClasesAuxiliares.Coordenada coordenadaOrigen = new Utilidades.ClasesAuxiliares.Coordenada
+                {
+                    lat = Convert.ToDouble(pedido.lat_origen),
+                    lng = Convert.ToDouble(pedido.lng_origen)
+                };
+
+                Utilidades.ClasesAuxiliares.Coordenada coordenadaDestino = new Utilidades.ClasesAuxiliares.Coordenada
+                {
+                    lat = Convert.ToDouble(pedido.lat_destino),
+                    lng = Convert.ToDouble(pedido.lng_destino)
+                };
+                postulacion.pedidoDetalles.Distancia = Math.Round(Utilidades.Comunes.DistanciaEntreDosPuntosEnKM(coordenadaOrigen, coordenadaDestino), 2);
+
+                var precio = Utilidades.Comunes.ObtenerRangoPrecios(coordenadaOrigen, coordenadaDestino);
+                postulacion.precioMinimo = precio.PrecioMinimo;
+                postulacion.precioMaximo = precio.PrecioMaximo;
+            }
+
+            return View(postulacion);
+        }
+
+        [HttpPost]
+        public ActionResult Postularse(PostulacionesViewModel postulacion)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    bool precioValido = Servicios.AccesoDatos.PedidosServicio.ValidarPrecio(postulacion.precioMinimo, postulacion.Precio, postulacion.precioMaximo);
+                    if (precioValido)
+                    {
+                        var userName = User.Identity.Name;
+                        var IdUsuarioPostulado = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+                        var idDueñoPedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).idCliente;
+                        if (IdUsuarioPostulado != idDueñoPedido)
+                        {
+                            Postulacion postulacionAlmacenar = new Postulacion()
+                            {
+                                IdPedido = postulacion.IdPedido,
+                                IdUsuarioPostulado = IdUsuarioPostulado,
+                                TiempoEstimado = postulacion.TiempoEstimado,
+                                Precio = postulacion.Precio
+                            };
+                            if (Servicios.AccesoDatos.PostulacionesServicio.Crear(postulacionAlmacenar))
+                            {
+                                TempData["Message"] = "La postulación fue exitosa.";
+                                
+                            }
+                            else
+                            {
+                                TempData["Message"] = "No ha sido posible efectuar la postulación. Vuelva a intentar más tarde.";
+                            }
+                        }
+                        else
+                        {
+                            TempData["Message"] = "El cliente y el delivery no pueden ser la misma persona";
+                        }
+                        return RedirectToAction("Pedidos"); //Redireccionar a vista de pedidos cercanos                  
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Precio", "El precio ingresado no se encuentra en el rango aceptado.");
+                    }
+                }
+                var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido);
+                if (pedido != null)
+                {
+                    postulacion.pedidoDetalles = Servicios.AccesoDatos.PedidosServicio.ConvertirPedidoAPedidoMapa(pedido);
+                }
+                return View(postulacion);
+            }
+            catch
+            {
+                var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido);
+                if (pedido != null)
+                {
+                    postulacion.pedidoDetalles = Servicios.AccesoDatos.PedidosServicio.ConvertirPedidoAPedidoMapa(pedido);
+
+                }
+                return View(postulacion);
+            }
+        }
+     }
 }

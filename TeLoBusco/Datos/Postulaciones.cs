@@ -19,10 +19,12 @@ namespace Datos
         public int IdPedido { get; set; }
         public string IdUsuarioPostulado { get; set; }
         public int IdEstadoPostulacion { get; set; }
+        public double TiempoEstimado { get; set; }
+        public decimal Precio { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Estados Estados { get; set; }
-        public virtual TiposActividades TiposActividades { get; set; }
         public virtual Pedidos Pedidos { get; set; }
+        public virtual TiposActividades TiposActividades { get; set; }
     }
 }

@@ -32,7 +32,7 @@
             <input type="range" class="custom-range" min="0" max="5" step="1" id="DistanciaSeleccionada" style="margin: 2px 20px 2px 5px;">
             <label id="DistanciaSeleccionadaInfo">Distancia seleccionada: 5km </label>
         </div>
-    </div>   
+    </div>
 </div>
 
 <!-- MAPA -->
@@ -43,6 +43,14 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message");
+            });
+        </script>
+    }
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm9iOzpnEzKPKWmwKhPOVW811qMoxvZDM"></script>
     <script src="~/Scripts/map.js"></script>
     <script type="text/javascript">
@@ -91,7 +99,7 @@
             function success1(pos) {
                 var crd = pos.coords;
                 lat = crd.latitude;
-                lng = crd.longitude; 
+                lng = crd.longitude;
                 initMap(15, lat, lng);
             };
 
@@ -102,7 +110,7 @@
                 initMap(15, lat, lng);
             };
 
-           /*Sin inicializacion de mapa*/
+            /*Sin inicializacion de mapa*/
             function success(pos) {
                 var crd = pos.coords;
                 lat = crd.latitude;
@@ -122,7 +130,7 @@
             } else {
                 initMap(15, -31.2531394, -61.4937747)
             }
-            
+
             /*DISTANCIA*/
             /*DISTANCIA INICIAL*/
             $("#DistanciaSeleccionada").val(1);
@@ -160,21 +168,21 @@
                         break;
                 }
                 $("#DistanciaSeleccionadaInfo").html("Distancia seleccionada: <b>" + distancia + "</b> Km.");
-                
+
                 posicionarPedidos();
             });
-        
+
             /*OBTENER LA INFORMACIÓN Y LUEGO POSICIONAR LOS PEDIDOS */
             function obtenerPedidos(lat, lng) {
                 $.get("/Pedidos/ObtenerPedidosCeranos?lat=" + lat + "&lng=" + lng + "&distancia=" + distancia, function (data) {
                     var obj = JSON.parse(data);
-                    //console.log(obj);
+                    console.log(obj);
                     posicionarPedidosMapa(obj);
                 });
             }
 
             /* FUNCION PARA LOS PEDIDOS */
-            function posicionarPedidos() {     
+            function posicionarPedidos() {
                 /*Actualiza la posición actual*/
                 navigator.geolocation.getCurrentPosition(success, error, options);
 
