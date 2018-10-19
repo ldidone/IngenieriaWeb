@@ -60,7 +60,7 @@ namespace TeLoBusco
                 UseDefaultCredentials = false,
                 Credentials = credential
             };
-            client.Send(mail); 
+            await client.SendMailAsync(mail);
         }
     }
 

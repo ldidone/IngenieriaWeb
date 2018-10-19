@@ -48,7 +48,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             /*Mostrar seleccionador de distancia*/
-            $('.collapse').collapse();
+            $('#seleccionarDistancia').collapse();
             $("#DistanciaPedidos").mouseover(function () {
                 $(this).css("cursor", "pointer");
             });
@@ -65,9 +65,64 @@
                 adaptarTamañoMapa();
             });
 
-            /*INICIALIZAR EL MAPA*/
-            initMap(15);
+            var admitePosicionamiento = false;
+            /* MENSAJES ADMISION DE GEOPOSICIONAMIENTO*/
+            if ("geolocation" in navigator) {
+                $("#navegadorSoportado").show();
+                $("#navegadorNoSoportado").hide();
+                admitePosicionamiento = true;
+            } else {
+                $("#navegadorSoportado").hide();
+                $("#navegadorNoSoportado").show();
+            }
 
+            /*FUNCIONES NECESARIAS PARA EL POSICIONAMIENTO */
+            /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+            var lat = -31.2531394;
+            var lng = -61.4937747;
+
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            /*Con inicializacion de mapa*/
+            function success1(pos) {
+                var crd = pos.coords;
+                lat = crd.latitude;
+                lng = crd.longitude; 
+                initMap(15, lat, lng);
+            };
+
+            function error1(err) {
+                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+                lat = -31.2531394;
+                lng = -61.4937747;
+                initMap(15, lat, lng);
+            };
+
+           /*Sin inicializacion de mapa*/
+            function success(pos) {
+                var crd = pos.coords;
+                lat = crd.latitude;
+                lng = crd.longitude;
+            };
+
+            function error(err) {
+                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+                lat = -31.2531394;
+                lng = -61.4937747;
+            };
+
+            /*INICIALIZAR EL MAPA*/
+            if (admitePosicionamiento) {
+                /*Actualiza la posición actual e inicializa el mapa*/
+                navigator.geolocation.getCurrentPosition(success1, error1, options);
+            } else {
+                initMap(15, -31.2531394, -61.4937747)
+            }
+            
             /*DISTANCIA*/
             /*DISTANCIA INICIAL*/
             $("#DistanciaSeleccionada").val(1);
@@ -80,27 +135,27 @@
 
                 switch (valor) {
                     case "0":
-                        initMap(16);
+                        initMap(16, lat, lng);
                         distancia = 1;
                         break;
                     case "1":
-                        initMap(15);
+                        initMap(15, lat, lng);
                         distancia = 10;
                         break;
                     case "2":
-                        initMap(12);
+                        initMap(12, lat, lng);
                         distancia = 20;
                         break;
                     case "3":
-                        initMap(11);
+                        initMap(11, lat, lng);
                         distancia = 30;
                         break;
                     case "4":
-                        initMap(10);
+                        initMap(10, lat, lng);
                         distancia = 40;
                         break;
                     case "5":
-                        initMap(9);
+                        initMap(9, lat, lng);
                         distancia = 50;
                         break;
                 }
@@ -108,36 +163,7 @@
                 
                 posicionarPedidos();
             });
-
-            /* MENSAJES*/
-            if ("geolocation" in navigator) {
-                $("#navegadorSoportado").show();
-                $("#navegadorNoSoportado").hide();
-            } else {
-                $("#navegadorSoportado").hide();
-                $("#navegadorNoSoportado").show();
-            }
-
-            /*FUNCIONES NECESARIAS PARA EL POSICIONAMIENTO */
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            };
-
-            function success(pos) {
-                var crd = pos.coords;
-                var lat = crd.latitude;
-                var lng = crd.longitude;
-                obtenerPedidos(lat, lng);
-            };
-
-            function error(err) {    
-                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
-                var lat = -31.2531394;
-                var lng = -61.4937747;
-                obtenerPedidos(lat, lng);
-            };
+        
             /*OBTENER LA INFORMACIÓN Y LUEGO POSICIONAR LOS PEDIDOS */
             function obtenerPedidos(lat, lng) {
                 $.get("/Pedidos/ObtenerPedidosCeranos?lat=" + lat + "&lng=" + lng + "&distancia=" + distancia, function (data) {
@@ -147,12 +173,16 @@
                 });
             }
 
-            /* POSICIONAR LOS PEDIDOS */
+            /* FUNCION PARA LOS PEDIDOS */
             function posicionarPedidos() {     
-                /*Obtiene la posición actual*/
+                /*Actualiza la posición actual*/
                 navigator.geolocation.getCurrentPosition(success, error, options);
+
+                /*OBTIENE LA INFORMACIÓN NECESARIA Y POSICIONA EL PEDIDO*/
+                obtenerPedidos(lat, lng);
             }
 
+            /* POSICIONAR LOS PEDIDOS */
             posicionarPedidos();
         });
     </script>

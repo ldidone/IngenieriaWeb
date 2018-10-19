@@ -147,9 +147,10 @@ namespace Servicios.AccesoDatos
                 {
                     db.Configuration.LazyLoadingEnabled = false;
                     db.Configuration.ProxyCreationEnabled = false;
-
+                    int codigoEstadoPendiente = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Pendiente");
                     var pedidos = db.Pedidos.Include("AspNetUsers")
                                             .Include("Localidades")
+                                            .Where(x => x.id_estado == codigoEstadoPendiente)
                                             .ToList();
                     List<PedidoMapa> pedidosCercanos = new List<PedidoMapa>();
                     foreach (var pedido in pedidos)
