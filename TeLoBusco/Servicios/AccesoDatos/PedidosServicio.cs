@@ -19,6 +19,7 @@ namespace Servicios.AccesoDatos
                 {
                     return db.Pedidos.Include("Estados")
                                      .Include("Localidades")
+                                     .Include("Localidades1")
                                      .Include("AspNetUsers")
                                      .ToList();
                 }
@@ -37,6 +38,7 @@ namespace Servicios.AccesoDatos
                 {
                     return db.Pedidos.Include("Estados")
                                      .Include("Localidades")
+                                     .Include("Localidades1")
                                      .Where(x => x.idCliente == idCliente)
                                      .ToList();
                 }
@@ -55,6 +57,7 @@ namespace Servicios.AccesoDatos
                 {
                     return db.Pedidos.Include("AspNetUsers")
                                      .Include("Localidades")
+                                     .Include("Localidades1")
                                      .Where(x => x.IdPedido == IdPedido)
                                      .FirstOrDefault();                                  
                 }
@@ -168,6 +171,7 @@ namespace Servicios.AccesoDatos
                     int codigoEstadoPendiente = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Pendiente");
                     var pedidos = db.Pedidos.Include("AspNetUsers")
                                             .Include("Localidades")
+                                            .Include("Localidades1")
                                             .Where(x => x.id_estado == codigoEstadoPendiente)
                                             .ToList();
                     List<PedidoMapa> pedidosCercanos = new List<PedidoMapa>();
