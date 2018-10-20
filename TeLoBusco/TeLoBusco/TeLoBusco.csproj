@@ -352,6 +352,7 @@
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Pedidos\Postularse.cshtml" />
+    <Content Include="Views\Pedidos\PedidosTodos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

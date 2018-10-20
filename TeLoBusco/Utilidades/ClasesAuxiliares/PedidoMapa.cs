@@ -18,6 +18,7 @@ namespace Utilidades.ClasesAuxiliares
         public double Distancia { get; set; }
         public decimal Precio { get; set; }
         public double LatOrigen { get; set; }
-        public double LngOrigen { get; set; }   
+        public double LngOrigen { get; set; }
+        public bool Postulado { get; set; }
     }
 }

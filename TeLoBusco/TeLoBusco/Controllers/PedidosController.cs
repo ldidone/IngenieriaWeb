@@ -30,8 +30,7 @@ namespace TeLoBusco.Controllers
         public ActionResult Pedidos()
         {
             ViewBag.Message = TempData["Message"];
-            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
-            return View(listaPedidos);
+            return View();
         }
 
         public JObject ObtenerPedidosCeranos(double lat, double lng, int distancia)
@@ -199,31 +198,40 @@ namespace TeLoBusco.Controllers
                     bool precioValido = Servicios.AccesoDatos.PedidosServicio.ValidarPrecio(postulacion.precioMinimo, postulacion.Precio, postulacion.precioMaximo);
                     if (precioValido)
                     {
-                        var userName = User.Identity.Name;
-                        var IdUsuarioPostulado = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
-                        var idDueñoPedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).idCliente;
-                        if (IdUsuarioPostulado != idDueñoPedido)
+
+                        bool Postulado = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).Postulaciones.Count() > 0;
+                        if(!Postulado)
                         {
-                            Postulacion postulacionAlmacenar = new Postulacion()
+                            var userName = User.Identity.Name;
+                            var IdUsuarioPostulado = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+                            var idDueñoPedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).idCliente;
+                            if (IdUsuarioPostulado != idDueñoPedido)
                             {
-                                IdPedido = postulacion.IdPedido,
-                                IdUsuarioPostulado = IdUsuarioPostulado,
-                                TiempoEstimado = postulacion.TiempoEstimado,
-                                Precio = postulacion.Precio
-                            };
-                            if (Servicios.AccesoDatos.PostulacionesServicio.Crear(postulacionAlmacenar))
-                            {
-                                TempData["Message"] = "La postulación fue exitosa.";
-                                
+                                Postulacion postulacionAlmacenar = new Postulacion()
+                                {
+                                    IdPedido = postulacion.IdPedido,
+                                    IdUsuarioPostulado = IdUsuarioPostulado,
+                                    TiempoEstimado = postulacion.TiempoEstimado,
+                                    Precio = postulacion.Precio
+                                };
+                                if (Servicios.AccesoDatos.PostulacionesServicio.Crear(postulacionAlmacenar))
+                                {
+                                    TempData["Message"] = "La postulación fue exitosa.";
+
+                                }
+                                else
+                                {
+                                    TempData["Message"] = "No ha sido posible efectuar la postulación. Vuelva a intentar más tarde.";
+                                }
                             }
                             else
                             {
-                                TempData["Message"] = "No ha sido posible efectuar la postulación. Vuelva a intentar más tarde.";
+                                TempData["Message"] = "El cliente y el delivery no pueden ser la misma persona";
                             }
                         }
                         else
                         {
-                            TempData["Message"] = "El cliente y el delivery no pueden ser la misma persona";
+                            TempData["Message"] = "Ya se encuentra postulado. No es posible postularse más de una vez al mismo pedido.";
                         }
                         return RedirectToAction("Pedidos"); //Redireccionar a vista de pedidos cercanos                  
                     }
@@ -249,6 +257,12 @@ namespace TeLoBusco.Controllers
                 }
                 return View(postulacion);
             }
+        }
+
+        public ActionResult PedidosTodos()
+        {
+            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
+            return View(listaPedidos);
         }
      }
 }

@@ -1,6 +1,4 @@
-﻿@using Datos
-@model List<Pedidos>
-
+﻿
 @{
     ViewBag.Title = "Pedidos cercanos";
 }
@@ -37,9 +35,6 @@
 
 <!-- MAPA -->
 <div id="map"></div>
-@*<div class="grillaPedidos">
-        @Html.Partial("_PedidosGrilla", Model)
-    </div>*@
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")

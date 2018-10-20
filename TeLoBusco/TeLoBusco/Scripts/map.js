@@ -43,7 +43,7 @@ function añadirPedido(lat, lng, pedido) {
         '<p><b>Dirección origen: </b>' + pedido.DireccionOrigen + '</p>' +
         '<p><b>Dirección destino: </b>' + pedido.DireccionDestino + '</p>' +
         '<p><b>Precio: </b>' + '$' + pedido.Precio + '</p>' +
-        '<a class="btn btn-secondary" href="' + urlPostulaciones +'">Postularse!</a>' +
+        (pedido.Postulado ? '<label style="font-weight: bold; font-size: 16px;"><b>Ya se postuló</b></label>' : '<a class="btn btn-secondary" href="' + urlPostulaciones + '">Postularse!</a>') +
         '</div>' +
         '</div>' +
         '</div>';

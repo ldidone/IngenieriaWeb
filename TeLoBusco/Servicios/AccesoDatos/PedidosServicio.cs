@@ -21,6 +21,7 @@ namespace Servicios.AccesoDatos
                                      .Include("Localidades")
                                      .Include("Localidades1")
                                      .Include("AspNetUsers")
+                                     .Include("Postulaciones")
                                      .ToList();
                 }
                 catch(Exception ex)
@@ -58,6 +59,7 @@ namespace Servicios.AccesoDatos
                     return db.Pedidos.Include("AspNetUsers")
                                      .Include("Localidades")
                                      .Include("Localidades1")
+                                     .Include("Postulaciones")
                                      .Where(x => x.IdPedido == IdPedido)
                                      .FirstOrDefault();                                  
                 }
@@ -172,6 +174,7 @@ namespace Servicios.AccesoDatos
                     var pedidos = db.Pedidos.Include("AspNetUsers")
                                             .Include("Localidades")
                                             .Include("Localidades1")
+                                            .Include("Postulaciones")
                                             .Where(x => x.id_estado == codigoEstadoPendiente)
                                             .ToList();
                     List<PedidoMapa> pedidosCercanos = new List<PedidoMapa>();
@@ -206,6 +209,11 @@ namespace Servicios.AccesoDatos
 
         public static PedidoMapa ConvertirPedidoAPedidoMapa (Pedidos pedido)
         {
+            bool postulado = false;
+            if (pedido.Postulaciones != null)
+            {
+                postulado = pedido.Postulaciones.Count > 0 ? true : false;
+            }           
             PedidoMapa pedidoDetalles = new PedidoMapa
             {
                 IdPedido = pedido.IdPedido,
@@ -217,7 +225,8 @@ namespace Servicios.AccesoDatos
                 DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
                 Precio = pedido.precio_predido,
                 LatOrigen = Convert.ToDouble(pedido.lat_origen),
-                LngOrigen = Convert.ToDouble(pedido.lng_origen)
+                LngOrigen = Convert.ToDouble(pedido.lng_origen),
+                Postulado = postulado
             };
 
             return pedidoDetalles;
