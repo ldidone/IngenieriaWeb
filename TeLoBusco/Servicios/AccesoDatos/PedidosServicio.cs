@@ -70,6 +70,20 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        public static string ObtenerIdDueñoPedido(int idPedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault().idCliente;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
         //public static bool crear(string idCliente, int nroDirOrigen, string calleOrigen, int idLocalidadOrigen,
         //                         int nroDirDestino, string calleDestino, int idLocalidadDestino, decimal precioPedido)
         //{

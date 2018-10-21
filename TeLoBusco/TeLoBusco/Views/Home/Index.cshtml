@@ -44,6 +44,10 @@
                                 <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosTodos">Todos los pedidos</a>
                             </div>
                         </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Notificaciones <span id="NotificationCounter" class="badge badge-danger">0</span></a>
+                            <div id="NotificationList" class="dropdown-menu bg-black"></div>
+                        </li>
                         @if (User.IsInRole("Administrador"))
                         {
                             <li class="nav-item">
@@ -51,9 +55,9 @@
                             </li>
                         }
                     </ul>
-                }            
+                }
                 @Html.Partial("_LoginPartial")
-            </div>         
+            </div>
         </nav>
     </header>
 
@@ -69,12 +73,12 @@
             </div>
             <div class="overlay"></div>
         </div>
-        <div  id="callToAction" class="jumbotron jumbotron-fluid">
+        <div id="callToAction" class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4 titleCallToAction">¿Compraste comida y no tenés cómo buscarla?</h1>
-                <p class="subtitleCallToAction">Wapo te ayuda a <b>conectarte</b> con el mejor delivery para vos</p>               
-                <a id="registerBtn" class="btn btn-outline-secondary btn-lg" href="/Account/Register" role="button">¡Registrate!</a> 
-                <br/>
+                <p class="subtitleCallToAction">Wapo te ayuda a <b>conectarte</b> con el mejor delivery para vos</p>
+                <a id="registerBtn" class="btn btn-outline-secondary btn-lg" href="/Account/Register" role="button">¡Registrate!</a>
+                <br />
                 <p class="subtitleCallToAction">¡Es fácil, rápido y <b>gratis</b>!</p>
             </div>
         </div>
@@ -82,34 +86,75 @@
             <div class="row">
                 <div class="col-md-4">
                     <h2 class="featureTitle">Encontrá tu delivery</h2>
-                    <p class="feature">¿Compraste comida pero no tenés como buscarla?  No te preocupes, en Wappo podrás encontrar
-                    deliverys dispuestos a recoger tu pedido y elegir al que más te convenga, 
-                    teniendo en cuenta tiempos de demora, valoraciones y costos.</p>
+                    <p class="feature">
+                        ¿Compraste comida pero no tenés como buscarla?  No te preocupes, en Wappo podrás encontrar
+                        deliverys dispuestos a recoger tu pedido y elegir al que más te convenga,
+                        teniendo en cuenta tiempos de demora, valoraciones y costos.
+                    </p>
                 </div>
                 <div class="col-md-4">
                     <h2 class="featureTitle">Encontrá tu pedido</h2>
-                    <p class="feature">¿Sos delivery? ¿Necesitás un ingreso extra? Cualquiera sea el motivo, podrás postularte como delivery,
-                    de esta manera tendrás acceso a los pedidos que las personas cercanas a ti realizan y podrás postularte como delivery.
-                    Si te escogen, ¡no tardes en llegar!</p>
+                    <p class="feature">
+                        ¿Sos delivery? ¿Necesitás un ingreso extra? Cualquiera sea el motivo, podrás postularte como delivery,
+                        de esta manera tendrás acceso a los pedidos que las personas cercanas a ti realizan y podrás postularte como delivery.
+                        Si te escogen, ¡no tardes en llegar!
+                    </p>
                 </div>
                 <div class="col-md-4">
                     <h2 class="featureTitle">Valorá a los demás usuarios</h2>
-                    <p class="feature">Podrás valorar tanto a los deliverys si sos un consumidor del servicio. O a los consumidores si sos delivery.
-                    De esta forma todos mantendremos nuestra reputación, ¿fácil no?</p>
+                    <p class="feature">
+                        Podrás valorar tanto a los deliverys si sos un consumidor del servicio. O a los consumidores si sos delivery.
+                        De esta forma todos mantendremos nuestra reputación, ¿fácil no?
+                    </p>
                 </div>
             </div>
         </div>
-      
+
         <!-- FOOTER -->
         <footer class="footerLandingPage">
             <div class="col">
                 <label>&copy; @DateTime.Now.Year - </label>
                 <label class="wapoFooter">Wappo</label>
             </div>
-        </footer>       
+        </footer>
     </div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.get("/Notificaciones/ObtenerNotificacionesUsuario", function (data) {
+                var obj = JSON.parse(data);
+                //console.log(obj);
+                if (!(obj.Message == 'Nulo')) {
+                    var notificaciones = obj.Notificaciones;
+                    if (notificaciones.length > 0) {
+                        /*Agregar contador de notificaciones*/
+                        $("#NotificationCounter").html(notificaciones.length);
+
+                        /*Agregar notificaciones*/
+                        for (var i = 0; i < notificaciones.length; i++) {
+                            console.log(notificaciones[i]);
+                            //var idActividad = notificaciones[i].Postulaciones.IdPedido; //Pedido
+                            var idActividad = notificaciones[i].IdActividad;
+                            var idTipoActividad = notificaciones[i].IdTipoActividad;
+                            var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad;
+                            var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="' + url + '">' + notificaciones[i].Descripcion + '</a>'),
+                                nuevaNotificacion2 = document.createElement("a"),
+                                divPadre = document.getElementById("NotificationList");
+                            $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
+                        }
+                    } else {
+                        $("#NotificationCounter").css('display', 'none');
+                        var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="#">No hay notificaciones nuevas</a>'),
+                            nuevaNotificacion2 = document.createElement("a"),
+                            divPadre = document.getElementById("NotificationList");
+                        $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

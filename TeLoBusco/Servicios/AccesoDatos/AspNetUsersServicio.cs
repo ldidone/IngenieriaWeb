@@ -126,5 +126,20 @@ namespace Servicios
                 }
             }
         }
+
+        public static string ObtenerNombrePorId(string id)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.AspNetUsers.Where(x => x.Id == id).FirstOrDefault().NombreApellido;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

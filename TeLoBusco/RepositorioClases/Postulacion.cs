@@ -12,7 +12,7 @@ namespace RepositorioClases
         public int IdPedido { get; set; }
         public string IdUsuarioPostulado { get; set; }
         public int IdEstadoPostulacion { get; set; }
-        public float TiempoEstimado { get; set; }
+        public double TiempoEstimado { get; set; }
         public decimal Precio { get; set; }
     }
 }

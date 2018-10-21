@@ -12,7 +12,7 @@ namespace TeLoBusco.Models
         /* Completados por el 'Delivery' */
         [Required]
         [Display(Name = "Tiempo estimado en minutos (*)")]
-        public float TiempoEstimado { get; set; }
+        public double TiempoEstimado { get; set; }
 
         [Required]
         [Display(Name = "Precio ($)")]
@@ -21,6 +21,8 @@ namespace TeLoBusco.Models
         public int IdPedido { get; set; }
 
         /*Datos otorgados*/
+        public string IdPostulado { get; set; }
+        public string PostuladoNombreApellido { get; set; }
         public PedidoMapa pedidoDetalles { get; set; }
         public decimal precioMinimo { get; set; }
         public decimal precioMaximo { get; set; }

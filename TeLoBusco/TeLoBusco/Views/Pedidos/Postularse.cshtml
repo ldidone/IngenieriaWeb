@@ -36,10 +36,10 @@
                                     <div class="col-md-10">
                                         <div class="form-row">
                                             <div class="col-md-3">
-                                                <input type="text" class="form-control" id="precioMinimo" value="Min. $@Model.precioMinimo" disabled>
+                                                <input type="text" class="form-control" style="margin:0px 0px 5px 0px;" id="precioMinimo" value="Min. $@Model.precioMinimo" disabled>
                                             </div>
                                             <div class="col-md-4">
-                                                @Html.TextBoxFor(m => m.Precio, new { Value = "", @class = "form-control", @placeholder = "Precio ($)" })
+                                                @Html.TextBoxFor(m => m.Precio, new { Value = "", @class = "form-control", @placeholder = "Precio ($)", @style = "margin:0px 0px 5px 0px;" })
                                                 @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="col-md-3">
@@ -53,7 +53,7 @@
                                 <div class="container">
                                     <div class="card">
                                         <h6 id="PoliticaPrecios" class="card-header" data-toggle="collapse" data-target="#preciosDetalle">
-                                            Politica de precios
+                                            Política de precios
                                         </h6>
                                         <div class="collapse" id="preciosDetalle">
                                             <div class="card-body">

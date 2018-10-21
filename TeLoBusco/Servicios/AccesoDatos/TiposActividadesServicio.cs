@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.AccesoDatos
 {
-    class TiposActividadesServicio
+    public class TiposActividadesServicio
     {
         public static int obtenerIdPorDescripcion(string descripcion)
         {
@@ -20,6 +20,21 @@ namespace Servicios.AccesoDatos
                 catch(Exception ex)
                 {
                     return 0;
+                }
+            }
+        }
+
+        public static string obtenerDescripcionPorId(int idTipoActividad)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.TiposActividades.Where(x => x.IdTipoActividad == idTipoActividad).FirstOrDefault().Descripcion;
+                }
+                catch (Exception ex)
+                {
+                    return null;
                 }
             }
         }

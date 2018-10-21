@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -353,6 +354,8 @@
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Pedidos\Postularse.cshtml" />
     <Content Include="Views\Pedidos\PedidosTodos.cshtml" />
+    <Content Include="Views\Notificaciones\Index.cshtml" />
+    <Content Include="Views\Notificaciones\Notificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

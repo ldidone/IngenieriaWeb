@@ -14,6 +14,12 @@ namespace Datos
     
     public partial class Postulaciones
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Postulaciones()
+        {
+            this.Notificaciones = new HashSet<Notificaciones>();
+        }
+    
         public int IdPostulacion { get; set; }
         public int IdTipoActividad { get; set; }
         public int IdPedido { get; set; }
@@ -26,5 +32,7 @@ namespace Datos
         public virtual Estados Estados { get; set; }
         public virtual Pedidos Pedidos { get; set; }
         public virtual TiposActividades TiposActividades { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notificaciones> Notificaciones { get; set; }
     }
 }

@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AccesoDatos\EstadosServicio.cs" />
     <Compile Include="AccesoDatos\LocalidadesServicio.cs" />
+    <Compile Include="AccesoDatos\NotificacionesServicio.cs" />
     <Compile Include="AccesoDatos\PedidosServicio.cs" />
     <Compile Include="AccesoDatos\PostulacionesServicio.cs" />
     <Compile Include="AccesoDatos\TiposActividadesServicio.cs" />
