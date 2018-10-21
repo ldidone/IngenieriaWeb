@@ -40,7 +40,7 @@
                         </div>
                     </li>
                     <li id="Notifications" class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Notificaciones <span id="NotificationCounter" class="badge badge-danger">0</span></a>
+                        <a id="ViewNotifications" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Notificaciones <span id="NotificationCounter" class="badge badge-danger">0</span></a>
                         <div id="NotificationList" class="dropdown-menu bg-black"></div>                       
                     </li>
                     @if (User.IsInRole("Administrador"))
@@ -101,8 +101,14 @@
                             divPadre = document.getElementById("NotificationList");
                         $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
                     }                  
-                }               
-            });                      
+                }            
+            }); 
+
+            /*Limpiar contador de notificaciones al hacerle clic*/
+            $("#ViewNotifications").click(function () {
+                $("#NotificationCounter").html(0);
+                $("#NotificationCounter").css('display', 'none');
+            });
         });
     </script>
 </body>
