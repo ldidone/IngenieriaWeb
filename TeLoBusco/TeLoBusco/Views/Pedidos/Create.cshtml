@@ -7,7 +7,7 @@
 
 <h2>@ViewBag.Title</h2>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <section id="loginForm">
             @using (Html.BeginForm())
             {
@@ -15,67 +15,119 @@
                 <h4>¡Tu pedido no tarda en llegar!</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.nroDirOrigen, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.nroDirOrigen, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.nroDirOrigen, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.calleOrigen, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.calleOrigen, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.calleOrigen, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.idLocalidadOrigen, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.idLocalidadOrigen, ViewBag.Localidades as SelectList, "Seleccione una localidad",  new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.idLocalidadOrigen, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                <div class="row">
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.nroDirDestino, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.nroDirDestino, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.nroDirDestino, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.calleDestino, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.calleDestino, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.calleDestino, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.idLocalidadDestino, new { @class = "col-md-4 control-label" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(m => m.idLocalidadDestino, ViewBag.Localidades as SelectList, "Seleccione una localidad", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.idLocalidadDestino, "", new { @class = "text-danger" })
+                    <div class="col-md-4" style="margin:5px 0px;">
+                        <div class="card" style="min-height: 371px;">
+                            <div class="card-header">
+                                Datos del pedido
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Descripcion, new { @class = "col-md-12 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control", @placeholder = "Pizza de muzzarella" })
+                                        @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Observaciones, new { @class = "col-md-12 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(m => m.Observaciones, new { @class = "form-control", @placeholder = "Contiene aceitunas negras"})
+                                        @Html.ValidationMessageFor(m => m.Observaciones, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.precioPedido, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.precioPedido, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.precioPedido, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.precioPedido, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.precioPedido, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.precioPedido, "", new { @class = "text-danger" })
+                    <div class="col-md-4" style="margin:5px 0px;">
+                        <!-- ORIGEN -->
+                        <div class="card" style="min-height: 371px;">
+                            <div class="card-header">
+                                Dirección de origen
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.calleOrigen, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.calleOrigen, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.calleOrigen, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.nroDirOrigen, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.nroDirOrigen, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.nroDirOrigen, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.idLocalidadOrigen, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.idLocalidadOrigen, ViewBag.Localidades as SelectList, "Seleccione una localidad", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.idLocalidadOrigen, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="margin:5px 0px;">
+                        <!-- DESTINO -->
+                        <div class="card" style="min-height: 371px;">
+                            <div class="card-header">
+                                Dirección de destino
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.calleDestino, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.calleDestino, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.calleDestino, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.nroDirDestino, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.nroDirDestino, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.nroDirDestino, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.idLocalidadDestino, new { @class = "col-md-4 control-label" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(m => m.idLocalidadDestino, ViewBag.Localidades as SelectList, "Seleccione una localidad", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.idLocalidadDestino, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Publicar pedido" class="btn btn-default" />
+
+                <br />
+                <!-- BOTÓN PUBLICAR PEDIDO -->
+                <div class="row">
+                    <div class="form-group" style="margin-left: auto; margin-right: auto;">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Publicar pedido" class="btn btn-default"/>
+                        </div>
                     </div>
                 </div>
+                
                 @*<p>
-                    @Html.ActionLink("Registrar como nuevo usuario", "Register")
-                </p>*@
+                @Html.ActionLink("Registrar como nuevo usuario", "Register")
+            </p>*@
             }
         </section>
     </div>

@@ -1,12 +1,21 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+
+@{
     ViewBag.Title = "Pedidos";
 }
 
-<h3 class="tituloPagina" style="margin-bottom: 75px;">¿En qué te podemos ayudar?</h3>
+@{
+    var user = (System.Security.Claims.ClaimsIdentity)User.Identity;
+    var nombreApellido = user.FindFirstValue("NombreApellido");
+    var nombreApellidoLista = nombreApellido.Split();
+    var nombre = nombreApellidoLista[0];
+}
+
+<h3 class="tituloPagina" style="margin-bottom: 75px;">¿En qué te podemos ayudar @nombre?</h3>
 
 <!--OPCIONES-->
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="margin:5px 0px;">
         <div class="card text-center">
             <div class="card-body">
                 <h5 class="subtituloPagina">¡Quiero ser delivery!</h5>
@@ -15,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="margin:5px 0px;">
         <div class="card text-center">
             <div class="card-body">
                 <h5 class="subtituloPagina">¡Necesito un delivery!</h5>
@@ -34,6 +43,11 @@
             $(document).ready(function () {
                 $.notify("@ViewBag.Message");
             });
-        </script>    
+        </script>
     }
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            var btn = $("#NotificationCounter").html(1);
+        });
+    </script>*@
 }

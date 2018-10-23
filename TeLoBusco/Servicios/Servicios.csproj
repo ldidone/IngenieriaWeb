@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Servicios</RootNamespace>
     <AssemblyName>Servicios</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,9 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesoDatos\EstadosPedidoServicio.cs" />
+    <Compile Include="AccesoDatos\EstadosServicio.cs" />
     <Compile Include="AccesoDatos\LocalidadesServicio.cs" />
+    <Compile Include="AccesoDatos\NotificacionesServicio.cs" />
     <Compile Include="AccesoDatos\PedidosServicio.cs" />
+    <Compile Include="AccesoDatos\PostulacionesServicio.cs" />
+    <Compile Include="AccesoDatos\TiposActividadesServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccesoDatos\AspNetRolesServicio.cs" />
     <Compile Include="AccesoDatos\AspNetUsersServicio.cs" />
@@ -60,6 +64,10 @@
     <ProjectReference Include="..\Datos\Datos.csproj">
       <Project>{7e276d2f-056b-4b2d-80a6-899edbf76bfe}</Project>
       <Name>Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepositorioClases\RepositorioClases.csproj">
+      <Project>{e826a780-08d9-48ff-a179-91b5c8d145b4}</Project>
+      <Name>RepositorioClases</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilidades\Utilidades.csproj">
       <Project>{6c15822f-fb9d-4334-8bea-ff78f2277023}</Project>

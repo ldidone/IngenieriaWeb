@@ -15,6 +15,17 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Actividades">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoActividad" Type="int" Nullable="false" />
+          <Property Name="IdEstadoActividad" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdUsuarioEmisor" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IdUsuarioReceptor" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -67,12 +78,13 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NombreApellido" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
-        <EntityType Name="Estados_Pedidos">
+        <EntityType Name="Estados">
           <Key>
             <PropertyRef Name="IdEstado" />
           </Key>
           <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdTipoActividad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Localidades">
           <Key>
@@ -81,6 +93,17 @@
           <Property Name="idLocalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cod_Postal" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notificaciones">
+          <Key>
+            <PropertyRef Name="IdNotificacion" />
+          </Key>
+          <Property Name="IdNotificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoActividad" Type="int" Nullable="false" />
+          <Property Name="IdEstadoNotificacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="IdUsuarioReceptor" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IdActividad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Pedidos">
           <Key>
@@ -98,6 +121,25 @@
           <Property Name="precio_predido" Type="money" Nullable="false" />
           <Property Name="precio_transporte" Type="money" />
           <Property Name="id_estado" Type="int" Nullable="false" />
+          <Property Name="descripcion_pedido" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="observaciones_pedido" Type="varchar" MaxLength="256" />
+          <Property Name="IdTipoActividad" Type="int" Nullable="false" />
+          <Property Name="lat_origen" Type="float" />
+          <Property Name="lng_origen" Type="float" />
+          <Property Name="lat_destino" Type="float" />
+          <Property Name="lng_destino" Type="float" />
+        </EntityType>
+        <EntityType Name="Postulaciones">
+          <Key>
+            <PropertyRef Name="IdPostulacion" />
+          </Key>
+          <Property Name="IdPostulacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoActividad" Type="int" Nullable="false" />
+          <Property Name="IdPedido" Type="int" Nullable="false" />
+          <Property Name="IdUsuarioPostulado" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IdEstadoPostulacion" Type="int" Nullable="false" />
+          <Property Name="TiempoEstimado" Type="float" Nullable="false" />
+          <Property Name="Precio" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -109,6 +151,49 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TiposActividades">
+          <Key>
+            <PropertyRef Name="IdTipoActividad" />
+          </Key>
+          <Property Name="IdTipoActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Actividades_AspNetUsers_Emisor">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_AspNetUsers_Receptor">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -165,6 +250,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Estados_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Estados" Type="Self.Estados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Estados">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdEstadoNotificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Postulaciones">
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postulaciones">
+              <PropertyRef Name="IdPostulacion" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Pedidos_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
@@ -189,11 +334,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedidos_Estados_Pedidos">
-          <End Role="Estados_Pedidos" Type="Self.Estados_Pedidos" Multiplicity="1" />
+        <Association Name="FK_Pedidos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Estados_Pedidos">
+            <Principal Role="Estados">
               <PropertyRef Name="IdEstado" />
             </Principal>
             <Dependent Role="Pedidos">
@@ -225,17 +370,93 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Pedidos_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdUsuarioPostulado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdEstadoPostulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Pedidos">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TeloBuscoModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Actividades" EntityType="Self.Actividades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Estados_Pedidos" EntityType="Self.Estados_Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postulaciones" EntityType="Self.Postulaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposActividades" EntityType="Self.TiposActividades" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Emisor" Association="Self.FK_Actividades_AspNetUsers_Emisor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Receptor" Association="Self.FK_Actividades_AspNetUsers_Receptor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_TiposActividades" Association="Self.FK_Actividades_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -252,6 +473,26 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Estados_TiposActividades" Association="Self.FK_Estados_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Estados" EntitySet="Estados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_AspNetUsers" Association="Self.FK_Notificaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Estados" Association="Self.FK_Notificaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Postulaciones" Association="Self.FK_Notificaciones_Postulaciones">
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_TiposActividades" Association="Self.FK_Notificaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
           <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="Self.FK_Pedidos_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -260,8 +501,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedidos_Estados_Pedidos" Association="Self.FK_Pedidos_Estados_Pedidos">
-            <End Role="Estados_Pedidos" EntitySet="Estados_Pedidos" />
+          <AssociationSet Name="FK_Pedidos_Estados" Association="Self.FK_Pedidos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pedidos_Localidades" Association="Self.FK_Pedidos_Localidades">
@@ -271,6 +512,26 @@
           <AssociationSet Name="FK_Pedidos_Localidades_Destino" Association="Self.FK_Pedidos_Localidades_Destino">
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_TiposActividades" Association="Self.FK_Pedidos_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_AspNetUsers" Association="Self.FK_Postulaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Estados" Association="Self.FK_Postulaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Pedidos" Association="Self.FK_Postulaciones_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_TiposActividades" Association="Self.FK_Postulaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -283,9 +544,7 @@
           <EntitySet Name="AspNetUserClaims" EntityType="TeloBuscoModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="TeloBuscoModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="TeloBuscoModel.AspNetUsers" />
-          <EntitySet Name="Estados_Pedidos" EntityType="TeloBuscoModel.Estados_Pedidos" />
           <EntitySet Name="Localidades" EntityType="TeloBuscoModel.Localidades" />
-          <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
           <EntitySet Name="sysdiagrams" EntityType="TeloBuscoModel.sysdiagrams" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -295,6 +554,30 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Actividades" EntityType="TeloBuscoModel.Actividades" />
+          <EntitySet Name="Estados" EntityType="TeloBuscoModel.Estados" />
+          <EntitySet Name="TiposActividades" EntityType="TeloBuscoModel.TiposActividades" />
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Emisor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Receptor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_TiposActividades" Association="TeloBuscoModel.FK_Actividades_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estados_TiposActividades" Association="TeloBuscoModel.FK_Estados_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Estados" EntitySet="Estados" />
+          </AssociationSet>
+          <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
           <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -303,8 +586,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedidos_Estados_Pedidos" Association="TeloBuscoModel.FK_Pedidos_Estados_Pedidos">
-            <End Role="Estados_Pedidos" EntitySet="Estados_Pedidos" />
+          <AssociationSet Name="FK_Pedidos_Estados" Association="TeloBuscoModel.FK_Pedidos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
           <AssociationSet Name="FK_Pedidos_Localidades" Association="TeloBuscoModel.FK_Pedidos_Localidades">
@@ -315,11 +598,45 @@
             <End Role="Localidades" EntitySet="Localidades" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          <AssociationSet Name="FK_Pedidos_TiposActividades" Association="TeloBuscoModel.FK_Pedidos_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Postulaciones" EntityType="TeloBuscoModel.Postulaciones" />
+          <AssociationSet Name="FK_Postulaciones_AspNetUsers" Association="TeloBuscoModel.FK_Postulaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Estados" Association="TeloBuscoModel.FK_Postulaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Pedidos" Association="TeloBuscoModel.FK_Postulaciones_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_TiposActividades" Association="TeloBuscoModel.FK_Postulaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <EntitySet Name="Notificaciones" EntityType="TeloBuscoModel.Notificaciones" />
+          <AssociationSet Name="FK_Notificaciones_AspNetUsers" Association="TeloBuscoModel.FK_Notificaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Estados" Association="TeloBuscoModel.FK_Notificaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Postulaciones" Association="TeloBuscoModel.FK_Notificaciones_Postulaciones">
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_TiposActividades" Association="TeloBuscoModel.FK_Notificaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -378,17 +695,13 @@
           <Property Name="NombreApellido" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Actividades" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" FromRole="AspNetUsers" ToRole="Actividades" />
+          <NavigationProperty Name="Actividades1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="AspNetUsers" ToRole="Actividades" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
-          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="Estados_Pedidos">
-          <Key>
-            <PropertyRef Name="IdEstado" />
-          </Key>
-          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Estados_Pedidos" ToRole="Pedidos" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Postulaciones" />
+          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
         </EntityType>
         <EntityType Name="Localidades">
           <Key>
@@ -399,29 +712,7 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Localidades" ToRole="Pedidos" />
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Localidades" ToRole="Pedidos" />
-        </EntityType>
-        <EntityType Name="Pedidos">
-          <Key>
-            <PropertyRef Name="IdPedido" />
-          </Key>
-          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="idDelivery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="nro_calle_origen" Type="Int32" Nullable="false" />
-          <Property Name="calle_origen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="id_localidad_origen" Type="Int32" Nullable="false" />
-          <Property Name="nro_calle_destino" Type="Int32" Nullable="false" />
-          <Property Name="calle_destino" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="id_localidad_destino" Type="Int32" Nullable="false" />
-          <Property Name="precio_predido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="precio_transporte" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="id_estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Estados_Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados_Pedidos" FromRole="Pedidos" ToRole="Estados_Pedidos" />
-          <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
-          <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -460,6 +751,127 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Actividades">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <Property Name="IdEstadoActividad" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioEmisor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdUsuarioReceptor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" FromRole="Actividades" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="Actividades" ToRole="AspNetUsers" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Actividades_TiposActividades" FromRole="Actividades" ToRole="TiposActividades" />
+        </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Estados_TiposActividades" FromRole="Estados" ToRole="TiposActividades" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_Estados" FromRole="Estados" ToRole="Pedidos" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_Estados" FromRole="Estados" ToRole="Postulaciones" />
+          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_Estados" FromRole="Estados" ToRole="Notificaciones" />
+        </EntityType>
+        <EntityType Name="TiposActividades">
+          <Key>
+            <PropertyRef Name="IdTipoActividad" />
+          </Key>
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Actividades" Relationship="TeloBuscoModel.FK_Actividades_TiposActividades" FromRole="TiposActividades" ToRole="Actividades" />
+          <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Estados_TiposActividades" FromRole="TiposActividades" ToRole="Estados" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_TiposActividades" FromRole="TiposActividades" ToRole="Pedidos" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_TiposActividades" FromRole="TiposActividades" ToRole="Postulaciones" />
+          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_TiposActividades" FromRole="TiposActividades" ToRole="Notificaciones" />
+        </EntityType>
+        <Association Name="FK_Actividades_AspNetUsers_Emisor">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_AspNetUsers_Receptor">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_TiposActividades">
+          <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estados_TiposActividades">
+          <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Estados">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="IdPedido" />
+          </Key>
+          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="idDelivery" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="nro_calle_origen" Type="Int32" Nullable="false" />
+          <Property Name="calle_origen" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="id_localidad_origen" Type="Int32" Nullable="false" />
+          <Property Name="nro_calle_destino" Type="Int32" Nullable="false" />
+          <Property Name="calle_destino" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="id_localidad_destino" Type="Int32" Nullable="false" />
+          <Property Name="precio_predido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="precio_transporte" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="id_estado" Type="Int32" Nullable="false" />
+          <Property Name="descripcion_pedido" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones_pedido" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <Property Name="lat_origen" Type="Double" />
+          <Property Name="lng_origen" Type="Double" />
+          <Property Name="lat_destino" Type="Double" />
+          <Property Name="lng_destino" Type="Double" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Pedidos_Estados" FromRole="Pedidos" ToRole="Estados" />
+          <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
+          <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Pedidos_TiposActividades" FromRole="Pedidos" ToRole="TiposActividades" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Pedidos" ToRole="Postulaciones" />
+        </EntityType>
         <Association Name="FK_Pedidos_AspNetUsers">
           <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
@@ -484,11 +896,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedidos_Estados_Pedidos">
-          <End Type="TeloBuscoModel.Estados_Pedidos" Role="Estados_Pedidos" Multiplicity="1" />
+        <Association Name="FK_Pedidos_Estados">
+          <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Estados_Pedidos">
+            <Principal Role="Estados">
               <PropertyRef Name="IdEstado" />
             </Principal>
             <Dependent Role="Pedidos">
@@ -520,9 +932,145 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        <Association Name="FK_Pedidos_TiposActividades">
+          <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Postulaciones">
+          <Key>
+            <PropertyRef Name="IdPostulacion" />
+          </Key>
+          <Property Name="IdPostulacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <Property Name="IdPedido" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuarioPostulado" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdEstadoPostulacion" Type="Int32" Nullable="false" />
+          <Property Name="TiempoEstimado" Type="Double" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="Postulaciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Postulaciones_Estados" FromRole="Postulaciones" ToRole="Estados" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Postulaciones" ToRole="Pedidos" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Postulaciones_TiposActividades" FromRole="Postulaciones" ToRole="TiposActividades" />
+          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_Postulaciones" FromRole="Postulaciones" ToRole="Notificaciones" />
+        </EntityType>
+        <Association Name="FK_Postulaciones_AspNetUsers">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdUsuarioPostulado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Estados">
+          <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdEstadoPostulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Pedidos">
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_TiposActividades">
+          <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Notificaciones">
+          <Key>
+            <PropertyRef Name="IdNotificacion" />
+          </Key>
+          <Property Name="IdNotificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoActividad" Type="Int32" Nullable="false" />
+          <Property Name="IdEstadoNotificacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioReceptor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdActividad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="Notificaciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Notificaciones_Estados" FromRole="Notificaciones" ToRole="Estados" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Notificaciones_Postulaciones" FromRole="Notificaciones" ToRole="Postulaciones" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Notificaciones_TiposActividades" FromRole="Notificaciones" ToRole="TiposActividades" />
+        </EntityType>
+        <Association Name="FK_Notificaciones_AspNetUsers">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Estados">
+          <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdEstadoNotificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Postulaciones">
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postulaciones">
+              <PropertyRef Name="IdPostulacion" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_TiposActividades">
+          <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -586,38 +1134,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Estados_Pedidos">
-            <EntityTypeMapping TypeName="TeloBuscoModel.Estados_Pedidos">
-              <MappingFragment StoreEntitySet="Estados_Pedidos">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Localidades">
             <EntityTypeMapping TypeName="TeloBuscoModel.Localidades">
               <MappingFragment StoreEntitySet="Localidades">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Cod_Postal" ColumnName="Cod_Postal" />
                 <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pedidos">
-            <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
-              <MappingFragment StoreEntitySet="Pedidos">
-                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
-                <ScalarProperty Name="precio_transporte" ColumnName="precio_transporte" />
-                <ScalarProperty Name="precio_predido" ColumnName="precio_predido" />
-                <ScalarProperty Name="id_localidad_destino" ColumnName="id_localidad_destino" />
-                <ScalarProperty Name="calle_destino" ColumnName="calle_destino" />
-                <ScalarProperty Name="nro_calle_destino" ColumnName="nro_calle_destino" />
-                <ScalarProperty Name="id_localidad_origen" ColumnName="id_localidad_origen" />
-                <ScalarProperty Name="calle_origen" ColumnName="calle_origen" />
-                <ScalarProperty Name="nro_calle_origen" ColumnName="nro_calle_origen" />
-                <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
-                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -640,6 +1162,85 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Actividades">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Actividades">
+              <MappingFragment StoreEntitySet="Actividades">
+                <ScalarProperty Name="IdUsuarioReceptor" ColumnName="IdUsuarioReceptor" />
+                <ScalarProperty Name="IdUsuarioEmisor" ColumnName="IdUsuarioEmisor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdEstadoActividad" ColumnName="IdEstadoActividad" />
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposActividades">
+            <EntityTypeMapping TypeName="TeloBuscoModel.TiposActividades">
+              <MappingFragment StoreEntitySet="TiposActividades">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="lng_destino" ColumnName="lng_destino" />
+                <ScalarProperty Name="lat_destino" ColumnName="lat_destino" />
+                <ScalarProperty Name="lng_origen" ColumnName="lng_origen" />
+                <ScalarProperty Name="lat_origen" ColumnName="lat_origen" />
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+                <ScalarProperty Name="observaciones_pedido" ColumnName="observaciones_pedido" />
+                <ScalarProperty Name="descripcion_pedido" ColumnName="descripcion_pedido" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="precio_transporte" ColumnName="precio_transporte" />
+                <ScalarProperty Name="precio_predido" ColumnName="precio_predido" />
+                <ScalarProperty Name="id_localidad_destino" ColumnName="id_localidad_destino" />
+                <ScalarProperty Name="calle_destino" ColumnName="calle_destino" />
+                <ScalarProperty Name="nro_calle_destino" ColumnName="nro_calle_destino" />
+                <ScalarProperty Name="id_localidad_origen" ColumnName="id_localidad_origen" />
+                <ScalarProperty Name="calle_origen" ColumnName="calle_origen" />
+                <ScalarProperty Name="nro_calle_origen" ColumnName="nro_calle_origen" />
+                <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Postulaciones">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Postulaciones">
+              <MappingFragment StoreEntitySet="Postulaciones">
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="TiempoEstimado" ColumnName="TiempoEstimado" />
+                <ScalarProperty Name="IdEstadoPostulacion" ColumnName="IdEstadoPostulacion" />
+                <ScalarProperty Name="IdUsuarioPostulado" ColumnName="IdUsuarioPostulado" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+                <ScalarProperty Name="IdPostulacion" ColumnName="IdPostulacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notificaciones">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Notificaciones">
+              <MappingFragment StoreEntitySet="Notificaciones">
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="IdUsuarioReceptor" ColumnName="IdUsuarioReceptor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdEstadoNotificacion" ColumnName="IdEstadoNotificacion" />
+                <ScalarProperty Name="IdTipoActividad" ColumnName="IdTipoActividad" />
+                <ScalarProperty Name="IdNotificacion" ColumnName="IdNotificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

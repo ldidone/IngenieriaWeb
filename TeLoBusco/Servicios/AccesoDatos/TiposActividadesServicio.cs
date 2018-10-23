@@ -7,34 +7,34 @@ using System.Threading.Tasks;
 
 namespace Servicios.AccesoDatos
 {
-    public class EstadosPedidoServicio
+    public class TiposActividadesServicio
     {
-        public static List<Estados_Pedidos> obtenerTodos()
-        {
-            using (TeloBuscoEntities db = new TeloBuscoEntities())
-            {
-                try
-                {
-                    return db.Estados_Pedidos.ToList();
-                }
-                catch(Exception ex)
-                {
-                    return null;
-                }
-            }
-        }
-
         public static int obtenerIdPorDescripcion(string descripcion)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
                 try
                 {
-                    return db.Estados_Pedidos.Where(x => x.Descripcion == descripcion).FirstOrDefault().IdEstado;
+                    return db.TiposActividades.Where(x => x.Descripcion == descripcion).FirstOrDefault().IdTipoActividad;
+                }
+                catch(Exception ex)
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public static string obtenerDescripcionPorId(int idTipoActividad)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.TiposActividades.Where(x => x.IdTipoActividad == idTipoActividad).FirstOrDefault().Descripcion;
                 }
                 catch (Exception ex)
                 {
-                    return 0;
+                    return null;
                 }
             }
         }

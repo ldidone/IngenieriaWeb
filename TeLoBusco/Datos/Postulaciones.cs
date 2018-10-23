@@ -12,18 +12,27 @@ namespace Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class Estados_Pedidos
+    public partial class Postulaciones
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Estados_Pedidos()
+        public Postulaciones()
         {
-            this.Pedidos = new HashSet<Pedidos>();
+            this.Notificaciones = new HashSet<Notificaciones>();
         }
     
-        public int IdEstado { get; set; }
-        public string Descripcion { get; set; }
+        public int IdPostulacion { get; set; }
+        public int IdTipoActividad { get; set; }
+        public int IdPedido { get; set; }
+        public string IdUsuarioPostulado { get; set; }
+        public int IdEstadoPostulacion { get; set; }
+        public double TiempoEstimado { get; set; }
+        public decimal Precio { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Estados Estados { get; set; }
+        public virtual Pedidos Pedidos { get; set; }
+        public virtual TiposActividades TiposActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedidos> Pedidos { get; set; }
+        public virtual ICollection<Notificaciones> Notificaciones { get; set; }
     }
 }

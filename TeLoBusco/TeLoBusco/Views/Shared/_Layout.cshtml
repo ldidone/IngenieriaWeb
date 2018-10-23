@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000" />
     <title>@ViewBag.Title - Wappo</title>
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
@@ -12,7 +13,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-custom navbar-margin-bottom">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark navbar-custom navbar-margin-bottom">
         <a class="navbar-brand navbar-title" href="/Home/Index">
             <img src="~/Images/logo.png" class="logo" width="92" height="52" alt="Logo">
             Wappo
@@ -21,36 +22,44 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse navbar-margin" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/Home/Index">Inicio</a>
-                </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pedidos<span class="sr-only">(current)</span></a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/Pedidos/Index">Inicio</a>
-                        <a class="dropdown-item" href="/Pedidos/Create">Nuevo pedido</a>
-                        <a class="dropdown-item" href="/Pedidos/PedidosCliente">Mis pedidos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Pedidos/Pedidos">Encontrar pedidos cercanos</a>
-                    </div>
-                </li>
-                @if (User.IsInRole("Administrador"))
-                {
+            @if (User.Identity.IsAuthenticated)
+            {
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Usuarios/Index">Administrar usuarios</a>
+                        <a class="nav-link" href="/Home/Index">Inicio</a>
                     </li>
-                }
-            </ul>
-            @Html.Partial("_LoginPartial")
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pedidos<span class="sr-only">(current)</span></a>
+                        <div class="dropdown-menu bg-black">
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/Index">Inicio</a>
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/Create">Nuevo pedido</a>
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosCliente">Mis pedidos</a>
+                            <div class="dropdown-divider bg-dark"></div>
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/Pedidos">Encontrar pedidos cercanos</a>
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosTodos">Todos los pedidos</a>
+                        </div>
+                    </li>
+                    <li id="Notifications" class="nav-item dropdown active">
+                        <a id="ViewNotifications" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Notificaciones <span id="NotificationCounter" class="badge badge-danger">0</span></a>
+                        <div id="NotificationList" class="dropdown-menu bg-black"></div>                       
+                    </li>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Usuarios/Index">Administrar usuarios</a>
+                        </li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            }
         </div>
     </nav>
 
     <div class="container body-content">
-        <div class="bodyPages">
+        <div class="bodyPages" style="margin-top:95px;">
             @RenderBody()
-        </div>         
-        <hr/>
+        </div>
+        <hr />
         <footer class="footerPrincipal">
             <label class="footerPrincipalAño">&copy; @DateTime.Now.Year - </label>
             <label class="wapoFooter">Wappo</label>
@@ -59,5 +68,48 @@
         @Scripts.Render("~/Scripts/js")
         @RenderSection("scripts", required: false)
     </div>
+    <!-- ACTUALIZAR NOTIFICACIÓN -->
+    <script type="text/javascript">
+        //Obtener notificaciones
+
+        $(document).ready(function () {           
+            $.get("/Notificaciones/ObtenerNotificacionesUsuario", function (data) {
+                var obj = JSON.parse(data);
+                //console.log(obj);
+                if (!(obj.Message == 'Nulo')) {
+                    var notificaciones = obj.Notificaciones;
+                    if (notificaciones.length > 0) {
+                        /*Agregar contador de notificaciones*/
+                        $("#NotificationCounter").html(notificaciones.length);
+
+                        /*Agregar notificaciones*/
+                        for (var i = 0; i < notificaciones.length; i++) {
+                            console.log(notificaciones[i]);
+                            //var idActividad = notificaciones[i].Postulaciones.IdPedido; //Pedido
+                            var idActividad = notificaciones[i].IdActividad;
+                            var idTipoActividad = notificaciones[i].IdTipoActividad;
+                            var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad;
+                            var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="' + url + '">' + notificaciones[i].Descripcion + '</a>'),
+                                nuevaNotificacion2 = document.createElement("a"),
+                                divPadre = document.getElementById("NotificationList");
+                            $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
+                        }                      
+                    } else {
+                        $("#NotificationCounter").css('display', 'none');
+                        var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="#">No hay notificaciones nuevas</a>'),
+                            nuevaNotificacion2 = document.createElement("a"),
+                            divPadre = document.getElementById("NotificationList");
+                        $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
+                    }                  
+                }            
+            }); 
+
+            /*Limpiar contador de notificaciones al hacerle clic*/
+            $("#ViewNotifications").click(function () {
+                $("#NotificationCounter").html(0);
+                $("#NotificationCounter").css('display', 'none');
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,180 @@
+﻿@using TeLoBusco.Models
+@model PostulacionesViewModel
+
+@{
+    ViewBag.Title = "Postularse";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @*<h4>¡Tu pedido no tarda en llegar!</h4>*@
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+
+                    <div class="col-md-8" style="margin:5px 0px;">
+                        <div class="card" style="min-height: 433px;">
+                            <div class="card-header">
+                                <h5>Postulación</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TiempoEstimado, new { @class = "col-md-12 control-label font-weight-bold" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.TiempoEstimado, new { Value = "", @class = "form-control", @placeholder = "Tiempo estimado" })
+                                        @Html.ValidationMessageFor(m => m.TiempoEstimado, "", new { @class = "text-danger" })
+                                        <label class="nota">(*) Coloque el tiempo estimado de la entrega. Tenga en cuenta que el cliente podrá ver este valor y lo evaluará en función al mismo.</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Precio, new { @class = "col-md-6 control-label font-weight-bold" })
+                                    <div class="col-md-10">
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" style="margin:0px 0px 5px 0px;" id="precioMinimo" value="Min. $@Model.precioMinimo" disabled>
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(m => m.Precio, new { Value = "", @class = "form-control", @placeholder = "Precio ($)", @style = "margin:0px 0px 5px 0px;" })
+                                                @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" id="precioMaximo" value="Máx. $@Model.precioMaximo" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- POLÍTICA DE PRECIOS -->
+                                <div class="container">
+                                    <div class="card">
+                                        <h6 id="PoliticaPrecios" class="card-header" data-toggle="collapse" data-target="#preciosDetalle">
+                                            Política de precios
+                                        </h6>
+                                        <div class="collapse" id="preciosDetalle">
+                                            <div class="card-body">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <!-- PRECIO TIPO 1 -->
+                                                        <div class="col-md-6">
+                                                            <div class="card border-success mb-3" style="max-width: 18rem;">
+                                                                <div class="card-header"><h5 class="text-success">Precio tipo 1</h5></div>
+                                                                <div class="card-body text-success">
+                                                                    <h5 class="card-title">Detalle del precio</h5>
+                                                                    <p class="card-text">Distancias entre <b>1 Km y 10 Km</b>. El precio puede ir desde los <b>$20</b> a los <b>$50</b>.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- PRECIO TIPO 2 -->
+                                                        <div class="col-md-6">
+                                                            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                                                                <div class="card-header"><h5 class="text-primary">Precio tipo 2</h5></div>
+                                                                <div class="card-body text-primary">
+                                                                    <h5 class="card-title">Detalle del precio</h5>
+                                                                    <p class="card-text">Distancias entre <b>10 Km y 20 Km</b>. El precio puede ir desde los <b>$50</b> a los <b>$100</b>.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!-- PRECIO TIPO 3 -->
+                                                        <div class="col-md-6">
+                                                            <div class="card border-info mb-3" style="max-width: 18rem;">
+                                                                <div class="card-header"><h5 class="text-info">Precio tipo 3</h5></div>
+                                                                <div class="card-body text-info">
+                                                                    <h5 class="card-title">Detalle del precio</h5>
+                                                                    <p class="card-text">Distancias entre <b>20 Km y 30 Km</b>. El precio puede ir desde los <b>$100</b> a los <b>$150</b>.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- PRECIO TIPO 4 -->
+                                                        <div class="col-md-6">
+                                                            <div class="card border-warning mb-3" style="max-width: 18rem;">
+                                                                <div class="card-header"><h5 class="text-warning">Precio tipo 4</h5></div>
+                                                                <div class="card-body text-warning">
+                                                                    <h5 class="card-title">Detalle del precio</h5>
+                                                                    <p class="card-text">Distancias entre <b>30 Km y 40 Km</b>. El precio puede ir desde los <b>$150</b> a los <b>$200</b>.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!-- PRECIO TIPO 5 -->
+                                                        <div class="col-md-12">
+                                                            <div class="card border-dark mb-12">
+                                                                <div class="card-header"><h5 class="text-dark">Precio tipo 5</h5></div>
+                                                                <div class="card-body text-dark">
+                                                                    <h5 class="card-title">Detalle del precio</h5>
+                                                                    <p class="card-text">Distancias entre <b>40 Km y 50 Km</b>. El precio puede ir desde los <b>$200</b> a los <b>$250</b>.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="margin:5px 0px;">
+                        <!-- DATOS DEL PEDIDO -->
+                        <div class="card" style="min-height: 433px;">
+                            <div class="card-header">
+                                <h5>Datos del pedido</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label><b>Cliente:</b> @Model.pedidoDetalles.NombreCliente</label>
+                                    <label><b>Descripción pedido:</b> @Model.pedidoDetalles.DescripcionPedido</label>
+                                    <label><b>Observaciones pedido:</b> @Model.pedidoDetalles.ObservacionesPedido</label>
+                                    <label><b>Dirección origen:</b> @Model.pedidoDetalles.DireccionOrigen</label>
+                                    <label><b>Dirección destino:</b> @Model.pedidoDetalles.DireccionDestino</label>
+                                    <label><b>Distancia entre el origen y el destino</b> (en línea recta): @Model.pedidoDetalles.Distancia Km.</label>
+                                    <label><b>Precio:</b> $@Math.Round(Model.pedidoDetalles.Precio, 2)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.HiddenFor(Model => Model.IdPedido)
+                @Html.HiddenFor(Model => Model.precioMinimo)
+                @Html.HiddenFor(Model => Model.precioMaximo)
+
+                <br />
+                <!-- BOTÓN PUBLICAR PEDIDO -->
+                <div class="row">
+                    <div class="form-group" style="margin-left: auto; margin-right: auto;">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="¡Postularse!" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+                @*<p>
+                @Html.ActionLink("Registrar como nuevo usuario", "Register")
+            </p>*@
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#PoliticaPrecios").mouseover(function () {
+                $(this).css("cursor", "pointer");
+            });
+        });
+    </script>
+}
+

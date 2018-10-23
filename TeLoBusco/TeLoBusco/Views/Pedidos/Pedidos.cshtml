@@ -1,13 +1,193 @@
-﻿@using Datos
-@model List<Pedidos>
-
+﻿
 @{
-    ViewBag.Title = "Pedidos";
+    ViewBag.Title = "Pedidos cercanos";
 }
 
 <h2>@ViewBag.Title</h2>
-<hr/>
-<div class="grillaPedidos">
-    @Html.Partial("_PedidosGrilla", Model)
+
+<!-- NAVEGADOR SOPORTADO-->
+<div id="navegadorSoportado" class="alert alert-success" role="alert">
+    ¡Tu navegador admite el posicionamiento!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
+<div id="navegadorNoSoportado" class="alert alert-danger" role="alert">
+    Tu navegador no admite el posicionamiento. Debido a esto tomaremos a tu posición como el centro de Rafaela.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<hr />
+<!-- DISTANCIA -->
+<div class="card">
+    <h5 id="DistanciaPedidos" class="card-header" data-toggle="collapse" data-target="#seleccionarDistancia">
+        Distancia de los pedidos.
+    </h5>
+    <div class="collapse" id="seleccionarDistancia">
+        <div class="card-body">
+            <label for="DistanciaSeleccionada">Seleccione la distancia</label>
+            <input type="range" class="custom-range" min="0" max="5" step="1" id="DistanciaSeleccionada" style="margin: 2px 20px 2px 5px;">
+            <label id="DistanciaSeleccionadaInfo">Distancia seleccionada: 5km </label>
+        </div>
+    </div>
+</div>
+
+<!-- MAPA -->
+<div id="map"></div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message");
+            });
+        </script>
+    }
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm9iOzpnEzKPKWmwKhPOVW811qMoxvZDM"></script>
+    <script src="~/Scripts/map.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*Mostrar seleccionador de distancia*/
+            $('#seleccionarDistancia').collapse();
+            $("#DistanciaPedidos").mouseover(function () {
+                $(this).css("cursor", "pointer");
+            });
+
+            /*Ocultamos los mensajes*/
+            $("#navegadorSoportado").hide();
+            $("#navegadorNoSoportado").hide();
+
+            /*TAMAÑO DEL MAPA*/
+            adaptarTamañoMapa();
+
+            /*ADAPTAR EL TAMAÑO DEL MAPA CUANDOCAMBIA LA RESOLUCIÓN*/
+            $(window).resize(function () {
+                adaptarTamañoMapa();
+            });
+
+            var admitePosicionamiento = false;
+            /* MENSAJES ADMISION DE GEOPOSICIONAMIENTO*/
+            if ("geolocation" in navigator) {
+                $("#navegadorSoportado").show();
+                $("#navegadorNoSoportado").hide();
+                admitePosicionamiento = true;
+            } else {
+                $("#navegadorSoportado").hide();
+                $("#navegadorNoSoportado").show();
+            }
+
+            /*FUNCIONES NECESARIAS PARA EL POSICIONAMIENTO */
+            /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+            var lat = -31.2531394;
+            var lng = -61.4937747;
+
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            /*Con inicializacion de mapa*/
+            function success1(pos) {
+                var crd = pos.coords;
+                lat = crd.latitude;
+                lng = crd.longitude;
+                initMap(15, lat, lng);
+            };
+
+            function error1(err) {
+                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+                lat = -31.2531394;
+                lng = -61.4937747;
+                initMap(15, lat, lng);
+            };
+
+            /*Sin inicializacion de mapa*/
+            function success(pos) {
+                var crd = pos.coords;
+                lat = crd.latitude;
+                lng = crd.longitude;
+            };
+
+            function error(err) {
+                /*POSICIÓN POR DEFECTO: PLAZA 25 DE MAYO */
+                lat = -31.2531394;
+                lng = -61.4937747;
+            };
+
+            /*INICIALIZAR EL MAPA*/
+            if (admitePosicionamiento) {
+                /*Actualiza la posición actual e inicializa el mapa*/
+                navigator.geolocation.getCurrentPosition(success1, error1, options);
+            } else {
+                initMap(15, -31.2531394, -61.4937747)
+            }
+
+            /*DISTANCIA*/
+            /*DISTANCIA INICIAL*/
+            $("#DistanciaSeleccionada").val(1);
+            var distancia = 10;
+            $("#DistanciaSeleccionadaInfo").html("Distancia seleccionada: <b>" + distancia + "</b> Km.");
+
+            /*DISTANCIA SELECCIONADA*/
+            $("#DistanciaSeleccionada").change(function () {
+                var valor = $("#DistanciaSeleccionada").val();
+
+                switch (valor) {
+                    case "0":
+                        initMap(16, lat, lng);
+                        distancia = 1;
+                        break;
+                    case "1":
+                        initMap(15, lat, lng);
+                        distancia = 10;
+                        break;
+                    case "2":
+                        initMap(12, lat, lng);
+                        distancia = 20;
+                        break;
+                    case "3":
+                        initMap(11, lat, lng);
+                        distancia = 30;
+                        break;
+                    case "4":
+                        initMap(10, lat, lng);
+                        distancia = 40;
+                        break;
+                    case "5":
+                        initMap(9, lat, lng);
+                        distancia = 50;
+                        break;
+                }
+                $("#DistanciaSeleccionadaInfo").html("Distancia seleccionada: <b>" + distancia + "</b> Km.");
+
+                posicionarPedidos();
+            });
+
+            /*OBTENER LA INFORMACIÓN Y LUEGO POSICIONAR LOS PEDIDOS */
+            function obtenerPedidos(lat, lng) {
+                $.get("/Pedidos/ObtenerPedidosCeranos?lat=" + lat + "&lng=" + lng + "&distancia=" + distancia, function (data) {
+                    var obj = JSON.parse(data);
+                    //console.log(obj);
+                    posicionarPedidosMapa(obj);
+                });
+            }
+
+            /* FUNCION PARA LOS PEDIDOS */
+            function posicionarPedidos() {
+                /*Actualiza la posición actual*/
+                navigator.geolocation.getCurrentPosition(success, error, options);
+
+                /*OBTIENE LA INFORMACIÓN NECESARIA Y POSICIONA EL PEDIDO*/
+                obtenerPedidos(lat, lng);
+            }
+
+            /* POSICIONAR LOS PEDIDOS */
+            posicionarPedidos();
+        });
+    </script>
+}
 
