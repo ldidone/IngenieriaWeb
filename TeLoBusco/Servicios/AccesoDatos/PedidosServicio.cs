@@ -226,8 +226,8 @@ namespace Servicios.AccesoDatos
             bool postulado = false;
             if (pedido.Postulaciones != null)
             {
-                postulado = pedido.Postulaciones.Count > 0 ? true : false;
-            }           
+                postulado = pedido.Postulaciones.Any(x => x.IdPedido == pedido.IdPedido && x.IdUsuarioPostulado == pedido.AspNetUsers.Id); //ver: No anda
+            }
             PedidoMapa pedidoDetalles = new PedidoMapa
             {
                 IdPedido = pedido.IdPedido,
@@ -244,6 +244,34 @@ namespace Servicios.AccesoDatos
             };
 
             return pedidoDetalles;
+        }
+
+        public static bool Editar(Pedido pedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    int idPedido = pedido.IdPedido;
+                    var pedidoBD = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
+                    pedidoBD.nro_calle_origen = pedido.NroCalleOrigen;
+                    pedidoBD.calle_origen = pedido.CalleOrigen;
+                    pedidoBD.id_localidad_origen = pedido.IdLocalidadOrigen;
+                    pedidoBD.nro_calle_destino = pedido.NroCalleDestino;
+                    pedidoBD.calle_destino = pedido.CalleDestino;
+                    pedidoBD.id_localidad_destino = pedido.IdLocalidadDestino;
+                    pedidoBD.precio_predido = pedido.PrecioPedido;
+                    pedidoBD.descripcion_pedido = pedido.Descripcion;
+                    pedidoBD.observaciones_pedido = pedido.Observaciones;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
         }
     }
 }

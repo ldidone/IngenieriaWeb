@@ -55,13 +55,13 @@ namespace Servicios.AccesoDatos
                     string idUsuarioReceptor = PedidosServicio.ObtenerIdDueñoPedido(postulacion.IdPedido);
                     string nombrePostulado = AspNetUsersServicio.ObtenerNombrePorId(postulacion.IdUsuarioPostulado);
                     nombrePostulado = nombrePostulado != null ? nombrePostulado : "";
-                    
+
                     Notificaciones notificacion = new Notificaciones()
                     {
                         IdTipoActividad = idTipoActividad,
                         IdEstadoNotificacion = idEstadoPostulacionNotificacion,
                         Descripcion = "Nueva postulación a su pedido: " + nombrePostulado,
-                        IdUsuarioReceptor = idUsuarioReceptor, 
+                        IdUsuarioReceptor = idUsuarioReceptor,
                         IdActividad = postulacionAlmacenar.IdPostulacion
                     };
 
@@ -70,9 +70,100 @@ namespace Servicios.AccesoDatos
 
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return false;
+                }
+            }
+        }
+
+        public static bool Aceptar(int idPostulacion)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    /*Cambiar el estado de la postulación a: Aceptado*/
+                    int idEstadoAceptado = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Aceptado");
+                    var postulacionAlmacenada = db.Postulaciones.Include("AspNetUsers")
+                                                                .Include("Estados")
+                                                                .Where(x => x.IdPostulacion == idPostulacion)
+                                                                .FirstOrDefault();
+                    postulacionAlmacenada.IdEstadoPostulacion = idEstadoAceptado;
+                    db.SaveChanges();
+
+                    /*Agregar notificacion de aceptado*/
+                    int idTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación Aceptada");
+                    int idEstadoPostulacionNotificacion = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("No vista");
+                    string idUsuarioReceptor = postulacionAlmacenada.IdUsuarioPostulado;
+                    int idActividad = postulacionAlmacenada.IdPostulacion;
+                    Notificaciones notificacion = new Notificaciones()
+                    {
+                        IdTipoActividad = idTipoActividad,
+                        IdEstadoNotificacion = idEstadoPostulacionNotificacion,
+                        Descripcion = "¡Postulación aceptada!",
+                        IdUsuarioReceptor = idUsuarioReceptor,
+                        IdActividad = idActividad
+                    };
+                    db.Notificaciones.Add(notificacion);
+                    db.SaveChanges();
+
+                    /*Agregar Delivery y precio al pedido*/
+                    int idPedido = postulacionAlmacenada.IdPedido;
+                    var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
+                    pedido.idDelivery = postulacionAlmacenada.IdUsuarioPostulado;
+                    pedido.precio_transporte = postulacionAlmacenada.Precio;
+                    db.SaveChanges();
+
+                    /*Cambiar el estado del resto de postulaciones a ese pedudo a: Rechazado*/
+                    int idEstadoRechazado = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Rechazado");
+                    var listaPostulaciones = db.Postulaciones.Include("AspNetUsers")
+                                                                .Include("Estados")
+                                                                .Where(x => x.IdPedido == idPedido && x.IdPostulacion != idPostulacion)
+                                                                .ToList();
+                    foreach (var postulacion in listaPostulaciones)
+                    {
+                        postulacion.IdEstadoPostulacion = idEstadoRechazado;
+                        db.SaveChanges();
+
+                        /*Agregar notificación de rechazado por cada pedido*/
+                        int idTipoActividadR = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación Rechazada");
+                        int idEstadoPostulacionNotificacionR = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("No vista");
+                        string idUsuarioReceptorR = postulacion.IdUsuarioPostulado;
+                        int idActividadR = postulacion.IdPostulacion;
+                        Notificaciones notificacionR = new Notificaciones()
+                        {
+                            IdTipoActividad = idTipoActividadR,
+                            IdEstadoNotificacion = idEstadoPostulacionNotificacionR,
+                            Descripcion = "Lo sentimos, su postulación ha sido rechazada.",
+                            IdUsuarioReceptor = idUsuarioReceptorR,
+                            IdActividad = idActividadR
+                        };
+                        db.Notificaciones.Add(notificacionR);
+                        db.SaveChanges();
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool? Postulado(int idPedido, string IdUsuario)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    var listaPostulaciones = db.Postulaciones.Where(x => x.IdPedido == idPedido);
+                    return listaPostulaciones.Any(x => x.IdUsuarioPostulado == IdUsuario);
+                }
+                catch(Exception ex)
+                {
+                    return null;
                 }
             }
         }

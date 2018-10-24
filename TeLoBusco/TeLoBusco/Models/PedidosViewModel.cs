@@ -8,6 +8,7 @@ namespace TeLoBusco.Models
 {
     public class PedidosViewModel
     {
+        public int IdPedido { get; set; }
         [Required]
         [Display(Name = "Nro. domicilio")]
         public int nroDirOrigen { get; set; }

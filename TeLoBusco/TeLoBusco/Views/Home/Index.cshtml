@@ -124,36 +124,46 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $.get("/Notificaciones/ObtenerNotificacionesUsuario", function (data) {
-                var obj = JSON.parse(data);
-                //console.log(obj);
-                if (!(obj.Message == 'Nulo')) {
-                    var notificaciones = obj.Notificaciones;
-                    if (notificaciones.length > 0) {
-                        /*Agregar contador de notificaciones*/
-                        $("#NotificationCounter").html(notificaciones.length);
+            /*Limpiar Notificaciones*/
+            $(".Notificacion").remove();
 
-                        /*Agregar notificaciones*/
-                        for (var i = 0; i < notificaciones.length; i++) {
-                            console.log(notificaciones[i]);
-                            //var idActividad = notificaciones[i].Postulaciones.IdPedido; //Pedido
-                            var idActividad = notificaciones[i].IdActividad;
-                            var idTipoActividad = notificaciones[i].IdTipoActividad;
-                            var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad;
-                            var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="' + url + '">' + notificaciones[i].Descripcion + '</a>'),
+            /*Obtener Notificaciones - No vistas*/
+            function actualizarNotificaciones() {
+                $.get("/Notificaciones/ObtenerNotificacionesUsuario", function (data) {
+                    var obj = JSON.parse(data);
+                    //console.log(obj);
+                    if (!(obj.Message == 'Nulo')) {
+                        var notificaciones = obj.Notificaciones;
+                        if (notificaciones.length > 0) {
+                            /*Agregar contador de notificaciones*/
+                            $("#NotificationCounter").html(notificaciones.length);
+
+                            /*Agregar notificaciones*/
+                            for (var i = 0; i < notificaciones.length; i++) {
+                                console.log(notificaciones[i]);
+                                //var idActividad = notificaciones[i].Postulaciones.IdPedido; //Pedido
+                                var idActividad = notificaciones[i].IdActividad;
+                                var idTipoActividad = notificaciones[i].IdTipoActividad;
+                                var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad;
+                                var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="' + url + '">' + notificaciones[i].Descripcion + '</a>'),
+                                    nuevaNotificacion2 = document.createElement("a"),
+                                    divPadre = document.getElementById("NotificationList");
+                                $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
+                            }
+                        } else {
+                            $("#NotificationCounter").css('display', 'none');
+                            var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal Notificacion" href="#">No hay notificaciones nuevas</a>'),
                                 nuevaNotificacion2 = document.createElement("a"),
                                 divPadre = document.getElementById("NotificationList");
                             $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
                         }
-                    } else {
-                        $("#NotificationCounter").css('display', 'none');
-                        var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="#">No hay notificaciones nuevas</a>'),
-                            nuevaNotificacion2 = document.createElement("a"),
-                            divPadre = document.getElementById("NotificationList");
-                        $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
                     }
-                }
-            });
+                });
+            }
+
+            //Actualizar notificaciones cada 5 segundos
+            //setInterval(actualizarNotificaciones, 5000);
+            actualizarNotificaciones();
 
             /*Limpiar contador de notificaciones al hacerle clic*/
             $("#ViewNotifications").click(function () {

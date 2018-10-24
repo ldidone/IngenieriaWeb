@@ -2,7 +2,7 @@
 @model PostulacionesViewModel
 
 @{
-    ViewBag.Title = "Notificación";
+    ViewBag.Title = "Postulación";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -56,6 +56,7 @@
                 @Html.HiddenFor(Model => Model.IdPedido)
                 @Html.HiddenFor(Model => Model.precioMinimo)
                 @Html.HiddenFor(Model => Model.precioMaximo)
+                @Html.HiddenFor(Model => Model.IdPostulacion)
 
                 <br />
                 <!-- BOTÓN PUBLICAR PEDIDO -->

@@ -19,6 +19,7 @@ namespace TeLoBusco.Models
         public decimal Precio { get; set; }
 
         public int IdPedido { get; set; }
+        public int IdPostulacion { get; set; }
 
         /*Datos otorgados*/
         public string IdPostulado { get; set; }

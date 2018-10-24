@@ -91,7 +91,7 @@ namespace TeLoBusco.Controllers
         public JObject ObtenerNotificacionesUsuario()
         {
             var userName = User.Identity.Name;
-            var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);           
+            var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
             if (IdCliente != null)
             {
                 var listaNotificaciones = Servicios.AccesoDatos.NotificacionesServicio.ObtenerNotificacionesUsuario(IdCliente);
@@ -106,44 +106,34 @@ namespace TeLoBusco.Controllers
             return new JObject(o);
         }
 
+        //Postulacion
         public ActionResult Notificacion(int idActividad, int idTipoActividad)
         {
-            //Momentaneamente va a funcionar solo con "Postulaciones" ya que idActividadSera una postulacion->Postulaciones vinculado con pedidos por clave foránea
             string tipoActividad = Servicios.AccesoDatos.TiposActividadesServicio.obtenerDescripcionPorId(idTipoActividad);
-            Datos.Postulaciones postulacion = new Datos.Postulaciones();
             switch (tipoActividad)
             {
                 case "Pedido":
-                    //Logica necesaria
-                    break;
+                    /*Redireccionar a donde corresponda*/
+                    return RedirectToAction("Index", "Pedidos");
                 case "Mensaje":
-                    //Logica necesaria
-                    break;
+                    /*Redireccionar a donde corresponda*/
+                    return RedirectToAction("Index", "Pedidos");
                 case "Valoración":
-                    //Logica necesaria
-                    break;
+                    /*Redireccionar a donde corresponda*/
+                    return RedirectToAction("Index", "Pedidos");
                 case "Denuncia":
-                    //Logica necesaria
-                    break;
+                    /*Redireccionar a donde corresponda*/
+                    return RedirectToAction("Index", "Pedidos");
                 case "Postulación":
-                    postulacion = Servicios.AccesoDatos.PostulacionesServicio.Obtener(idActividad);
-                    break;
+                    /*Redireccionar a donde corresponda*/
+                    return RedirectToAction("Postulacion", "Postulaciones", routeValues: new { idPostulacion = idActividad } );
+                case "Postulación Aceptada":
+                    return RedirectToAction("PostulacionAceptada", "Postulaciones");
+                case "Postulación Rechazada":
+                    return RedirectToAction("PostulacionAceptada", "Postulaciones");
+                default:
+                    return RedirectToAction("Index", "Pedidos");
             }
-
-            /*Obtiene el pedido de la base de datos y lo transforma en un objeto de la clase necesaria (PedidoMapa)*/
-            var pedidoDetalles = Servicios.AccesoDatos.PedidosServicio.ConvertirPedidoAPedidoMapa(Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido));
-
-            PostulacionesViewModel postulacionesViewModel = new PostulacionesViewModel()
-            {
-                TiempoEstimado = postulacion.TiempoEstimado,
-                Precio = postulacion.Precio,
-                IdPedido = postulacion.IdPedido,
-                pedidoDetalles = pedidoDetalles,
-                IdPostulado = postulacion.IdUsuarioPostulado,
-                PostuladoNombreApellido = postulacion.AspNetUsers.NombreApellido 
-            };
-
-            return View(postulacionesViewModel);
         }
     }
 }

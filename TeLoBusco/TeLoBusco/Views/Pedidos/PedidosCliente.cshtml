@@ -11,3 +11,18 @@
     @Html.Partial("_PedidosClienteGrilla", Model)
 </div>
 
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message");
+            });
+        </script>
+    }
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+            });
+        </script>*@
+}

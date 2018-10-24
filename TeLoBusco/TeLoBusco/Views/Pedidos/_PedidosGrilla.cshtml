@@ -38,7 +38,7 @@
             <a href="@Url.Action("Edit", new { id = pedido.IdPedido })">Modificar</a>
             <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>
         </td>*@
-            @if (pedido.Postulaciones.Count() > 0)
+            @if (pedido.Postulaciones.Any(x => x.IdPedido == pedido.IdPedido && x.IdUsuarioPostulado == pedido.AspNetUsers.Id))
             {
                 <td>Postulado</td>
             }

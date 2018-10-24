@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
+    <Compile Include="Controllers\PostulacionesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -355,7 +356,10 @@
     <Content Include="Views\Pedidos\Postularse.cshtml" />
     <Content Include="Views\Pedidos\PedidosTodos.cshtml" />
     <Content Include="Views\Notificaciones\Index.cshtml" />
-    <Content Include="Views\Notificaciones\Notificacion.cshtml" />
+    <Content Include="Views\Postulaciones\Postulacion.cshtml" />
+    <Content Include="Views\Postulaciones\PostulacionAceptada.cshtml" />
+    <Content Include="Views\Postulaciones\PostulacionRechazada.cshtml" />
+    <Content Include="Views\Pedidos\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

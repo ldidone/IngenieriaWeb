@@ -54,6 +54,7 @@ namespace TeLoBusco.Controllers
 
         public ActionResult PedidosCliente()
         {
+            ViewBag.Message = TempData["Message"];
             var userName = User.Identity.Name;
             var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
             var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidosCliente(IdCliente);
@@ -118,18 +119,52 @@ namespace TeLoBusco.Controllers
         // GET: Pedidos/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.Localidades = new SelectList(Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas(), "idLocalidad", "Nombre");
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
+            PedidosViewModel pedidoVIewModel = new PedidosViewModel()
+            {
+                IdPedido = pedido.IdPedido,
+                nroDirOrigen = pedido.nro_calle_origen,
+                calleOrigen = pedido.calle_origen,
+                idLocalidadOrigen = pedido.id_localidad_origen,
+                nroDirDestino = pedido.nro_calle_destino,
+                calleDestino = pedido.calle_destino,
+                idLocalidadDestino = pedido.id_localidad_destino,
+                precioPedido = pedido.precio_predido,
+                Descripcion = pedido.descripcion_pedido,
+                Observaciones = pedido.observaciones_pedido
+            };
+            return View(pedidoVIewModel);
         }
 
         // POST: Pedidos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(PedidosViewModel pedidoViewModel)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                Pedido pedido = new Pedido()
+                {
+                    IdPedido = pedidoViewModel.IdPedido,
+                    NroCalleOrigen = pedidoViewModel.nroDirOrigen,
+                    CalleOrigen = pedidoViewModel.calleOrigen,
+                    IdLocalidadOrigen = pedidoViewModel.idLocalidadOrigen,
+                    NroCalleDestino = pedidoViewModel.nroDirDestino,
+                    CalleDestino = pedidoViewModel.calleDestino,
+                    IdLocalidadDestino = pedidoViewModel.idLocalidadDestino,
+                    PrecioPedido = pedidoViewModel.precioPedido,
+                    Descripcion = pedidoViewModel.Descripcion,
+                    Observaciones = pedidoViewModel.Observaciones
+                };
+                if (Servicios.AccesoDatos.PedidosServicio.Editar(pedido))
+                {
+                    TempData["Message"] = "El pedido se editó correctamente";
+                }
+                else
+                {
+                    TempData["Message"] = "El pedido no se pudo editar";
+                }               
+                return RedirectToAction("PedidosCliente");
             }
             catch
             {
@@ -198,12 +233,13 @@ namespace TeLoBusco.Controllers
                     bool precioValido = Servicios.AccesoDatos.PedidosServicio.ValidarPrecio(postulacion.precioMinimo, postulacion.Precio, postulacion.precioMaximo);
                     if (precioValido)
                     {
+                        var userName = User.Identity.Name;
+                        var IdUsuarioPostulado = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
 
-                        bool Postulado = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).Postulaciones.Count() > 0;
-                        if(!Postulado)
+                        bool? Postulado = Servicios.AccesoDatos.PostulacionesServicio.Postulado(postulacion.IdPedido, IdUsuarioPostulado);                       
+                        if(Postulado == false)
                         {
-                            var userName = User.Identity.Name;
-                            var IdUsuarioPostulado = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+                            
                             var idDueñoPedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido).idCliente;
                             if (IdUsuarioPostulado != idDueñoPedido)
                             {
@@ -229,9 +265,13 @@ namespace TeLoBusco.Controllers
                                 TempData["Message"] = "El cliente y el delivery no pueden ser la misma persona";
                             }
                         }
-                        else
+                        else if (Postulado == true)
                         {
                             TempData["Message"] = "Ya se encuentra postulado. No es posible postularse más de una vez al mismo pedido.";
+                        }
+                        else
+                        {
+                            TempData["Message"] = "No ha sido posible efectuar la postulación. Vuelva a intentar más tarde.";
                         }
                         return RedirectToAction("Pedidos"); //Redireccionar a vista de pedidos cercanos                  
                     }
