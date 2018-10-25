@@ -34,7 +34,7 @@ namespace Servicios.AccesoDatos
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
                 try
-                {
+                {   
                     int idTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación");
                     int idEstadoPostulacion = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Postulado");
                     Postulaciones postulacionAlmacenar = new Postulaciones
@@ -82,7 +82,7 @@ namespace Servicios.AccesoDatos
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
                 try
-                {
+                {       
                     /*Cambiar el estado de la postulación a: Aceptado*/
                     int idEstadoAceptado = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Aceptado");
                     var postulacionAlmacenada = db.Postulaciones.Include("AspNetUsers")

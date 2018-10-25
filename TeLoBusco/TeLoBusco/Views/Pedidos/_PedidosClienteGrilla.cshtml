@@ -35,6 +35,7 @@
                 <td class="celdaBotones">
                     <a href="@Url.Action("Edit", new { id = pedido.IdPedido })">Modificar</a>
                     <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>
+                    <a href="@Url.Action("Valorar", new { id = pedido.IdPedido })">Finalizar</a>
                 </td>
                 <td>@pedido.calle_origen @pedido.nro_calle_origen, @pedido.Localidades.Nombre</td>
                 <td>@pedido.calle_destino @pedido.nro_calle_destino, @pedido.Localidades1.Nombre</td>

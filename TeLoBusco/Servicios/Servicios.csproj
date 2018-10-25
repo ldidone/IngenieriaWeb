@@ -56,6 +56,7 @@
     <Compile Include="AccesoDatos\PedidosServicio.cs" />
     <Compile Include="AccesoDatos\PostulacionesServicio.cs" />
     <Compile Include="AccesoDatos\TiposActividadesServicio.cs" />
+    <Compile Include="AccesoDatos\ValoracionesServicios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccesoDatos\AspNetRolesServicio.cs" />
     <Compile Include="AccesoDatos\AspNetUsersServicio.cs" />

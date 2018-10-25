@@ -93,7 +93,7 @@ namespace TeLoBusco.Controllers
 
             /*Obtiene el pedido de la base de datos y lo transforma en un objeto de la clase necesaria (PedidoMapa)*/
             var pedidoDetalles = Servicios.AccesoDatos.PedidosServicio.ConvertirPedidoAPedidoMapa(Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(postulacion.IdPedido));
-
+            var valoracion = Servicios.AccesoDatos.ValoracionesServicios.ObtenerPuntaje(postulacion.IdUsuarioPostulado);
             PostulacionesViewModel postulacionesViewModel = new PostulacionesViewModel()
             {
                 TiempoEstimado = postulacion.TiempoEstimado,
@@ -102,7 +102,8 @@ namespace TeLoBusco.Controllers
                 IdPostulacion = postulacion.IdPostulacion,
                 pedidoDetalles = pedidoDetalles,
                 IdPostulado = postulacion.IdUsuarioPostulado,
-                PostuladoNombreApellido = postulacion.AspNetUsers.NombreApellido
+                PostuladoNombreApellido = postulacion.AspNetUsers.NombreApellido,
+                ValoracionDelivery = valoracion
             };
 
             return View(postulacionesViewModel);
