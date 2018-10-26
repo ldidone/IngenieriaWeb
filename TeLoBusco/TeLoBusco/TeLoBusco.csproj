@@ -208,6 +208,7 @@
     <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\PostulacionesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ValoracionesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +219,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PedidosViewModel.cs" />
     <Compile Include="Models\PostulacionesViewModel.cs" />
+    <Compile Include="Models\ValoracionesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -290,6 +292,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\rating.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sweetalert.js" />
@@ -360,10 +363,12 @@
     <Content Include="Views\Postulaciones\PostulacionAceptada.cshtml" />
     <Content Include="Views\Postulaciones\PostulacionRechazada.cshtml" />
     <Content Include="Views\Pedidos\Edit.cshtml" />
+    <Content Include="Views\Pedidos\Valorar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="SendGrid\" />
+    <Folder Include="Views\Valraciones\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

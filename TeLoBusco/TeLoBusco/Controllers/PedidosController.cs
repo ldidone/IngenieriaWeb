@@ -36,7 +36,7 @@ namespace TeLoBusco.Controllers
         public JObject ObtenerPedidosCeranos(double lat, double lng, int distancia)
         {
             Utilidades.ClasesAuxiliares.Coordenada posicionUsuario = new Utilidades.ClasesAuxiliares.Coordenada();
-            if (lat != 0 && lng!= 0)
+            if (lat != 0 && lng != 0)
             {
                 posicionUsuario.lat = lat;
                 posicionUsuario.lng = lng;
@@ -64,7 +64,7 @@ namespace TeLoBusco.Controllers
         // GET: Pedidos/Create
         public ActionResult Create()
         {
-            ViewBag.Localidades = new SelectList(Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas(), "idLocalidad", "Nombre");       
+            ViewBag.Localidades = new SelectList(Servicios.AccesoDatos.LocalidadesServicio.obtenerTodas(), "idLocalidad", "Nombre");
             return View();
         }
 
@@ -136,7 +136,52 @@ namespace TeLoBusco.Controllers
             };
             return View(pedidoVIewModel);
         }
+        //GET
+        [HttpGet]
+        public ActionResult Valorar(int id)
+        {
+            
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
+            ValoracionesViewModel model = new ValoracionesViewModel
+            {
+                IdValoracion = 1,
+                IdCliente = pedido.idCliente,
+                IdDelivery = pedido.idDelivery,
+                IdPedido = pedido.IdPedido
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Valorar(ValoracionesViewModel valoracion)
+        {
+            try
+            {
+                var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(valoracion.IdPedido);
+                Valoracion val = new Valoracion
+                {
+                    IdCliente = pedido.idCliente,
+                    IdDelivery = pedido.idDelivery,
+                    Puntuacion = valoracion.Puntuacion,
+                    Comentario = valoracion.Comentario,
+                    IdPedido = valoracion.IdPedido
+                };
+                if (Servicios.AccesoDatos.ValoracionesServicios.Crear(val))
+                {
+                    TempData["Message"] = "Gracias por tu colaboracion!";
+                }
+                else
+                {
+                    TempData["Message"] = "Ups";
+                };
+                return RedirectToAction("PedidosCliente");
+            }
+            catch
+            {
 
+            }
+            return View();
+
+        }
         // POST: Pedidos/Edit/5
         [HttpPost]
         public ActionResult Edit(PedidosViewModel pedidoViewModel)
@@ -158,7 +203,7 @@ namespace TeLoBusco.Controllers
                 };
                 if (Servicios.AccesoDatos.PedidosServicio.Editar(pedido))
                 {
-                    TempData["Message"] = "El pedido se editó correctamente";
+                    
                 }
                 else
                 {
