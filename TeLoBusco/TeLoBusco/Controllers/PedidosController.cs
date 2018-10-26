@@ -142,14 +142,24 @@ namespace TeLoBusco.Controllers
         {
             
             var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
-            ValoracionesViewModel model = new ValoracionesViewModel
+            if (pedido.idDelivery != null)
             {
-                IdValoracion = 1,
-                IdCliente = pedido.idCliente,
-                IdDelivery = pedido.idDelivery,
-                IdPedido = pedido.IdPedido
-            };
-            return View(model);
+                ViewBag.Delivery = true;
+                ValoracionesViewModel model = new ValoracionesViewModel
+                {
+                    IdValoracion = 1,
+                    IdCliente = pedido.idCliente,
+                    IdDelivery = pedido.idDelivery,
+                    IdPedido = pedido.IdPedido
+                };
+                return View(model);
+            }
+            else
+            {
+                ViewBag.Delivery = false;
+                return View();
+            }
+            
         }
         [HttpPost]
         public ActionResult Valorar(ValoracionesViewModel valoracion)

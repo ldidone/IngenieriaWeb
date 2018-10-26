@@ -162,7 +162,7 @@
           <Key>
             <PropertyRef Name="IdValoracion" />
           </Key>
-          <Property Name="IdValoracion" Type="int" Nullable="false" />
+          <Property Name="IdValoracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCliente" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdDelivery" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Valoracion" Type="int" Nullable="false" />
@@ -777,7 +777,7 @@
           <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
           <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
           <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Localidades">
           <Key>
             <PropertyRef Name="idLocalidad" />
@@ -1152,7 +1152,7 @@
           <Key>
             <PropertyRef Name="IdValoracion" />
           </Key>
-          <Property Name="IdValoracion" Type="Int32" Nullable="false" />
+          <Property Name="IdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdDelivery" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Valoracion" Type="Int32" Nullable="false" />

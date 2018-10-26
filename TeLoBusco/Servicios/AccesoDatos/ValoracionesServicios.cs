@@ -18,11 +18,11 @@ namespace Servicios.AccesoDatos
                 {
                     Valoraciones val = new Valoraciones
                     {
-                        IdValoracion = valoracion.IdValoracion,
                         IdCliente = valoracion.IdCliente,
                         IdDelivery = valoracion.IdDelivery,
                         Valoracion = valoracion.Puntuacion,
-                        Comentario = valoracion.Comentario
+                        Comentario = valoracion.Comentario,
+                        IdPedido = valoracion.IdPedido
                     };
                     db.Valoraciones.Add(val);
                     db.SaveChanges();
@@ -30,7 +30,7 @@ namespace Servicios.AccesoDatos
                     return true;
 
                 }
-                catch
+                catch(Exception ex)
                 {
                     return false;
                 }
