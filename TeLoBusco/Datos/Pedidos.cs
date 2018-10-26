@@ -40,6 +40,8 @@ namespace Datos
         public Nullable<double> lng_origen { get; set; }
         public Nullable<double> lat_destino { get; set; }
         public Nullable<double> lng_destino { get; set; }
+        public bool finalizado_cliente { get; set; }
+        public bool finalizado_delivery { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

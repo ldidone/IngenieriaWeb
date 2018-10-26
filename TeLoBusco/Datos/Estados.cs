@@ -17,9 +17,9 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estados()
         {
-            this.Pedidos = new HashSet<Pedidos>();
             this.Postulaciones = new HashSet<Postulaciones>();
             this.Notificaciones = new HashSet<Notificaciones>();
+            this.Pedidos = new HashSet<Pedidos>();
         }
     
         public int IdEstado { get; set; }
@@ -28,10 +28,10 @@ namespace Datos
     
         public virtual TiposActividades TiposActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedidos> Pedidos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Postulaciones> Postulaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notificaciones> Notificaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedidos> Pedidos { get; set; }
     }
 }

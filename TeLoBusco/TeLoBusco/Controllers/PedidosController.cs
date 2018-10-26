@@ -177,11 +177,11 @@ namespace TeLoBusco.Controllers
                 };
                 if (Servicios.AccesoDatos.ValoracionesServicios.Crear(val))
                 {
-                    TempData["Message"] = "Gracias por tu colaboracion!";
+                    TempData["Message"] = "¡Gracias por tu colaboración!";
                 }
                 else
                 {
-                    TempData["Message"] = "Ups";
+                    TempData["Message"] = "Ups. Tu pedido no pudo ser finalizado.";
                 };
                 return RedirectToAction("PedidosCliente");
             }

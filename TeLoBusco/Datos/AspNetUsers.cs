@@ -22,12 +22,12 @@ namespace Datos
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.Actividades = new HashSet<Actividades>();
             this.Actividades1 = new HashSet<Actividades>();
-            this.Pedidos = new HashSet<Pedidos>();
-            this.Pedidos1 = new HashSet<Pedidos>();
             this.Postulaciones = new HashSet<Postulaciones>();
             this.Notificaciones = new HashSet<Notificaciones>();
             this.Valoraciones = new HashSet<Valoraciones>();
             this.Valoraciones1 = new HashSet<Valoraciones>();
+            this.Pedidos = new HashSet<Pedidos>();
+            this.Pedidos1 = new HashSet<Pedidos>();
         }
     
         public string Id { get; set; }
@@ -55,10 +55,6 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actividades> Actividades1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedidos> Pedidos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedidos> Pedidos1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Postulaciones> Postulaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notificaciones> Notificaciones { get; set; }
@@ -66,5 +62,9 @@ namespace Datos
         public virtual ICollection<Valoraciones> Valoraciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Valoraciones> Valoraciones1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedidos> Pedidos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedidos> Pedidos1 { get; set; }
     }
 }

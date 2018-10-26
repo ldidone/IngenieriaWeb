@@ -16,6 +16,7 @@
             <th>Estado</th>
             <th>Precio pedido</th>
             <th>Precio transporte</th>
+            <th>Finalizar</th>
         </tr>
     </thead>
     <tfoot>
@@ -26,6 +27,7 @@
             <th>Estado</th>
             <th>Precio pedido</th>
             <th>Precio transporte</th>
+            <th>Finalizar</th>
         </tr>
     </tfoot>
     <tbody>
@@ -34,8 +36,7 @@
             <tr>
                 <td class="celdaBotones">
                     <a href="@Url.Action("Edit", new { id = pedido.IdPedido })">Modificar</a>
-                    <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>
-                    <a href="@Url.Action("Valorar", new { id = pedido.IdPedido })">Finalizar</a>
+                    <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>      
                 </td>
                 <td>@pedido.calle_origen @pedido.nro_calle_origen, @pedido.Localidades.Nombre</td>
                 <td>@pedido.calle_destino @pedido.nro_calle_destino, @pedido.Localidades1.Nombre</td>
@@ -49,6 +50,9 @@
                 {
                     <td>No disponible</td>
                 }
+                <td class="celdaBotones">
+                    <a href="@Url.Action("Valorar", new { id = pedido.IdPedido })">Finalizar</a>
+                </td>
             </tr>
         }
     </tbody>
