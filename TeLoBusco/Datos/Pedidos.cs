@@ -18,6 +18,7 @@ namespace Datos
         public Pedidos()
         {
             this.Postulaciones = new HashSet<Postulaciones>();
+            this.Valoraciones = new HashSet<Valoraciones>();
         }
     
         public int IdPedido { get; set; }
@@ -48,5 +49,7 @@ namespace Datos
         public virtual TiposActividades TiposActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Postulaciones> Postulaciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Valoraciones> Valoraciones { get; set; }
     }
 }

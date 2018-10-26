@@ -5,62 +5,43 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TeloBuscoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.__MigrationHistory' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
-            
-            
           </Key>
           <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Actividades' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Actividades">
           <Key>
             <PropertyRef Name="IdActividad" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="IdActividad" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTipoActividad" Type="int" Nullable="false" />
           <Property Name="IdEstadoActividad" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="IdUsuarioEmisor" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdUsuarioReceptor" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetRoles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
-            
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUserClaims' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AspNetUserClaims">
           <Key>
             <PropertyRef Name="Id" />
-            
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ClaimType" Type="nvarchar(max)" />
           <Property Name="ClaimValue" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUserLogins' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AspNetUserLogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
@@ -71,8 +52,6 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUserLogins' no tiene definida
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUserRoles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AspNetUserRoles">
           <Key>
             <PropertyRef Name="UserId" />
@@ -81,18 +60,9 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUserRoles' no tiene definida 
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUsers' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
@@ -108,66 +78,38 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.AspNetUsers' no tiene definida ning
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NombreApellido" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Estados' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Estados">
           <Key>
             <PropertyRef Name="IdEstado" />
-            
-            
           </Key>
-          <Property Name="IdEstado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IdTipoActividad" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Localidades' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Localidades">
           <Key>
             <PropertyRef Name="idLocalidad" />
-            
-            
           </Key>
-          <Property Name="idLocalidad" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idLocalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cod_Postal" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Notificaciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Notificaciones">
           <Key>
             <PropertyRef Name="IdNotificacion" />
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="IdNotificacion" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdNotificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTipoActividad" Type="int" Nullable="false" />
           <Property Name="IdEstadoNotificacion" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="IdUsuarioReceptor" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdActividad" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Pedidos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Pedidos">
           <Key>
             <PropertyRef Name="IdPedido" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="IdPedido" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idCliente" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="idDelivery" Type="nvarchar" MaxLength="128" />
           <Property Name="nro_calle_origen" Type="int" Nullable="false" />
@@ -187,19 +129,11 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.Pedidos' no tiene definida ninguna 
           <Property Name="lat_destino" Type="float" />
           <Property Name="lng_destino" Type="float" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.Postulaciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Postulaciones">
           <Key>
             <PropertyRef Name="IdPostulacion" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="IdPostulacion" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdPostulacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTipoActividad" Type="int" Nullable="false" />
           <Property Name="IdPedido" Type="int" Nullable="false" />
           <Property Name="IdUsuarioPostulado" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -207,12 +141,8 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.Postulaciones' no tiene definida ni
           <Property Name="TiempoEstimado" Type="float" Nullable="false" />
           <Property Name="Precio" Type="money" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.sysdiagrams' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="sysdiagrams">
           <Key>
-            
-            
             <PropertyRef Name="diagram_id" />
           </Key>
           <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -221,164 +151,448 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.sysdiagrams' no tiene definida ning
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="TiposActividades">
           <Key>
             <PropertyRef Name="IdTipoActividad" />
-            
           </Key>
-          <Property Name="IdTipoActividad" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Valoraciones">
           <Key>
             <PropertyRef Name="IdValoracion" />
           </Key>
-          <Property Name="IdValoracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdValoracion" Type="int" Nullable="false" />
           <Property Name="IdCliente" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdDelivery" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Valoracion" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Comentario" Type="nvarchar" MaxLength="200" />
+          <Property Name="Valoracion" Type="int" Nullable="false" />
           <Property Name="IdPedido" Type="int" Nullable="false" />
+          <Property Name="Comentario" Type="varchar" MaxLength="200" />
         </EntityType>
+        <Association Name="FK_Actividades_AspNetUsers_Emisor">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_AspNetUsers_Receptor">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Actividades" Type="Self.Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estados_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Estados" Type="Self.Estados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Estados">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdEstadoNotificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_Postulaciones">
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postulaciones">
+              <PropertyRef Name="IdPostulacion" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Notificaciones" Type="Self.Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_AspNetUsersDelivery">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="idDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_Localidades">
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidades">
+              <PropertyRef Name="idLocalidad" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="id_localidad_origen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_Localidades_Destino">
+          <End Role="Localidades" Type="Self.Localidades" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidades">
+              <PropertyRef Name="idLocalidad" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="id_localidad_destino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdUsuarioPostulado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Estados">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdEstadoPostulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_Pedidos">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_TiposActividades">
+          <End Role="TiposActividades" Type="Self.TiposActividades" Multiplicity="1" />
+          <End Role="Postulaciones" Type="Self.Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposActividades">
+              <PropertyRef Name="IdTipoActividad" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdTipoActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Cliente">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Valoraciones" Type="Self.Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Delivery">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Valoraciones" Type="Self.Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Pedidos">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Valoraciones" Type="Self.Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TeloBuscoModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Actividades" EntityType="Self.Actividades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postulaciones" EntityType="Self.Postulaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposActividades" EntityType="Self.TiposActividades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Valoraciones" EntityType="Self.Valoraciones" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [__MigrationHistory].[MigrationId] AS [MigrationId], 
-    [__MigrationHistory].[ContextKey] AS [ContextKey], 
-    [__MigrationHistory].[Model] AS [Model], 
-    [__MigrationHistory].[ProductVersion] AS [ProductVersion]
-    FROM [dbo].[__MigrationHistory] AS [__MigrationHistory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Actividades" EntityType="Self.Actividades" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Actividades].[IdActividad] AS [IdActividad], 
-    [Actividades].[IdTipoActividad] AS [IdTipoActividad], 
-    [Actividades].[IdEstadoActividad] AS [IdEstadoActividad], 
-    [Actividades].[Descripcion] AS [Descripcion], 
-    [Actividades].[IdUsuarioEmisor] AS [IdUsuarioEmisor], 
-    [Actividades].[IdUsuarioReceptor] AS [IdUsuarioReceptor]
-    FROM [dbo].[Actividades] AS [Actividades]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetRoles].[Id] AS [Id], 
-    [AspNetRoles].[Name] AS [Name]
-    FROM [dbo].[AspNetRoles] AS [AspNetRoles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetUserClaims].[Id] AS [Id], 
-    [AspNetUserClaims].[UserId] AS [UserId], 
-    [AspNetUserClaims].[ClaimType] AS [ClaimType], 
-    [AspNetUserClaims].[ClaimValue] AS [ClaimValue]
-    FROM [dbo].[AspNetUserClaims] AS [AspNetUserClaims]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetUserLogins].[LoginProvider] AS [LoginProvider], 
-    [AspNetUserLogins].[ProviderKey] AS [ProviderKey], 
-    [AspNetUserLogins].[UserId] AS [UserId]
-    FROM [dbo].[AspNetUserLogins] AS [AspNetUserLogins]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetUserRoles].[UserId] AS [UserId], 
-    [AspNetUserRoles].[RoleId] AS [RoleId]
-    FROM [dbo].[AspNetUserRoles] AS [AspNetUserRoles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetUsers].[Id] AS [Id], 
-    [AspNetUsers].[Email] AS [Email], 
-    [AspNetUsers].[EmailConfirmed] AS [EmailConfirmed], 
-    [AspNetUsers].[PasswordHash] AS [PasswordHash], 
-    [AspNetUsers].[SecurityStamp] AS [SecurityStamp], 
-    [AspNetUsers].[PhoneNumber] AS [PhoneNumber], 
-    [AspNetUsers].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
-    [AspNetUsers].[TwoFactorEnabled] AS [TwoFactorEnabled], 
-    [AspNetUsers].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
-    [AspNetUsers].[LockoutEnabled] AS [LockoutEnabled], 
-    [AspNetUsers].[AccessFailedCount] AS [AccessFailedCount], 
-    [AspNetUsers].[UserName] AS [UserName], 
-    [AspNetUsers].[NombreApellido] AS [NombreApellido]
-    FROM [dbo].[AspNetUsers] AS [AspNetUsers]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Estados" EntityType="Self.Estados" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Estados].[IdEstado] AS [IdEstado], 
-    [Estados].[Descripcion] AS [Descripcion], 
-    [Estados].[IdTipoActividad] AS [IdTipoActividad]
-    FROM [dbo].[Estados] AS [Estados]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Localidades" EntityType="Self.Localidades" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Localidades].[idLocalidad] AS [idLocalidad], 
-    [Localidades].[Cod_Postal] AS [Cod_Postal], 
-    [Localidades].[Nombre] AS [Nombre]
-    FROM [dbo].[Localidades] AS [Localidades]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Notificaciones].[IdNotificacion] AS [IdNotificacion], 
-    [Notificaciones].[IdTipoActividad] AS [IdTipoActividad], 
-    [Notificaciones].[IdEstadoNotificacion] AS [IdEstadoNotificacion], 
-    [Notificaciones].[Descripcion] AS [Descripcion], 
-    [Notificaciones].[IdUsuarioReceptor] AS [IdUsuarioReceptor], 
-    [Notificaciones].[IdActividad] AS [IdActividad]
-    FROM [dbo].[Notificaciones] AS [Notificaciones]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Pedidos].[IdPedido] AS [IdPedido], 
-    [Pedidos].[idCliente] AS [idCliente], 
-    [Pedidos].[idDelivery] AS [idDelivery], 
-    [Pedidos].[nro_calle_origen] AS [nro_calle_origen], 
-    [Pedidos].[calle_origen] AS [calle_origen], 
-    [Pedidos].[id_localidad_origen] AS [id_localidad_origen], 
-    [Pedidos].[nro_calle_destino] AS [nro_calle_destino], 
-    [Pedidos].[calle_destino] AS [calle_destino], 
-    [Pedidos].[id_localidad_destino] AS [id_localidad_destino], 
-    [Pedidos].[precio_predido] AS [precio_predido], 
-    [Pedidos].[precio_transporte] AS [precio_transporte], 
-    [Pedidos].[id_estado] AS [id_estado], 
-    [Pedidos].[descripcion_pedido] AS [descripcion_pedido], 
-    [Pedidos].[observaciones_pedido] AS [observaciones_pedido], 
-    [Pedidos].[IdTipoActividad] AS [IdTipoActividad], 
-    [Pedidos].[lat_origen] AS [lat_origen], 
-    [Pedidos].[lng_origen] AS [lng_origen], 
-    [Pedidos].[lat_destino] AS [lat_destino], 
-    [Pedidos].[lng_destino] AS [lng_destino]
-    FROM [dbo].[Pedidos] AS [Pedidos]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Postulaciones" EntityType="Self.Postulaciones" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Postulaciones].[IdPostulacion] AS [IdPostulacion], 
-    [Postulaciones].[IdTipoActividad] AS [IdTipoActividad], 
-    [Postulaciones].[IdPedido] AS [IdPedido], 
-    [Postulaciones].[IdUsuarioPostulado] AS [IdUsuarioPostulado], 
-    [Postulaciones].[IdEstadoPostulacion] AS [IdEstadoPostulacion], 
-    [Postulaciones].[TiempoEstimado] AS [TiempoEstimado], 
-    [Postulaciones].[Precio] AS [Precio]
-    FROM [dbo].[Postulaciones] AS [Postulaciones]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [sysdiagrams].[name] AS [name], 
-    [sysdiagrams].[principal_id] AS [principal_id], 
-    [sysdiagrams].[diagram_id] AS [diagram_id], 
-    [sysdiagrams].[version] AS [version], 
-    [sysdiagrams].[definition] AS [definition]
-    FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TiposActividades" EntityType="Self.TiposActividades" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TiposActividades].[IdTipoActividad] AS [IdTipoActividad], 
-    [TiposActividades].[Descripcion] AS [Descripcion]
-    FROM [dbo].[TiposActividades] AS [TiposActividades]</DefiningQuery>
-          </EntitySet>
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Emisor" Association="Self.FK_Actividades_AspNetUsers_Emisor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Receptor" Association="Self.FK_Actividades_AspNetUsers_Receptor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_TiposActividades" Association="Self.FK_Actividades_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estados_TiposActividades" Association="Self.FK_Estados_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Estados" EntitySet="Estados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_AspNetUsers" Association="Self.FK_Notificaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Estados" Association="Self.FK_Notificaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_Postulaciones" Association="Self.FK_Notificaciones_Postulaciones">
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_TiposActividades" Association="Self.FK_Notificaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="Self.FK_Pedidos_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_AspNetUsersDelivery" Association="Self.FK_Pedidos_AspNetUsersDelivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_Estados" Association="Self.FK_Pedidos_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_Localidades" Association="Self.FK_Pedidos_Localidades">
+            <End Role="Localidades" EntitySet="Localidades" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_Localidades_Destino" Association="Self.FK_Pedidos_Localidades_Destino">
+            <End Role="Localidades" EntitySet="Localidades" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_TiposActividades" Association="Self.FK_Pedidos_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_AspNetUsers" Association="Self.FK_Postulaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Estados" Association="Self.FK_Postulaciones_Estados">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_Pedidos" Association="Self.FK_Postulaciones_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_TiposActividades" Association="Self.FK_Postulaciones_TiposActividades">
+            <End Role="TiposActividades" EntitySet="TiposActividades" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Cliente" Association="Self.FK_Valoraciones_Cliente">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Delivery" Association="Self.FK_Valoraciones_Delivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Pedidos" Association="Self.FK_Valoraciones_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -483,6 +697,18 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida
             <End Role="Notificaciones" EntitySet="Notificaciones" />
           </AssociationSet>
           <EntitySet Name="Valoraciones" EntityType="TeloBuscoModel.Valoraciones" />
+          <AssociationSet Name="FK_Valoraciones_Cliente" Association="TeloBuscoModel.FK_Valoraciones_Cliente">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Delivery" Association="TeloBuscoModel.FK_Valoraciones_Delivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Pedidos" Association="TeloBuscoModel.FK_Valoraciones_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -549,6 +775,8 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Postulaciones" />
           <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
+          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
+          <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
         </EntityType>
         <EntityType Name="Localidades">
           <Key>
@@ -718,6 +946,7 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida
           <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
           <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Pedidos_TiposActividades" FromRole="Pedidos" ToRole="TiposActividades" />
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Pedidos" ToRole="Postulaciones" />
+          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Pedidos" ToRole="Valoraciones" />
         </EntityType>
         <Association Name="FK_Pedidos_AspNetUsers">
           <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -923,13 +1152,52 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida
           <Key>
             <PropertyRef Name="IdValoracion" />
           </Key>
-          <Property Name="IdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdValoracion" Type="Int32" Nullable="false" />
           <Property Name="IdCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdDelivery" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Valoracion" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Valoracion" Type="Int32" Nullable="false" />
           <Property Name="IdPedido" Type="Int32" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="Valoraciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="Valoraciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Valoraciones" ToRole="Pedidos" />
         </EntityType>
+        <Association Name="FK_Valoraciones_Cliente">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Delivery">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Pedidos">
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1102,8 +1370,8 @@ advertencia 6002: La tabla o vista 'Wapo.dbo.TiposActividades' no tiene definida
           <EntitySetMapping Name="Valoraciones">
             <EntityTypeMapping TypeName="TeloBuscoModel.Valoraciones">
               <MappingFragment StoreEntitySet="Valoraciones">
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
                 <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
                 <ScalarProperty Name="Valoracion" ColumnName="Valoracion" />
                 <ScalarProperty Name="IdDelivery" ColumnName="IdDelivery" />
                 <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />

@@ -37,7 +37,7 @@ namespace Servicios.AccesoDatos
 
             }
         }
-        public static decimal ObtenerPuntaje(string id)
+        public static double ObtenerPuntaje(string id)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {

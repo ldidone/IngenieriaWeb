@@ -11,7 +11,7 @@ namespace TeLoBusco.Models
         public int IdValoracion { get; set; }
         public string IdCliente { get; set; }
         public string IdDelivery { get; set; }
-        public decimal Puntuacion { get; set; }
+        public int Puntuacion { get; set; }
         public string Comentario { get; set; }
         public int IdPedido { get; set; }
     }

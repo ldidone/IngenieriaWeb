@@ -39,7 +39,10 @@
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_Estados" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_Postulaciones" />
         <AssociationConnector Association="TeloBuscoModel.FK_Notificaciones_TiposActividades" />
-        <EntityTypeShape EntityType="TeloBuscoModel.Valoraciones" Width="1.5" PointX="10.375" PointY="5.75" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Valoraciones" Width="1.5" PointX="10.25" PointY="7.25" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Cliente" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Delivery" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Pedidos" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

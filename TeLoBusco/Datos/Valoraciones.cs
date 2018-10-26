@@ -17,8 +17,12 @@ namespace Datos
         public int IdValoracion { get; set; }
         public string IdCliente { get; set; }
         public string IdDelivery { get; set; }
-        public decimal Valoracion { get; set; }
-        public string Comentario { get; set; }
+        public int Valoracion { get; set; }
         public int IdPedido { get; set; }
+        public string Comentario { get; set; }
+    
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
+        public virtual Pedidos Pedidos { get; set; }
     }
 }
