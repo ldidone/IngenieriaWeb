@@ -270,3 +270,4 @@ TeLoBusco/TeLoBusco/packages.config
 TeLoBusco/TeLoBusco/TeLoBusco.csproj
 *.config
 *.cache
+TeLoBusco/.vs/config/applicationhost.config
