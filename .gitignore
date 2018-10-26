@@ -259,3 +259,12 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+TeLoBusco/.vs/config/applicationhost.config
+TeLoBusco/Datos/App.Config
+TeLoBusco/TeLoBusco/Web.config
+TeLoBusco/TeLoBusco/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+TeLoBusco/TeLoBusco/obj/Debug/TeLoBusco.csproj.FileListAbsolute.txt
+TeLoBusco/TeLoBusco/obj/Debug/TeLoBusco.dll
+TeLoBusco/TeLoBusco/obj/Debug/TeLoBusco.pdb
+TeLoBusco/TeLoBusco/packages.config
+TeLoBusco/TeLoBusco/TeLoBusco.csproj
