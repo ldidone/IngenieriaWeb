@@ -268,3 +268,5 @@ TeLoBusco/TeLoBusco/obj/Debug/TeLoBusco.dll
 TeLoBusco/TeLoBusco/obj/Debug/TeLoBusco.pdb
 TeLoBusco/TeLoBusco/packages.config
 TeLoBusco/TeLoBusco/TeLoBusco.csproj
+*.config
+*.cache

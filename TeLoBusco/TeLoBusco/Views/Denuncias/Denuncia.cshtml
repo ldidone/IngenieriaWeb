@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Denuncia";
+}
+
+<h2>Denuncia</h2>
+
+<form>
+    <div class="form-group">
+        <label for="usuario">Usuario</label>
+        <input type="text" class="form-control" id="usuario" placeholder="Juan Perez">
+    </div>
+    <div class="form-group">
+        <label for="Descripcion">Descripcion pedido</label>
+        <input type="text" class="form-control" id="Descripcion" placeholder="Una milanga + 2 pizzas..">
+    </div>
+
+    <div class="form-group">
+        <label for="motivo">Motivo de la denuncia:</label>
+        <textarea class="form-control" rows="3" id="motivo"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+</form>
