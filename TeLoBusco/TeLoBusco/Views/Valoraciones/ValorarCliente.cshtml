@@ -1,0 +1,51 @@
+﻿@using TeLoBusco.Models
+@model  ValoracionesViewModel
+@{
+    ViewBag.Title = "Valorar";
+}
+
+<section id="loginForm">
+    @using (Html.BeginForm())
+    {
+    <form class="form-group" asp-controller="Valoraciones" asp-action="ValorarCliente" method="post">
+        <h2>Valoración para el pedido N° @Html.DisplayFor(x => x.IdPedido)</h2>
+        <h3>Para la comunidad es muy importante tu voto!</h3>
+        <div class="form-group">
+            <label>¿Que te parecio el servicio?</label>
+
+            @Html.DropDownListFor(x => x.Puntuacion, Enumerable.Range(1, 5).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+        </div>
+        <div class="form-group">
+            <label>Dejanos un comentario!</label>
+            @Html.TextBoxFor(m => m.Comentario, new { @class = "form-control" })
+        </div>
+
+        @Html.HiddenFor(model => model.IdPedido)
+        @Html.HiddenFor(model => model.IdDelivery)
+        @Html.HiddenFor(model => model.IdCliente)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnValorar" type="submit" class="btn btn-default" value="Valorar" />
+            </div>
+        </div>
+    </form>
+    }
+</section>
+        
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+    $(document).ready(function () {
+        $.notify("@ViewBag.Message");
+    });
+        </script>
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}

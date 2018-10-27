@@ -33,27 +33,34 @@
     <tbody>
         @foreach (var pedido in Model)
         {
-            <tr>
-                <td class="celdaBotones">
-                    <a href="@Url.Action("Edit", new { id = pedido.IdPedido })">Modificar</a>
-                    <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>      
-                </td>
-                <td>@pedido.calle_origen @pedido.nro_calle_origen, @pedido.Localidades.Nombre</td>
-                <td>@pedido.calle_destino @pedido.nro_calle_destino, @pedido.Localidades1.Nombre</td>
-                <td>@pedido.Estados.Descripcion</td>
-                <td>@Math.Round(pedido.precio_predido, 2)</td>
-                @if (pedido.precio_transporte != null)
-                {
-                    <td>@Math.Round(Convert.ToDecimal(pedido.precio_transporte), 2)</td>
-                }
-                else
-                {
-                    <td>No disponible</td>
-                }
+        <tr>
+            <td class="celdaBotones">
+                <a href="@Url.Action("Edit", new { id = pedido.IdPedido })">Modificar</a>
+                <a href="#" id=@pedido.IdPedido class="eliminarPedido">Eliminar</a>
+            </td>
+            <td>@pedido.calle_origen @pedido.nro_calle_origen, @pedido.Localidades.Nombre</td>
+            <td>@pedido.calle_destino @pedido.nro_calle_destino, @pedido.Localidades1.Nombre</td>
+            <td>@pedido.Estados.Descripcion</td>
+            <td>@Math.Round(pedido.precio_predido, 2)</td>
+            @if (pedido.precio_transporte != null)
+            {
+                <td>@Math.Round(Convert.ToDecimal(pedido.precio_transporte), 2)</td>
+            }
+            else
+            {
+                <td>No disponible</td>
+            }
+            @if (!pedido.finalizado_cliente)
+            {
                 <td class="celdaBotones">
                     <a href="@Url.Action("Valorar", new { id = pedido.IdPedido })">Finalizar</a>
                 </td>
-            </tr>
+            }
+            else
+            {
+                <td>Pedido finalizado</td>
+            }
+        </tr>
         }
     </tbody>
 </table>

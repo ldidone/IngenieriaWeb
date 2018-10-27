@@ -36,6 +36,7 @@
                             <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosCliente">Mis pedidos</a>
                             <div class="dropdown-divider bg-dark"></div>
                             <a class="dropdown-item itemsPrincipal" href="/Pedidos/Pedidos">Encontrar pedidos cercanos</a>
+                            <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosAsignados">Pedidos asignados</a>
                             <a class="dropdown-item itemsPrincipal" href="/Pedidos/PedidosTodos">Todos los pedidos</a>
                         </div>
                     </li>
@@ -76,6 +77,8 @@
             /*Limpiar Notificaciones*/
             $(".Notificacion").remove();
 
+            var notificacionesVistas = false;
+
             /*Obtener Notificaciones - No vistas*/
             function actualizarNotificaciones() {
                 $.get("/Notificaciones/ObtenerNotificacionesUsuario", function (data) {
@@ -84,15 +87,19 @@
                     if (!(obj.Message == 'Nulo')) {
                         var notificaciones = obj.Notificaciones;
                         if (notificaciones.length > 0) {
-                            $("#NotificationCounter").html(notificaciones.length);
 
+                            if (!notificacionesVistas) {
+                                $("#NotificationCounter").show();
+                                $("#NotificationCounter").html(notificaciones.length);
+                            }
                             /*Agregar notificaciones*/
                             for (var i = 0; i < notificaciones.length; i++) {
-                                console.log(notificaciones[i]);
+                                //console.log(notificaciones[i].IdNotificacion);
                                 //var idActividad = notificaciones[i].Postulaciones.IdPedido; //Pedido
                                 var idActividad = notificaciones[i].IdActividad;
                                 var idTipoActividad = notificaciones[i].IdTipoActividad;
-                                var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad;
+                                var idNotificacion = notificaciones[i].IdNotificacion;
+                                var url = "/Notificaciones/Notificacion?idActividad=" + idActividad + "&idTipoActividad=" + idTipoActividad + "&idNotificacion=" + idNotificacion;
                                 var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal Notificacion" href="' + url + '">' + notificaciones[i].Descripcion + '</a>'),
                                     nuevaNotificacion2 = document.createElement("a"),
                                     divPadre = document.getElementById("NotificationList");
@@ -109,13 +116,16 @@
                 });
             }
 
-            //Actualizar notificaciones cada 5 segundos
-            //setInterval(actualizarNotificaciones, 5000);
             actualizarNotificaciones();
-
-
+            //Actualizar notificaciones cada 5 segundos
+            setInterval(function () {
+                $(".Notificacion").remove();
+                actualizarNotificaciones();
+            }, 5000);
+            
             /*Limpiar contador de notificaciones al hacerle clic*/
             $("#ViewNotifications").click(function () {
+                notificacionesVistas = true;
                 $("#NotificationCounter").html(0);
                 $("#NotificationCounter").hide();
             });

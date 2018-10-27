@@ -107,9 +107,13 @@ namespace TeLoBusco.Controllers
         }
 
         //Postulacion
-        public ActionResult Notificacion(int idActividad, int idTipoActividad)
+        public ActionResult Notificacion(int idActividad, int idTipoActividad, int idNotificacion)
         {
             string tipoActividad = Servicios.AccesoDatos.TiposActividadesServicio.obtenerDescripcionPorId(idTipoActividad);
+
+            //Marcar notificación como vista:
+            Servicios.AccesoDatos.NotificacionesServicio.MarcarNotificacionComoVisto(idNotificacion);
+
             switch (tipoActividad)
             {
                 case "Pedido":

@@ -40,6 +40,51 @@ namespace TeLoBusco.Controllers
             return View();
         }
 
+        public ActionResult ValorarCliente(int idPedido)
+        {
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(idPedido);
+            
+            ViewBag.Delivery = true;
+            ValoracionesViewModel model = new ValoracionesViewModel
+            {
+                IdValoracion = 1,
+                IdCliente = pedido.idCliente,
+                IdDelivery = pedido.idDelivery,
+                IdPedido = pedido.IdPedido
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ValorarCliente(ValoracionesViewModel valoracion)
+        {
+            try
+            {
+                Valoracion val = new Valoracion
+                {
+                    IdCliente = valoracion.IdCliente,
+                    IdDelivery = valoracion.IdDelivery,
+                    Puntuacion = valoracion.Puntuacion,
+                    Comentario = valoracion.Comentario,
+                    IdPedido = valoracion.IdPedido
+                };
+                if (Servicios.AccesoDatos.ValoracionesServicios.CrearValoracionCliente(val))
+                {
+                    TempData["Message"] = "¡Gracias por tu colaboración!";
+                }
+                else
+                {
+                    TempData["Message"] = "Ups. Tu pedido no pudo ser finalizado.";
+                };
+                return RedirectToAction("PedidosAsignados", "Pedidos");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        /*Valorar delivery*/
         [HttpPost]
         public ActionResult Valorar(ValoracionesViewModel valoracion)
         {
@@ -65,10 +110,8 @@ namespace TeLoBusco.Controllers
             }
             catch
             {
-
-            }
-            return View();
-
+                return View();
+            }         
         }
 
         // GET: Valraciones/Create

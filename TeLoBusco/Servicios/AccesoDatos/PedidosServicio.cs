@@ -50,6 +50,31 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        public static List<Pedidos> ObtenerPedidosAsignados(string idDelivery)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    int idEstadoAsignado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Asignado");
+                    var listPedidos = db.Pedidos.Include("Estados")
+                                     .Include("Localidades")
+                                     .Include("Localidades1")
+                                     .Include("AspNetUsers")
+                                     .Include("Postulaciones")
+                                     .Where(x => x.id_estado == idEstadoAsignado &&
+                                                 x.idDelivery == idDelivery)
+                                     .ToList();
+                    
+                    return listPedidos;
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         public static Pedidos ObtenerPedidoPorId(int IdPedido)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
@@ -268,6 +293,61 @@ namespace Servicios.AccesoDatos
                     return true;
                 }
                 catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static void FinalizarPedido(int idPedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
+                if (pedido.finalizado_cliente && pedido.finalizado_delivery)
+                {
+                    int idEntregado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Entregado");
+                    pedido.id_estado = idEntregado;
+                    db.SaveChanges();
+                }
+            }
+                
+        }
+
+        public static bool FinalizarPedidoCliente(int idPedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
+                    pedido.finalizado_cliente = true;
+                    db.SaveChanges();
+
+                    FinalizarPedido(idPedido); //Valida si está finalizado tanto por el delivery como por el cliente y pasa el pedido a: Entregado
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public static bool FinalizarPedidoDelivery(int idPedido)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
+                    pedido.finalizado_delivery = true;
+                    db.SaveChanges();
+
+                    FinalizarPedido(idPedido); //Valida si está finalizado tanto por el delivery como por el cliente y pasa el pedido a: Entregado
+                    return true;
+                }
+                catch (Exception ex)
                 {
                     return false;
                 }

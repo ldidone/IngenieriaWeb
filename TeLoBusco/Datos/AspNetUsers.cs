@@ -24,10 +24,10 @@ namespace Datos
             this.Actividades1 = new HashSet<Actividades>();
             this.Postulaciones = new HashSet<Postulaciones>();
             this.Notificaciones = new HashSet<Notificaciones>();
-            this.Valoraciones = new HashSet<Valoraciones>();
-            this.Valoraciones1 = new HashSet<Valoraciones>();
             this.Pedidos = new HashSet<Pedidos>();
             this.Pedidos1 = new HashSet<Pedidos>();
+            this.Valoraciones = new HashSet<Valoraciones>();
+            this.Valoraciones1 = new HashSet<Valoraciones>();
         }
     
         public string Id { get; set; }
@@ -59,12 +59,12 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notificaciones> Notificaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Valoraciones> Valoraciones { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Valoraciones> Valoraciones1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedidos> Pedidos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedidos> Pedidos1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Valoraciones> Valoraciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Valoraciones> Valoraciones1 { get; set; }
     }
 }

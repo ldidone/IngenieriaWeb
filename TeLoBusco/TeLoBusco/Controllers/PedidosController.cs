@@ -61,6 +61,14 @@ namespace TeLoBusco.Controllers
             return View(listaPedidos);
         }
 
+        public ActionResult PedidosAsignados()
+        {
+            ViewBag.Message = TempData["Message"];
+            var userName = User.Identity.Name;
+            var IdDelivery = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+            var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidosAsignados(IdDelivery);
+            return View(listaPedidos);
+        }
         // GET: Pedidos/Create
         public ActionResult Create()
         {
@@ -147,7 +155,6 @@ namespace TeLoBusco.Controllers
                 ViewBag.Delivery = true;
                 ValoracionesViewModel model = new ValoracionesViewModel
                 {
-                    IdValoracion = 1,
                     IdCliente = pedido.idCliente,
                     IdDelivery = pedido.idDelivery,
                     IdPedido = pedido.IdPedido
@@ -158,9 +165,9 @@ namespace TeLoBusco.Controllers
             {
                 ViewBag.Delivery = false;
                 return View();
-            }
-            
+            }      
         }
+
         [HttpPost]
         public ActionResult Valorar(ValoracionesViewModel valoracion)
         {
@@ -187,10 +194,8 @@ namespace TeLoBusco.Controllers
             }
             catch
             {
-
-            }
-            return View();
-
+                return View();
+            }  
         }
         // POST: Pedidos/Edit/5
         [HttpPost]

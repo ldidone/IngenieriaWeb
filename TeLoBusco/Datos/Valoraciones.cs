@@ -20,6 +20,8 @@ namespace Datos
         public int Valoracion { get; set; }
         public int IdPedido { get; set; }
         public string Comentario { get; set; }
+        public bool valoracion_cliente { get; set; }
+        public bool valoracion_delivery { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

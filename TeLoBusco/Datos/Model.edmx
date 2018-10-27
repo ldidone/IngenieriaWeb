@@ -170,6 +170,8 @@
           <Property Name="Valoracion" Type="int" Nullable="false" />
           <Property Name="IdPedido" Type="int" Nullable="false" />
           <Property Name="Comentario" Type="varchar" MaxLength="200" />
+          <Property Name="valoracion_cliente" Type="bit" Nullable="false" />
+          <Property Name="valoracion_delivery" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Actividades_AspNetUsers_Emisor">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -669,15 +671,6 @@
             <End Role="TiposActividades" EntitySet="TiposActividades" />
             <End Role="Notificaciones" EntitySet="Notificaciones" />
           </AssociationSet>
-          <EntitySet Name="Valoraciones" EntityType="TeloBuscoModel.Valoraciones" />
-          <AssociationSet Name="FK_Valoraciones_Cliente" Association="TeloBuscoModel.FK_Valoraciones_Cliente">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Valoraciones" EntitySet="Valoraciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Valoraciones_Delivery" Association="TeloBuscoModel.FK_Valoraciones_Delivery">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Valoraciones" EntitySet="Valoraciones" />
-          </AssociationSet>
           <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
           <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -706,6 +699,15 @@
           <AssociationSet Name="FK_Postulaciones_Pedidos" Association="TeloBuscoModel.FK_Postulaciones_Pedidos">
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <EntitySet Name="Valoraciones" EntityType="TeloBuscoModel.Valoraciones" />
+          <AssociationSet Name="FK_Valoraciones_Cliente" Association="TeloBuscoModel.FK_Valoraciones_Cliente">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Delivery" Association="TeloBuscoModel.FK_Valoraciones_Delivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
           </AssociationSet>
           <AssociationSet Name="FK_Valoraciones_Pedidos" Association="TeloBuscoModel.FK_Valoraciones_Pedidos">
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -775,10 +777,10 @@
           <NavigationProperty Name="Actividades1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="AspNetUsers" ToRole="Actividades" />
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Postulaciones" />
           <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
-          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
-          <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
           <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
+          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
+          <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
           </EntityType>
         <EntityType Name="Localidades">
           <Key>
@@ -1034,44 +1036,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Valoraciones">
-          <Key>
-            <PropertyRef Name="IdValoracion" />
-          </Key>
-          <Property Name="IdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IdDelivery" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Valoracion" Type="Int32" Nullable="false" />
-          <Property Name="IdPedido" Type="Int32" Nullable="false" />
-          <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="Valoraciones" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="Valoraciones" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Valoraciones" ToRole="Pedidos" />
-        </EntityType>
-        <Association Name="FK_Valoraciones_Cliente">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Valoraciones">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Valoraciones_Delivery">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Valoraciones">
-              <PropertyRef Name="IdDelivery" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Pedidos">
           <Key>
             <PropertyRef Name="IdPedido" />
@@ -1187,6 +1151,46 @@
             </Principal>
             <Dependent Role="Postulaciones">
               <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Valoraciones">
+          <Key>
+            <PropertyRef Name="IdValoracion" />
+          </Key>
+          <Property Name="IdValoracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdDelivery" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Valoracion" Type="Int32" Nullable="false" />
+          <Property Name="IdPedido" Type="Int32" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="valoracion_cliente" Type="Boolean" Nullable="false" />
+          <Property Name="valoracion_delivery" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="Valoraciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="Valoraciones" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Valoraciones" ToRole="Pedidos" />
+        </EntityType>
+        <Association Name="FK_Valoraciones_Cliente">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Delivery">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdDelivery" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1346,18 +1350,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Valoraciones">
-            <EntityTypeMapping TypeName="TeloBuscoModel.Valoraciones">
-              <MappingFragment StoreEntitySet="Valoraciones">
-                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-                <ScalarProperty Name="Valoracion" ColumnName="Valoracion" />
-                <ScalarProperty Name="IdDelivery" ColumnName="IdDelivery" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="IdValoracion" ColumnName="IdValoracion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Pedidos">
             <EntityTypeMapping TypeName="TeloBuscoModel.Pedidos">
               <MappingFragment StoreEntitySet="Pedidos">
@@ -1382,6 +1374,20 @@
                 <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Valoraciones">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Valoraciones">
+              <MappingFragment StoreEntitySet="Valoraciones">
+                <ScalarProperty Name="valoracion_delivery" ColumnName="valoracion_delivery" />
+                <ScalarProperty Name="valoracion_cliente" ColumnName="valoracion_cliente" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="Valoracion" ColumnName="Valoracion" />
+                <ScalarProperty Name="IdDelivery" ColumnName="IdDelivery" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdValoracion" ColumnName="IdValoracion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

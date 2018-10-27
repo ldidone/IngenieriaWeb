@@ -244,6 +244,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\logo.png" />
+    <Content Include="Images\map_image.png" />
     <Content Include="Images\plato-landing.jpg" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -364,6 +365,8 @@
     <Content Include="Views\Postulaciones\PostulacionRechazada.cshtml" />
     <Content Include="Views\Pedidos\Edit.cshtml" />
     <Content Include="Views\Pedidos\Valorar.cshtml" />
+    <Content Include="Views\Pedidos\PedidosAsignados.cshtml" />
+    <Content Include="Views\Valoraciones\ValorarCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

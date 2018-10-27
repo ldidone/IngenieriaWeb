@@ -10,24 +10,33 @@ namespace Servicios.AccesoDatos
 {
     public class ValoracionesServicios
     {
+        /*Crear valoración - cliente y finalizar el pedido (cliente)*/
         public static bool Crear(Valoracion valoracion)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
                 try
                 {
+                    bool result = false;
                     Valoraciones val = new Valoraciones
                     {
                         IdCliente = valoracion.IdCliente,
                         IdDelivery = valoracion.IdDelivery,
                         Valoracion = valoracion.Puntuacion,
                         Comentario = valoracion.Comentario,
-                        IdPedido = valoracion.IdPedido
+                        IdPedido = valoracion.IdPedido,
+                        valoracion_cliente = true,
+                        valoracion_delivery = false
                     };
-                    db.Valoraciones.Add(val);
-                    db.SaveChanges();
+                    
+                    if (PedidosServicio.FinalizarPedidoCliente(valoracion.IdPedido)) //Finalizo el pedido -> si está ok agrego la valoración
+                    {
+                        db.Valoraciones.Add(val);
+                        db.SaveChanges();
+                        result = true;
+                    }
 
-                    return true;
+                    return result;
 
                 }
                 catch(Exception ex)
@@ -54,5 +63,41 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        /*El delivery califica al cliente y finaliza*/
+        public static bool CrearValoracionCliente(Valoracion valoracion)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    bool result = false;
+                    Valoraciones val = new Valoraciones
+                    {
+                        IdCliente = valoracion.IdCliente,
+                        IdDelivery = valoracion.IdDelivery,
+                        Valoracion = valoracion.Puntuacion,
+                        Comentario = valoracion.Comentario,
+                        IdPedido = valoracion.IdPedido,
+                        valoracion_cliente = false,
+                        valoracion_delivery = true
+                    };
+
+                    if (PedidosServicio.FinalizarPedidoDelivery(valoracion.IdPedido)) //Finalizo el pedido -> si está ok agrego la valoración
+                    {
+                        db.Valoraciones.Add(val);
+                        db.SaveChanges();
+                        result = true;
+                    }
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+            }
+        }
     }
 }
