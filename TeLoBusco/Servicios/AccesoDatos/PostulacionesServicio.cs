@@ -110,9 +110,11 @@ namespace Servicios.AccesoDatos
 
                     /*Agregar Delivery y precio al pedido*/
                     int idPedido = postulacionAlmacenada.IdPedido;
+                    int idEstadoAsignado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Asignado");
                     var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
                     pedido.idDelivery = postulacionAlmacenada.IdUsuarioPostulado;
                     pedido.precio_transporte = postulacionAlmacenada.Precio;
+                    pedido.id_estado = idEstadoAsignado; /*Colocar el pedido en estado asignado*/
                     db.SaveChanges();
 
                     /*Cambiar el estado del resto de postulaciones a ese pedudo a: Rechazado*/

@@ -159,6 +159,7 @@
                                 $("#NotificationList").append($nuevaNotificacion, [nuevaNotificacion2, divPadre]);
                             }
                         } else {
+                            $(".Notificacion").remove();
                             $("#NotificationCounter").css('display', 'none');
                             var $nuevaNotificacion = $('<a class="dropdown-item itemsPrincipal" href="#">No hay notificaciones nuevas</a>'),
                                 nuevaNotificacion2 = document.createElement("a"),
