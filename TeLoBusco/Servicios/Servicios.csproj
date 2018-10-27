@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccesoDatos\DenunciasServico.cs" />
     <Compile Include="AccesoDatos\EstadosServicio.cs" />
     <Compile Include="AccesoDatos\LocalidadesServicio.cs" />
     <Compile Include="AccesoDatos\NotificacionesServicio.cs" />
