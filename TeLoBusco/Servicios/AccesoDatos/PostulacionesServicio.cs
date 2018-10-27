@@ -82,7 +82,7 @@ namespace Servicios.AccesoDatos
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
                 try
-                {
+                {       
                     /*Cambiar el estado de la postulación a: Aceptado*/
                     int idEstadoAceptado = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Aceptado");
                     var postulacionAlmacenada = db.Postulaciones.Include("AspNetUsers")
@@ -110,13 +110,9 @@ namespace Servicios.AccesoDatos
 
                     /*Agregar Delivery y precio al pedido*/
                     int idPedido = postulacionAlmacenada.IdPedido;
-                    int idEstadoAsignado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Asignado"); /*Estado asignado*/
                     var pedido = db.Pedidos.Where(x => x.IdPedido == idPedido).FirstOrDefault();
                     pedido.idDelivery = postulacionAlmacenada.IdUsuarioPostulado;
                     pedido.precio_transporte = postulacionAlmacenada.Precio;
-
-                    /*Cambiar el estado del pedido a asignado*/
-                    pedido.id_estado = idEstadoAsignado;
                     db.SaveChanges();
 
                     /*Cambiar el estado del resto de postulaciones a ese pedudo a: Rechazado*/

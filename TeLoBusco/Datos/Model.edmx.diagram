@@ -43,6 +43,8 @@
         <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Cliente" />
         <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Delivery" />
         <AssociationConnector Association="TeloBuscoModel.FK_Valoraciones_Pedidos" />
+        <EntityTypeShape EntityType="TeloBuscoModel.Denuncias" Width="1.5" PointX="5" PointY="13.25" />
+        <AssociationConnector Association="TeloBuscoModel.FK_Denuncias_Pedidos" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

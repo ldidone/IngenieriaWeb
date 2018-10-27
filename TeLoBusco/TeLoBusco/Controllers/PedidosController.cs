@@ -184,11 +184,11 @@ namespace TeLoBusco.Controllers
                 };
                 if (Servicios.AccesoDatos.ValoracionesServicios.Crear(val))
                 {
-                    TempData["Message"] = "¡Gracias por tu colaboración!";
+                    TempData["Message"] = "Gracias por tu colaboracion!";
                 }
                 else
                 {
-                    TempData["Message"] = "Ups. Tu pedido no pudo ser finalizado.";
+                    TempData["Message"] = "Ups";
                 };
                 return RedirectToAction("PedidosCliente");
             }

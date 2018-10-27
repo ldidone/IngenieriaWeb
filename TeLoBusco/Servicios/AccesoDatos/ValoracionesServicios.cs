@@ -20,6 +20,7 @@ namespace Servicios.AccesoDatos
                     bool result = false;
                     Valoraciones val = new Valoraciones
                     {
+                        IdValoracion = valoracion.IdValoracion,
                         IdCliente = valoracion.IdCliente,
                         IdDelivery = valoracion.IdDelivery,
                         Valoracion = valoracion.Puntuacion,
@@ -39,7 +40,7 @@ namespace Servicios.AccesoDatos
                     return result;
 
                 }
-                catch(Exception ex)
+                catch
                 {
                     return false;
                 }

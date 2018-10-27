@@ -78,6 +78,16 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NombreApellido" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="Denuncias">
+          <Key>
+            <PropertyRef Name="IdDenuncia" />
+          </Key>
+          <Property Name="IdDenuncia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPedido" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="DescripcionPedido" Type="varchar" MaxLength="200" />
+          <Property Name="Motivo" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="Estados">
           <Key>
             <PropertyRef Name="IdEstado" />
@@ -262,6 +272,18 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Denuncias_Pedidos">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="Denuncias" Type="Self.Denuncias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Denuncias">
+              <PropertyRef Name="IdPedido" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -489,6 +511,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Denuncias" EntityType="Self.Denuncias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
@@ -524,6 +547,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Denuncias_Pedidos" Association="Self.FK_Denuncias_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Denuncias" EntitySet="Denuncias" />
           </AssociationSet>
           <AssociationSet Name="FK_Estados_TiposActividades" Association="Self.FK_Estados_TiposActividades">
             <End Role="TiposActividades" EntitySet="TiposActividades" />
@@ -712,6 +739,11 @@
           <AssociationSet Name="FK_Valoraciones_Pedidos" Association="TeloBuscoModel.FK_Valoraciones_Pedidos">
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <EntitySet Name="Denuncias" EntityType="TeloBuscoModel.Denuncias" />
+          <AssociationSet Name="FK_Denuncias_Pedidos" Association="TeloBuscoModel.FK_Denuncias_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Denuncias" EntitySet="Denuncias" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -1069,6 +1101,7 @@
           <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Pedidos_TiposActividades" FromRole="Pedidos" ToRole="TiposActividades" />
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Pedidos" ToRole="Postulaciones" />
           <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Pedidos" ToRole="Valoraciones" />
+          <NavigationProperty Name="Denuncias" Relationship="TeloBuscoModel.FK_Denuncias_Pedidos" FromRole="Pedidos" ToRole="Denuncias" />
         </EntityType>
         <Association Name="FK_Pedidos_AspNetUsers">
           <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -1202,6 +1235,29 @@
               <PropertyRef Name="IdPedido" />
             </Principal>
             <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Denuncias">
+          <Key>
+            <PropertyRef Name="IdDenuncia" />
+          </Key>
+          <Property Name="IdDenuncia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPedido" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="DescripcionPedido" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Motivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Denuncias_Pedidos" FromRole="Denuncias" ToRole="Pedidos" />
+        </EntityType>
+        <Association Name="FK_Denuncias_Pedidos">
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Denuncias" Role="Denuncias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="Denuncias">
               <PropertyRef Name="IdPedido" />
             </Dependent>
           </ReferentialConstraint>
@@ -1388,6 +1444,17 @@
                 <ScalarProperty Name="IdDelivery" ColumnName="IdDelivery" />
                 <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
                 <ScalarProperty Name="IdValoracion" ColumnName="IdValoracion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Denuncias">
+            <EntityTypeMapping TypeName="TeloBuscoModel.Denuncias">
+              <MappingFragment StoreEntitySet="Denuncias">
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="DescripcionPedido" ColumnName="DescripcionPedido" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="IdDenuncia" ColumnName="IdDenuncia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

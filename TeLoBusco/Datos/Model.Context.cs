@@ -39,5 +39,6 @@ namespace Datos
         public virtual DbSet<Notificaciones> Notificaciones { get; set; }
         public virtual DbSet<Pedidos> Pedidos { get; set; }
         public virtual DbSet<Valoraciones> Valoraciones { get; set; }
+        public virtual DbSet<Denuncias> Denuncias { get; set; }
     }
 }

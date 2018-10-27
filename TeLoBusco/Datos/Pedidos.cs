@@ -19,6 +19,7 @@ namespace Datos
         {
             this.Postulaciones = new HashSet<Postulaciones>();
             this.Valoraciones = new HashSet<Valoraciones>();
+            this.Denuncias = new HashSet<Denuncias>();
         }
     
         public int IdPedido { get; set; }
@@ -53,5 +54,7 @@ namespace Datos
         public virtual ICollection<Postulaciones> Postulaciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Valoraciones> Valoraciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Denuncias> Denuncias { get; set; }
     }
 }

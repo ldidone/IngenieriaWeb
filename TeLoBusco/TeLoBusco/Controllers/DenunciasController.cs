@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TeLoBusco.Models;
+using Servicios;
+using RepositorioClases;
 
 namespace TeLoBusco.Controllers
 {
     public class DenunciasController : Controller
     {
         // GET: Denuncias
-        public ActionResult Denuncia()
+        public ActionResult Denuncia(int id)
         {
-            return View();
+            Datos.Pedidos pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
+
+            TeLoBusco.Models.DenunciasViewModel var = new TeLoBusco.Models.DenunciasViewModel() {IdPedido=id,DescripcionPedido=pedido.descripcion_pedido};
+
+
+            return View(var);
         }
 
         // GET: Denuncias/Details/5
@@ -28,13 +36,18 @@ namespace TeLoBusco.Controllers
 
         // POST: Denuncias/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Denunciar(DenunciasViewModel model)
         {
             try
-            {
-                // TODO: Add insert logic here
+            {            
+                Denuncia var = new Denuncia();
+                var.IdPedido = model.IdPedido;
+                var.Motivo = model.Motivo;
+                var.DescripcionPedido = model.DescripcionPedido;
 
-                return RedirectToAction("Index");
+                Servicios.AccesoDatos.DenunciasServicio.Crear(var);
+
+                return View("DenunciaEnviada");
             }
             catch
             {
@@ -42,8 +55,7 @@ namespace TeLoBusco.Controllers
             }
         }
 
-        // GET: Denuncias/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult DenunciaEnviada()
         {
             return View();
         }
@@ -56,7 +68,7 @@ namespace TeLoBusco.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Home/Index");
             }
             catch
             {

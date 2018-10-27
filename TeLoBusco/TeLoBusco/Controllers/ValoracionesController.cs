@@ -92,6 +92,7 @@ namespace TeLoBusco.Controllers
             {
                 Valoracion val = new Valoracion
                 {
+                    IdValoracion = 1,
                     IdCliente = valoracion.IdCliente,
                     IdDelivery = valoracion.IdDelivery,
                     Puntuacion = valoracion.Puntuacion,
