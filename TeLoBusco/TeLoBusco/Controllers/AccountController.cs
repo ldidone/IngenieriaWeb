@@ -424,7 +424,7 @@ namespace TeLoBusco.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false); // loguea
                         return RedirectToLocal(returnUrl);
                     }
                 }

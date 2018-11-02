@@ -44,7 +44,7 @@ namespace TeLoBusco
             var response = await client.SendEmailAsync(msg);
         }*/
 
-        /*ALTERNATIVA - NO ASÍNCRONO (aunque el método lo sea)*/
+        
         public async Task SendAsync(IdentityMessage message)
         {
             MailMessage mail = new MailMessage("wappo.info@gmail.com", message.Destination, message.Subject, message.Body)

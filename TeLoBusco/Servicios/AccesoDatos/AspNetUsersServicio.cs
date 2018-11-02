@@ -70,6 +70,21 @@ namespace Servicios
             }
         }
 
+        public static AspNetUsers obtenerPorEmail(string email)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    return db.AspNetUsers.Where(x => x.Email == email).FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         public static string obtenerIdUsuarioPorUserName(string UserName)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
