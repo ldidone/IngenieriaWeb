@@ -17,6 +17,8 @@ namespace Servicios.AccesoDatos
             {
                 try
                 {
+                    //db.Configuration.LazyLoadingEnabled = false;
+                    db.Configuration.ProxyCreationEnabled = false;
                     return db.Pedidos.Include("Estados")
                                      .Include("Localidades")
                                      .Include("Localidades1")

@@ -14,6 +14,8 @@ namespace TeLoBusco
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -23,9 +25,7 @@ namespace TeLoBusco
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            };
-
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            }; 
         }
     }
 }

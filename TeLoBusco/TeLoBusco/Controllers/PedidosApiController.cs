@@ -15,5 +15,11 @@ namespace TeLoBusco.Controllers
             List<Datos.Pedidos> Pedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
             return Pedidos;
         }
+
+        [HttpGet]
+        public bool Prueba()
+        {
+            return true;
+        }
     }
 }

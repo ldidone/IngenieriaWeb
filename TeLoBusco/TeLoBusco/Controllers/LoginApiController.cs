@@ -10,6 +10,17 @@ namespace TeLoBusco.Controllers
 {
     public class LoginApiController : ApiController
     {
-        
+        [HttpGet]
+        public bool LoginValido(string email, string password)
+        {
+            var user = Servicios.AspNetUsersServicio.obtenerPorEmail(email);
+            if (user != null)
+            {
+                string passwordHash = user.PasswordHash;
+                bool passwordEquals = Utilidades.Comunes.VerifyHashedPassword(passwordHash, password);
+                return passwordEquals;
+            }
+            return false;
+        }
     }
 }
