@@ -213,6 +213,7 @@
     <Compile Include="Controllers\NotificacionesController.cs" />
     <Compile Include="Controllers\PedidosApiController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
+    <Compile Include="Controllers\PostulacionApiController.cs" />
     <Compile Include="Controllers\PostulacionesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValoracionesController.cs" />

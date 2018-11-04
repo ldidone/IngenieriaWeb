@@ -169,5 +169,34 @@ namespace Servicios.AccesoDatos
                 }
             }
         }
+
+        public static bool PostularseApi(PostulacionApi postulacionApi)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    int idTipoActividad = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación");
+                    int idEstadoPostulacion = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("Postulado"); 
+                    string idUsuarioPostulado = AspNetUsersServicio.obtenerPorEmail(postulacionApi.EmailUsuario).Id;
+                    Postulaciones postulacion = new Postulaciones()
+                    {
+                        IdTipoActividad = idTipoActividad,
+                        IdPedido = postulacionApi.IdPedido,
+                        IdUsuarioPostulado = idUsuarioPostulado,
+                        IdEstadoPostulacion = idEstadoPostulacion,
+                        TiempoEstimado = postulacionApi.Tiempo,
+                        Precio = postulacionApi.Precio
+                    };
+                    db.Postulaciones.Add(postulacion);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
