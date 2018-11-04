@@ -90,7 +90,7 @@ namespace Servicios.AccesoDatos
                             IdCliente = pedido.idCliente,
                             NombreCliente = pedido.AspNetUsers.NombreApellido,
                             DescripcionPedido = pedido.descripcion_pedido,
-                            ObservacionesPedido = pedido.observaciones_pedido,
+                            ObservacionesPedido = pedido.observaciones_pedido != null? pedido.observaciones_pedido : "Ninguna",
                             DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre,
                             DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
                             Distancia = Comunes.DistanciaEntreDosPuntosEnKM(origen, destino),
