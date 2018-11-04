@@ -93,8 +93,8 @@ namespace Servicios.AccesoDatos
                             ObservacionesPedido = pedido.observaciones_pedido != null? pedido.observaciones_pedido : "Ninguna",
                             DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre,
                             DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
-                            Distancia = Comunes.DistanciaEntreDosPuntosEnKM(origen, destino),
-                            Precio = pedido.precio_predido,
+                            Distancia = Math.Round(Comunes.DistanciaEntreDosPuntosEnKM(origen, destino), 2),
+                            Precio = Math.Round(pedido.precio_predido, 2),
                             LatOrigen = pedido.lat_origen != null? Convert.ToDouble(pedido.lat_origen) : 0,
                             LngOrigen = pedido.lng_origen != null ? Convert.ToDouble(pedido.lng_origen) : 0,
                             Postulado = false
