@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilidades;
 using Utilidades.ClasesAuxiliares;
 
 namespace Servicios.AccesoDatos
@@ -46,6 +47,63 @@ namespace Servicios.AccesoDatos
                                      .ToList();
                 }
                 catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static List<PedidoMapa> ObtenerPendientesApi()
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    int idPendiente = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Pendiente");
+                    var listaPedidos = db.Pedidos.Include("Estados")
+                                     .Include("Localidades")
+                                     .Include("Localidades1")
+                                     .Include("AspNetUsers")
+                                     .Include("Postulaciones")
+                                     .Where(x => x.id_estado == idPendiente)
+                                     .ToList();
+                    List<PedidoMapa> pedidosPendientes = new List<PedidoMapa>();
+                    foreach (var pedido in listaPedidos)
+                    {
+                        Coordenada origen = new Coordenada();
+                        Coordenada destino = new Coordenada();
+                        if (pedido.lat_origen != null && pedido.lng_origen != null)
+                        {
+                            origen.lat = Convert.ToDouble(pedido.lat_origen);
+                            origen.lng = Convert.ToDouble(pedido.lng_origen);                           
+                        }
+
+                        if (pedido.lat_destino != null && pedido.lng_destino != null)
+                        {
+                            destino.lat = Convert.ToDouble(pedido.lat_destino);
+                            destino.lng = Convert.ToDouble(pedido.lng_destino);
+                        }
+                        //ver postulado
+                        PedidoMapa pedidoMapa = new PedidoMapa()
+                        {
+                            IdPedido = pedido.IdPedido,
+                            IdCliente = pedido.idCliente,
+                            NombreCliente = pedido.AspNetUsers.NombreApellido,
+                            DescripcionPedido = pedido.descripcion_pedido,
+                            ObservacionesPedido = pedido.observaciones_pedido,
+                            DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre,
+                            DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
+                            Distancia = Comunes.DistanciaEntreDosPuntosEnKM(origen, destino),
+                            Precio = pedido.precio_predido,
+                            LatOrigen = pedido.lat_origen != null? Convert.ToDouble(pedido.lat_origen) : 0,
+                            LngOrigen = pedido.lng_origen != null ? Convert.ToDouble(pedido.lng_origen) : 0,
+                            Postulado = false
+                        };
+                        pedidosPendientes.Add(pedidoMapa);
+                    }
+                    return pedidosPendientes;
+                }
+                catch(Exception ex)
                 {
                     return null;
                 }
