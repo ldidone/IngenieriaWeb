@@ -190,6 +190,24 @@ namespace Servicios.AccesoDatos
                     };
                     db.Postulaciones.Add(postulacion);
                     db.SaveChanges();
+
+                    // Crear notificacion
+                    int idEstadoPostulacionNotificacion = EstadosServicio.obtenerIdEstadoPostulacionPorDescripcion("No vista");
+                    string idUsuarioReceptor = PedidosServicio.ObtenerIdDueñoPedido(postulacion.IdPedido);
+                    string nombrePostulado = AspNetUsersServicio.ObtenerNombrePorId(postulacion.IdUsuarioPostulado);
+                    nombrePostulado = nombrePostulado != null ? nombrePostulado : "";
+
+                    Notificaciones notificacion = new Notificaciones()
+                    {
+                        IdTipoActividad = idTipoActividad,
+                        IdEstadoNotificacion = idEstadoPostulacionNotificacion,
+                        Descripcion = "Nueva postulación a su pedido: " + nombrePostulado,
+                        IdUsuarioReceptor = idUsuarioReceptor,
+                        IdActividad = postulacion.IdPostulacion
+                    };
+
+                    db.Notificaciones.Add(notificacion);
+                    db.SaveChanges();
                     return true;
                 }
                 catch(Exception ex)
