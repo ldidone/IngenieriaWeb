@@ -73,7 +73,7 @@ namespace Servicios.AccesoDatos
             }
         }
 
-        public static List<NotificacionApi> ObtenerNotificacionesUsuarioApi(string idUsuario)
+        public static List<NotificacionApi> ObtenerNotificacionesPostulacionesAceptadasApi(string idUsuario)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
             {
@@ -81,6 +81,7 @@ namespace Servicios.AccesoDatos
                 {
                     List<NotificacionApi> notificacionesApi = new List<NotificacionApi>();
                     int idNoVisto = EstadosServicio.obtenerIdPorDescripcion("No vista");
+                    int idPostulacionAceptada = TiposActividadesServicio.obtenerIdPorDescripcion("Postulación Aceptada");
                     var listaNotificaciones = db.Notificaciones
                                             .Include("TiposActividades")
                                             .Include("Estados")
@@ -89,7 +90,9 @@ namespace Servicios.AccesoDatos
                                             .Include("Postulaciones.Pedidos")
                                             .Include("Postulaciones.Pedidos.Localidades")
                                             .Include("Postulaciones.Pedidos.Localidades1")
-                                            .Where(x => x.IdUsuarioReceptor == idUsuario && x.IdEstadoNotificacion == idNoVisto)
+                                            .Where(x => x.IdUsuarioReceptor == idUsuario 
+                                                        && x.IdEstadoNotificacion == idNoVisto
+                                                        && x.IdTipoActividad == idPostulacionAceptada)
                                             .ToList();
                     foreach (var notificacion in listaNotificaciones)
                     {

@@ -12,10 +12,10 @@ namespace TeLoBusco.Controllers
     public class NotificacionesApiController : ApiController
     {
         [HttpGet]
-        public IEnumerable<NotificacionApi> Obtener(string emailUsuario)
+        public IEnumerable<NotificacionApi> ObtenerPostulacionesAceptadas(string emailUsuario)
         {
             var IdUsuario = AspNetUsersServicio.obtenerPorEmail(emailUsuario).Id;
-            var listaNotificaciones = Servicios.AccesoDatos.NotificacionesServicio.ObtenerNotificacionesUsuarioApi(IdUsuario);
+            var listaNotificaciones = Servicios.AccesoDatos.NotificacionesServicio.ObtenerNotificacionesPostulacionesAceptadasApi(IdUsuario);
             return listaNotificaciones;
         }
     }
