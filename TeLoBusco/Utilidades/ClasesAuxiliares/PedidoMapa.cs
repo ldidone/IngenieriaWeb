@@ -19,6 +19,8 @@ namespace Utilidades.ClasesAuxiliares
         public decimal Precio { get; set; }
         public double LatOrigen { get; set; }
         public double LngOrigen { get; set; }
+        public double LatDestino { get; set; }
+        public double LngDestino{ get; set; }
         public bool Postulado { get; set; }
         public decimal PrecioMinimo { get; set; }
         public decimal PrecioMaximo { get; set; }
@@ -27,6 +29,8 @@ namespace Utilidades.ClasesAuxiliares
         {
             PrecioMinimo = 0;
             PrecioMaximo = 0;
+            LatDestino = 0;
+            LngDestino = 0;
         }
     }
 }

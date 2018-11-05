@@ -138,6 +138,69 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        public static List<PedidoMapa> ObtenerPedidosAsignadosApi(string idDelivery)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    List<PedidoMapa> pedidosAsignados = new List<PedidoMapa>();
+                    int idEstadoAsignado = EstadosServicio.obtenerIdEstadoPedidoPorDescripcion("Asignado");
+                    var listPedidos = db.Pedidos.Include("Estados")
+                                     .Include("Localidades")
+                                     .Include("Localidades1")
+                                     .Include("AspNetUsers")
+                                     .Include("Postulaciones")
+                                     .Where(x => x.id_estado == idEstadoAsignado &&
+                                                 x.idDelivery == idDelivery)
+                                     .ToList();
+                    foreach (var pedido in listPedidos)
+                    {
+                        Coordenada origen = new Coordenada();
+                        Coordenada destino = new Coordenada();
+                        if (pedido.lat_origen != null && pedido.lng_origen != null)
+                        {
+                            origen.lat = Convert.ToDouble(pedido.lat_origen);
+                            origen.lng = Convert.ToDouble(pedido.lng_origen);
+                        }
+
+                        if (pedido.lat_destino != null && pedido.lng_destino != null)
+                        {
+                            destino.lat = Convert.ToDouble(pedido.lat_destino);
+                            destino.lng = Convert.ToDouble(pedido.lng_destino);
+                        }
+                        var rangoPrecios = Comunes.ObtenerRangoPrecios(origen, destino);
+                        //ver postulado
+                        PedidoMapa pedidoMapa = new PedidoMapa()
+                        {
+                            IdPedido = pedido.IdPedido,
+                            IdCliente = pedido.idCliente,
+                            NombreCliente = pedido.AspNetUsers.NombreApellido,
+                            DescripcionPedido = pedido.descripcion_pedido,
+                            ObservacionesPedido = pedido.observaciones_pedido != null ? pedido.observaciones_pedido : "Ninguna",
+                            DireccionOrigen = pedido.calle_origen + " " + pedido.nro_calle_origen + ", " + pedido.Localidades.Nombre,
+                            DireccionDestino = pedido.calle_destino + " " + pedido.nro_calle_destino + ", " + pedido.Localidades1.Nombre,
+                            Distancia = Math.Round(Comunes.DistanciaEntreDosPuntosEnKM(origen, destino), 2),
+                            Precio = Math.Round(pedido.precio_predido, 2),
+                            LatOrigen = pedido.lat_origen != null ? Convert.ToDouble(pedido.lat_origen) : 0,
+                            LngOrigen = pedido.lng_origen != null ? Convert.ToDouble(pedido.lng_origen) : 0,
+                            LatDestino = pedido.lat_destino != null? Convert.ToDouble(pedido.lat_destino) : 0,
+                            LngDestino = pedido.lng_destino != null? Convert.ToDouble(pedido.lng_destino) : 0,
+                            Postulado = true,
+                            PrecioMinimo = rangoPrecios.PrecioMinimo,
+                            PrecioMaximo = rangoPrecios.PrecioMaximo
+                        };
+                        pedidosAsignados.Add(pedidoMapa);
+                    }
+                    return pedidosAsignados;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         public static Pedidos ObtenerPedidoPorId(int IdPedido)
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())
