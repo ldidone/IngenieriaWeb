@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilidades", "Utilidades\Ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositorioClases", "RepositorioClases\RepositorioClases.csproj", "{E826A780-08D9-48FF-A179-91B5C8D145B4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wappo", "Wappo\Wappo\Wappo.csproj", "{1016849B-43AB-4D4E-BC07-C564216E47D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wappo.Android", "Wappo\Wappo.Android\Wappo.Android.csproj", "{60EC29CA-471F-4586-A0FA-91B0C3549948}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wappo.Services", "Wappo.Services\Wappo.Services.csproj", "{B1781B6D-3AF7-4EAF-969D-C6FF7B916508}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,20 @@ Global
 		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E826A780-08D9-48FF-A179-91B5C8D145B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1016849B-43AB-4D4E-BC07-C564216E47D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1016849B-43AB-4D4E-BC07-C564216E47D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1016849B-43AB-4D4E-BC07-C564216E47D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1016849B-43AB-4D4E-BC07-C564216E47D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EC29CA-471F-4586-A0FA-91B0C3549948}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B1781B6D-3AF7-4EAF-969D-C6FF7B916508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1781B6D-3AF7-4EAF-969D-C6FF7B916508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1781B6D-3AF7-4EAF-969D-C6FF7B916508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1781B6D-3AF7-4EAF-969D-C6FF7B916508}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
