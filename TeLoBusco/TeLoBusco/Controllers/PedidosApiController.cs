@@ -11,24 +11,11 @@ namespace TeLoBusco.Controllers
 {
     public class PedidosApiController : ApiController
     {
-        //[HttpGet]
-        //public IEnumerable<Datos.Pedidos> GetAllPedidos()
-        //{
-        //    List<Datos.Pedidos> Pedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
-        //    return Pedidos;
-        //}
-
         [HttpGet]
         public IEnumerable<PedidoMapa> ObtenerPendientes()
         {
             var pedidosPendientes = PedidosServicio.ObtenerPendientesApi();
             return pedidosPendientes;
-        }
-
-        [HttpGet]
-        public bool Prueba()
-        {
-            return true;
         }
     }
 }

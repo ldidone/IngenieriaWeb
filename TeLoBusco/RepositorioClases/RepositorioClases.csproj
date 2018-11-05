@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Denuncia.cs" />
+    <Compile Include="NotificacionApi.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Postulacion.cs" />
     <Compile Include="PostulacionApi.cs" />
