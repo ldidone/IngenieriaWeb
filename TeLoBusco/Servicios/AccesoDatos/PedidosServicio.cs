@@ -83,6 +83,7 @@ namespace Servicios.AccesoDatos
                             destino.lat = Convert.ToDouble(pedido.lat_destino);
                             destino.lng = Convert.ToDouble(pedido.lng_destino);
                         }
+                        var rangoPrecios = Comunes.ObtenerRangoPrecios(origen, destino);
                         //ver postulado
                         PedidoMapa pedidoMapa = new PedidoMapa()
                         {
@@ -97,7 +98,9 @@ namespace Servicios.AccesoDatos
                             Precio = Math.Round(pedido.precio_predido, 2),
                             LatOrigen = pedido.lat_origen != null? Convert.ToDouble(pedido.lat_origen) : 0,
                             LngOrigen = pedido.lng_origen != null ? Convert.ToDouble(pedido.lng_origen) : 0,
-                            Postulado = false
+                            Postulado = false,
+                            PrecioMinimo = rangoPrecios.PrecioMinimo,
+                            PrecioMaximo = rangoPrecios.PrecioMaximo
                         };
                         pedidosPendientes.Add(pedidoMapa);
                     }
