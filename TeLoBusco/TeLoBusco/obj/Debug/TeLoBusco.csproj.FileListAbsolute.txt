@@ -330,3 +330,15 @@ C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLo
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.csproj.CopyComplete
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.dll
 C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\obj\Debug\TeLoBusco.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.JsonWebTokens.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Logging.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Tokens.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.IdentityModel.Tokens.Jwt.pdb
+C:\Users\lucas\Documents\GitHub\IngenieriaWeb\TeLoBusco\TeLoBusco\bin\System.IdentityModel.Tokens.Jwt.xml

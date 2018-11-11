@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TeLoBusco.Controllers;
 
 namespace TeLoBusco
 {
@@ -15,8 +16,9 @@ namespace TeLoBusco
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; //Hacer que ignore referencias circulares
 
             config.MapHttpAttributeRoutes();
+            config.MessageHandlers.Add(new TokenValidationHandler());
 
-            //ORIGINAL
+            //ORIGINAL - PRUEBA JWT
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
             //    routeTemplate: "api/{controller}/{id}",
