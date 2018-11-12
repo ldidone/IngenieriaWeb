@@ -50,11 +50,19 @@ namespace TeLoBusco.Controllers
             if (login == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
-            bool isCredentialValid = (login.Password == "123456");
+            bool isCredentialValid = false;
+
+            var user = Servicios.AspNetUsersServicio.obtenerPorEmail(login.Email);
+            if (user != null)
+            {
+                string passwordHash = user.PasswordHash;
+                bool passwordEquals = Utilidades.Comunes.VerifyHashedPassword(passwordHash, login.Password);
+                isCredentialValid = passwordEquals;
+            }
+
             if (isCredentialValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                var token = TokenGenerator.GenerateTokenJwt(login.Email);
                 return Ok(token);
             }
             else
