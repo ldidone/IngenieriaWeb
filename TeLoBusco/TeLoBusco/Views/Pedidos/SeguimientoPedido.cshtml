@@ -1,0 +1,68 @@
+﻿@using Datos
+@model Pedidos
+
+@{
+    ViewBag.Title = "Seguimiento Pedido";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<!-- DATOS DEL PEDIDO -->
+<div class="card">
+    <h5 id="DatosDelPedido" class="card-header" data-toggle="collapse" data-target="#datosPedido">
+        Datos del pedido
+    </h5>
+    <div class="collapse" id="datosPedido">
+        <div class="card-body">
+            <div class="form-group">
+                <label><b>Delivery:</b> @Model.AspNetUsers1.NombreApellido</label><br />
+                <label><b>Descripción pedido:</b> @Model.descripcion_pedido</label><br />
+                <label><b>Observaciones pedido:</b> @Model.observaciones_pedido</label><br />
+                <label><b>Dirección origen:</b> @Model.calle_origen @Model.nro_calle_origen, @Model.Localidades.Nombre</label><br />
+                <label><b>Dirección destino:</b> @Model.calle_destino @Model.nro_calle_destino, @Model.Localidades1.Nombre</label><br />
+                <label><b>Precio Pedido:</b> $@Math.Round(Model.precio_predido, 2)</label><br />
+                @if (Model.precio_transporte != null)
+                {
+                    <label><b>Precio Transporte:</b> $@Math.Round((Convert.ToDouble(Model.precio_transporte)), 2)</label><br />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MAPA -->
+<div id="map"></div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message");
+            });
+        </script>
+    }
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm9iOzpnEzKPKWmwKhPOVW811qMoxvZDM"></script>
+    <script src="~/Scripts/map.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datosPedido').collapse();
+            $("#DatosDelPedido").mouseover(function () {
+                $(this).css("cursor", "pointer");
+            });
+
+            /*TAMAÑO DEL MAPA*/
+            adaptarTamañoMapa();
+
+            /*ADAPTAR EL TAMAÑO DEL MAPA CUANDOCAMBIA LA RESOLUCIÓN*/
+            $(window).resize(function () {
+                adaptarTamañoMapa();
+            });
+
+            initMap(15, -31.2531394, -61.4937747)
+
+        });
+    </script>
+}

@@ -394,6 +394,7 @@
     <Content Include="Views\Denuncias\Denuncia.cshtml" />
     <Content Include="Views\Denuncias\DenunciaEnviada.cshtml" />
     <Content Include="Views\Valoraciones\ValorarCliente.cshtml" />
+    <Content Include="Views\Pedidos\SeguimientoPedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

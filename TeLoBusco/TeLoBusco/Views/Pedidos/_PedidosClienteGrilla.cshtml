@@ -16,6 +16,7 @@
             <th>Estado</th>
             <th>Precio pedido</th>
             <th>Precio transporte</th>
+            <th>Seguimiento</th>
             <th>Finalizar</th>
         </tr>
     </thead>
@@ -27,6 +28,7 @@
             <th>Estado</th>
             <th>Precio pedido</th>
             <th>Precio transporte</th>
+            <th>Seguimiento</th>
             <th>Finalizar</th>
         </tr>
     </tfoot>
@@ -50,6 +52,17 @@
             {
                 <td>No disponible</td>
             }
+                
+            @if (pedido.Estados.Descripcion == "Asignado")
+            {
+                <td>
+                    <a href="@Url.Action("SeguimientoPedido", new { id = pedido.IdPedido })">Seguir pedido</a>
+                </td>                       
+            }
+            else
+            {
+                <td>No asignado</td>
+            }             
             @if (!pedido.finalizado_cliente)
             {
                 <td class="celdaBotones">

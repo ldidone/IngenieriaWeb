@@ -364,5 +364,11 @@ namespace TeLoBusco.Controllers
             var listaPedidos = Servicios.AccesoDatos.PedidosServicio.ObtenerTodos();
             return View(listaPedidos);
         }
+
+        public ActionResult SeguimientoPedido(int id)
+        {
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
+            return View(pedido);
+        }
      }
 }
