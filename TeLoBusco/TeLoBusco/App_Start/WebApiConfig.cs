@@ -16,6 +16,7 @@ namespace TeLoBusco
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; //Hacer que ignore referencias circulares
 
             config.MapHttpAttributeRoutes();
+            config.Filters.Add(new AuthorizeAttribute());
             config.MessageHandlers.Add(new TokenValidationHandler());
             
             //ORIGINAL - PRUEBA JWT
