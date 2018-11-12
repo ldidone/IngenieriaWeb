@@ -17,7 +17,7 @@ namespace TeLoBusco
 
             config.MapHttpAttributeRoutes();
             config.MessageHandlers.Add(new TokenValidationHandler());
-
+            
             //ORIGINAL - PRUEBA JWT
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
