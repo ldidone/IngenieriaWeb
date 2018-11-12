@@ -1,4 +1,7 @@
-﻿using RepositorioClases;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using RepositorioClases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +17,8 @@ namespace TeLoBusco.Controllers
     [RoutePrefix("api/login")]
     public class LoginApiController : ApiController
     {
+
+
         [HttpGet]
         public bool LoginValido(string email, string password)
         {
@@ -47,12 +52,13 @@ namespace TeLoBusco.Controllers
         [Route("authenticate")]
         public IHttpActionResult Authenticate(LoginRequest login)
         {
+
             if (login == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             bool isCredentialValid = false;
 
-            var user = Servicios.AspNetUsersServicio.obtenerPorEmail(login.Email);
+            var user = Servicios.AspNetUsersServicio.obtenerPorEmail(login.Username);
             if (user != null)
             {
                 string passwordHash = user.PasswordHash;
@@ -62,7 +68,7 @@ namespace TeLoBusco.Controllers
 
             if (isCredentialValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Email);
+                var token = TokenGenerator.GenerateTokenJwt(login.Username);            
                 return Ok(token);
             }
             else
