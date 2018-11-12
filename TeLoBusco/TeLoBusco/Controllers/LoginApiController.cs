@@ -67,7 +67,13 @@ namespace TeLoBusco.Controllers
             }
             else
             {
-                return Unauthorized();
+                //return Unauthorized(); -> problema, retorna codigo 200 y el html de la pagina de login
+                //var responseMessage = ResponseMessage(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Unauthorized"));
+                //return StatusCode(HttpStatusCode.Unauthorized);
+                //HttpResponse httpResponse = new HttpResponse(null);
+                //httpResponse.SuppressFormsAuthenticationRedirect = true;
+                //httpResponse.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return InternalServerError();
             }
         }
     }
