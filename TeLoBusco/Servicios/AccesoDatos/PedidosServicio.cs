@@ -209,6 +209,7 @@ namespace Servicios.AccesoDatos
                 {
                     return db.Pedidos.Include("AspNetUsers")
                                      .Include("AspNetUsers1")
+                                     .Include("Estados")
                                      .Include("Localidades")
                                      .Include("Localidades1")
                                      .Include("Postulaciones")
