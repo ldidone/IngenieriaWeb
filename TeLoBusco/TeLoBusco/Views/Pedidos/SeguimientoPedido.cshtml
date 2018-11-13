@@ -91,12 +91,17 @@ else
             lngOrigenPedido = lngOrigenPedido.replace(".", "");
             lngOrigenPedido = lngOrigenPedido.replace(",", ".");
             var numLng = parseFloat(lngOrigenPedido);
-
+            console.log("Coordenadas  no num");
+            console.log(latOrigenPedido);
+            console.log(lngOrigenPedido);
 
             //INICIALIZAR EL MAPA
             //Centrar el mapa en el pedido
             if ((numLat != null && numLat != "") && (numLng != null && numLng != "")) {
-                initMap(16, numLat, numLng)
+                console.log("Coordenadas num");
+                console.log(numLat);
+                console.log(numLng);
+                initMap(16, latOrigenPedido, lngOrigenPedido)
             }
             else {
                 initMap(15, -31.2531394, -61.4937747)
