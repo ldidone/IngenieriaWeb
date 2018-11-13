@@ -141,6 +141,16 @@
           <Property Name="finalizado_cliente" Type="bit" Nullable="false" />
           <Property Name="finalizado_delivery" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="PosicionesDeliverys">
+          <Key>
+            <PropertyRef Name="IdPosicion" />
+          </Key>
+          <Property Name="IdPosicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDelivery" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="lat" Type="float" Nullable="false" />
+          <Property Name="lng" Type="float" Nullable="false" />
+          <Property Name="FechaHoraUltimaPos" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Postulaciones">
           <Key>
             <PropertyRef Name="IdPostulacion" />
@@ -516,6 +526,7 @@
           <EntitySet Name="Localidades" EntityType="Self.Localidades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notificaciones" EntityType="Self.Notificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PosicionesDeliverys" EntityType="Self.PosicionesDeliverys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Postulaciones" EntityType="Self.Postulaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposActividades" EntityType="Self.TiposActividades" Schema="dbo" store:Type="Tables" />
@@ -745,6 +756,7 @@
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="Denuncias" EntitySet="Denuncias" />
           </AssociationSet>
+          <EntitySet Name="PosicionesDeliverys" EntityType="TeloBuscoModel.PosicionesDeliverys" />
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1262,6 +1274,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PosicionesDeliverys">
+          <Key>
+            <PropertyRef Name="IdPosicion" />
+          </Key>
+          <Property Name="IdPosicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDelivery" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="Double" Nullable="false" />
+          <Property Name="lng" Type="Double" Nullable="false" />
+          <Property Name="FechaHoraUltimaPos" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1455,6 +1477,17 @@
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
                 <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
                 <ScalarProperty Name="IdDenuncia" ColumnName="IdDenuncia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PosicionesDeliverys">
+            <EntityTypeMapping TypeName="TeloBuscoModel.PosicionesDeliverys">
+              <MappingFragment StoreEntitySet="PosicionesDeliverys">
+                <ScalarProperty Name="FechaHoraUltimaPos" ColumnName="FechaHoraUltimaPos" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="idDelivery" ColumnName="idDelivery" />
+                <ScalarProperty Name="IdPosicion" ColumnName="IdPosicion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

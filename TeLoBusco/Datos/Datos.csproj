@@ -100,6 +100,9 @@
     <Compile Include="Pedidos.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="PosicionesDeliverys.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Postulaciones.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

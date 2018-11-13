@@ -40,5 +40,6 @@ namespace Datos
         public virtual DbSet<Pedidos> Pedidos { get; set; }
         public virtual DbSet<Valoraciones> Valoraciones { get; set; }
         public virtual DbSet<Denuncias> Denuncias { get; set; }
+        public virtual DbSet<PosicionesDeliverys> PosicionesDeliverys { get; set; }
     }
 }

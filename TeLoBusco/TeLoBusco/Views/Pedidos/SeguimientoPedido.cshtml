@@ -38,9 +38,10 @@
 <!-- MAPA -->
 <div id="map"></div>
 
-<!-- POSICIÓN PEDIDO -->
+<!-- DATOS INVISIBLES -->
 <input type="hidden" id="latOrigen" name="custLat" value="@Model.lat_origen">
 <input type="hidden" id="lngOrigen" name="custLng" value="@Model.lng_origen">
+<input type="hidden" id="idDelivery" name="custId" value="@Model.idDelivery">
 
 <!-- SEGUIMIENTO O PEDIDO ASIGNADO -->
 @if (ViewBag.Seguimiento)
@@ -84,23 +85,15 @@ else
             var latOrigenPedido = $("#latOrigen").val();
             var lngOrigenPedido = $("#lngOrigen").val();
 
-            //latOrigenPedido = latOrigenPedido.replace(".", "");
             latOrigenPedido = latOrigenPedido.replace(",", ".");
             var numLat = parseFloat(latOrigenPedido);
 
-            //lngOrigenPedido = lngOrigenPedido.replace(".", "");
             lngOrigenPedido = lngOrigenPedido.replace(",", ".");
             var numLng = parseFloat(lngOrigenPedido);
-            console.log("Coordenadas  no num");
-            console.log(latOrigenPedido);
-            console.log(lngOrigenPedido);
 
             //INICIALIZAR EL MAPA
             //Centrar el mapa en el pedido
             if ((numLat != null && numLat != "") && (numLng != null && numLng != "")) {
-                console.log("Coordenadas num");
-                console.log(numLat);
-                console.log(numLng);
                 initMap(16, numLat, numLng)
             }
             else {
@@ -109,9 +102,36 @@ else
 
             PosicionarPedidoSeguimiento(numLat, numLng);
 
+            //SI ES SEGUIMIENTO, MOSTRAR EL VEHÍCULO
             var seguimiento = $("#seguimiento").val();
             var esSeguimiento = (seguimiento == 'true') //Necesaria para saber si mostrar el vehículo en movimiento o no
-            
+
+            if (esSeguimiento) {
+                var ultimaFecha;
+
+                var idDelivery = $("#idDelivery").val();
+                $.get("/Pedidos/UltimaPosicionDelivery?idDelivery=" + idDelivery, function (data) {                  
+                    var obj = JSON.parse(data);
+                    if (obj.Posicion.IdPosicion != null) {
+                        ultimaFecha = obj.Posicion.FechaHoraUltimaPos;
+                        PosicionarDelivery(obj);
+                    }
+                });
+
+                //ACTUALIZAR LA POSICION CADA 5 SEGUNDOS
+                setInterval(function () {
+                    $.get("/Pedidos/UltimaPosicionDelivery?idDelivery=" + idDelivery, function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.Posicion.IdPosicion != null) {
+                            var nuevaFecha = obj.Posicion.FechaHoraUltimaPos;
+                            if (ultimaFecha != nuevaFecha) {
+                                ultimaFecha = nuevaFecha;
+                                PosicionarDelivery(obj);
+                            }
+                        }                
+                    });
+                }, 5000);
+            }
         });
     </script>
 }

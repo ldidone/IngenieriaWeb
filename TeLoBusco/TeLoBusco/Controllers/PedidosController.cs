@@ -382,5 +382,17 @@ namespace TeLoBusco.Controllers
             var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
             return View(pedido);
         }
+
+        public JObject UltimaPosicionDelivery(string idDelivery)
+        {
+            var ultimaPosicion = Servicios.AccesoDatos.PosicionesDeliverysService.ObtenerUltimaPosicionDelivery(idDelivery);
+            if (ultimaPosicion != null)
+            {
+                var json = new JObject(new JProperty("Posicion", JToken.FromObject(ultimaPosicion)));
+                return json;
+            }
+
+            return new JObject(new JProperty("Posicion"));
+        }
      }
 }

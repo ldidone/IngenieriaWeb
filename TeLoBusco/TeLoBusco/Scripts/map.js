@@ -102,3 +102,54 @@ function LimpiarPedidoSeguimiento() {
     }
     markerPedidoSeguimiento = [];
 }
+
+markerDelivery = [];
+function PosicionarDelivery(obj) {
+    LimpiarPosicionarDelivery();
+
+    lat = obj.Posicion.lat;
+    lng = obj.Posicion.lng;
+    var marker = new google.maps.Marker({
+        map: map,
+        position: { lat: lat, lng: lng },
+        animation: google.maps.Animation.DROP,
+        title: 'Delivery',
+        icon: '/Images/delivery.png'
+    });
+
+    var fecha = new Date(obj.Posicion.FechaHoraUltimaPos)
+    fecha.toLocaleDateString("es-ES");
+
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var año = fecha.getFullYear();
+
+    var hora = fecha.getHours();
+    var minutos = fecha.getMinutes();
+    var segundos = fecha.getSeconds();
+
+    var fechaHora = dia + '/' + mes + '/' + año + ' ' + hora + ':' + minutos + ':' + segundos;
+
+    var contentString = '<div id="content">' +
+        '<div id="infoDelivery">' +
+        '<h4 class="firstHeading">Delivery</h4>' +
+        '<div>' +
+        '<p><b>Última actualización de la posición: </b>' + fechaHora + '</p>' +     
+        '</div>' +
+        '</div>' +
+        '</div>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+    markerDelivery.push(marker);
+}
+
+function LimpiarPosicionarDelivery() {
+    for (var i = 0; i < markerDelivery.length; i++) {
+        markerDelivery[i].setMap(null);
+    }
+    markerDelivery = [];
+}
