@@ -24,7 +24,7 @@ function añadirPedido(lat, lng, pedido) {
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
             scale: 6, //tamaño
-            strokeColor: '#000000', //color del borde - podría ir 'color' 
+            strokeColor: '#000000', //color del borde 
             strokeWeight: 1, //grosor del borde 
             fillColor: '#ff0000', //color de relleno
             fillOpacity: 1// opacidad del relleno
@@ -87,7 +87,7 @@ function PosicionarPedidoSeguimiento(lat, lng) {
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
             scale: 6, //tamaño
-            strokeColor: '#000000', //color del borde - podría ir 'color' 
+            strokeColor: '#000000', //color del borde 
             strokeWeight: 1, //grosor del borde 
             fillColor: '#ff0000', //color de relleno
             fillOpacity: 1// opacidad del relleno

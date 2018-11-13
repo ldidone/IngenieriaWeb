@@ -365,9 +365,20 @@ namespace TeLoBusco.Controllers
             return View(listaPedidos);
         }
 
-        public ActionResult SeguimientoPedido(int id)
+        public ActionResult SeguimientoPedido(int id, bool seguimiento)
         {
-            ViewBag.Title = "Seguimiento Pedido";
+            //seguimiento indica desde donde estoy llamando al controlador: desde "Seguir pedido" o de "Ver pedido" en (pedidos asignados)
+            if (seguimiento)
+            {
+                ViewBag.Title = "Seguimiento Pedido";
+                ViewBag.Seguimiento = true;
+            }
+            else
+            {
+                ViewBag.Title = "Pedido asignado";
+                ViewBag.Seguimiento = false;
+            }
+            
             var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
             return View(pedido);
         }

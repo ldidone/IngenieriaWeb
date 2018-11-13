@@ -23,7 +23,7 @@
                     <label><b>Dirección origen: </b>@pedido.calle_origen @pedido.nro_calle_origen, @pedido.Localidades.Nombre </label><br />
                     <label><b>Dirección destino: </b>@pedido.calle_destino @pedido.nro_calle_destino, @pedido.Localidades1.Nombre</label><br />
                     <a href="/Valoraciones/ValorarCliente?idPedido=@pedido.IdPedido" class="btn btn-dark">Finalizar pedido</a>
-                    <a href="#" class="btn btn-dark">Ver pedido</a>
+                    <a href="@Url.Action("SeguimientoPedido", new { id = pedido.IdPedido, seguimiento = false })" class="btn btn-dark">Ver pedido</a>
                 </div>
             </div>
         }

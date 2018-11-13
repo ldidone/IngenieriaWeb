@@ -56,7 +56,7 @@
             @if (pedido.Estados.Descripcion == "Asignado")
             {
                 <td>
-                    <a href="@Url.Action("SeguimientoPedido", new { id = pedido.IdPedido })">Seguir pedido</a>
+                    <a href="@Url.Action("SeguimientoPedido", new { id = pedido.IdPedido, seguimiento = true })">Seguir pedido</a>
                 </td>                       
             }
             else

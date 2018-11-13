@@ -12,7 +12,14 @@
     <div class="collapse" id="datosPedido">
         <div class="card-body">
             <div class="form-group">
-                <label><b>Delivery:</b> @Model.AspNetUsers1.NombreApellido</label><br />
+                @if (ViewBag.Seguimiento)
+                {
+                    <label><b>Delivery:</b> @Model.AspNetUsers1.NombreApellido</label><br />
+                }
+                else
+                {
+                    <label><b>Cliente:</b> @Model.AspNetUsers.NombreApellido</label><br />
+                }
                 <label><b>Estado del pedido:</b> @Model.Estados.Descripcion</label><br />
                 <label><b>Descripción pedido:</b> @Model.descripcion_pedido</label><br />
                 <label><b>Observaciones pedido:</b> @Model.observaciones_pedido</label><br />
@@ -33,7 +40,18 @@
 
 <!-- POSICIÓN PEDIDO -->
 <input type="hidden" id="latOrigen" name="custLat" value="@Model.lat_origen">
-<input type="hidden" id="lngOrigen" name="custLat" value="@Model.lng_origen">
+<input type="hidden" id="lngOrigen" name="custLng" value="@Model.lng_origen">
+
+<!-- SEGUIMIENTO O PEDIDO ASIGNADO -->
+@if (ViewBag.Seguimiento)
+{
+    <input type="hidden" id="seguimiento" name="custSeg" value="true">
+}
+else
+{
+    <input type="hidden" id="seguimiento" name="custSeg" value="false">
+}
+
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -77,7 +95,16 @@
             lngOrigenPedido = lngOrigenPedido.replace(",", ".");
             var numLng = parseFloat(lngOrigenPedido);
 
+            //Centrar el mapa en el pedido
+            if ((numLat != null && numLat != "") && (numLng != null && numLng != "")) {
+                initMap(16, numLat, numLng)
+            }
+
             PosicionarPedidoSeguimiento(numLat, numLng);
+
+            var seguimiento = $("#seguimiento").val();
+            var esSeguimiento = (seguimiento == 'true') //Necesaria para saber si mostrar el vehículo en movimiento o no
+            
         });
     </script>
 }
