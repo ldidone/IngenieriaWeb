@@ -367,6 +367,7 @@ namespace TeLoBusco.Controllers
 
         public ActionResult SeguimientoPedido(int id)
         {
+            ViewBag.Title = "Seguimiento Pedido";
             var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(id);
             return View(pedido);
         }

@@ -73,3 +73,32 @@ function limpiarPedidosMapa() {
     markersPedidos = [];
 }
 
+
+markerPedidoSeguimiento = [];
+
+function PosicionarPedidoSeguimiento(lat, lng) {
+    LimpiarPedidoSeguimiento();
+
+    var marker = new google.maps.Marker({
+        map: map,
+        position: { lat: lat, lng: lng },
+        animation: google.maps.Animation.DROP,
+        title: 'Pedido',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 6, //tamaño
+            strokeColor: '#000000', //color del borde - podría ir 'color' 
+            strokeWeight: 1, //grosor del borde 
+            fillColor: '#ff0000', //color de relleno
+            fillOpacity: 1// opacidad del relleno
+        }
+    });
+    markerPedidoSeguimiento.push(marker);
+}
+
+function LimpiarPedidoSeguimiento() {
+    for (var i = 0; i < markerPedidoSeguimiento.length; i++) {
+        markerPedidoSeguimiento[i].setMap(null);
+    }
+    markerPedidoSeguimiento = [];
+}

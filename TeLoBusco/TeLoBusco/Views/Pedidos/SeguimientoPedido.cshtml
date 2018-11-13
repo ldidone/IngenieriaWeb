@@ -1,10 +1,6 @@
 ﻿@using Datos
 @model Pedidos
 
-@{
-    ViewBag.Title = "Seguimiento Pedido";
-}
-
 <h2>@ViewBag.Title</h2>
 <hr />
 
@@ -35,6 +31,10 @@
 <!-- MAPA -->
 <div id="map"></div>
 
+<!-- POSICIÓN PEDIDO -->
+<input type="hidden" id="latOrigen" name="custLat" value="@Model.lat_origen">
+<input type="hidden" id="lngOrigen" name="custLat" value="@Model.lng_origen">
+
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @if (ViewBag.Message != null)
@@ -62,8 +62,22 @@
                 adaptarTamañoMapa();
             });
 
+            //INICIALIZAR EL MAPA
             initMap(15, -31.2531394, -61.4937747)
 
+            //POSICIONAR PEDIDO EN EL MAPA
+            var latOrigenPedido = $("#latOrigen").val();
+            var lngOrigenPedido = $("#lngOrigen").val();
+
+            latOrigenPedido = latOrigenPedido.replace(".", "");
+            latOrigenPedido = latOrigenPedido.replace(",", ".");
+            var numLat = parseFloat(latOrigenPedido);
+
+            lngOrigenPedido = lngOrigenPedido.replace(".", "");
+            lngOrigenPedido = lngOrigenPedido.replace(",", ".");
+            var numLng = parseFloat(lngOrigenPedido);
+
+            PosicionarPedidoSeguimiento(numLat, numLng);
         });
     </script>
 }
