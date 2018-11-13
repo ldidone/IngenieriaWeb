@@ -80,9 +80,6 @@ else
                 adaptarTamañoMapa();
             });
 
-            //INICIALIZAR EL MAPA
-            initMap(15, -31.2531394, -61.4937747)
-
             //POSICIONAR PEDIDO EN EL MAPA
             var latOrigenPedido = $("#latOrigen").val();
             var lngOrigenPedido = $("#lngOrigen").val();
@@ -95,9 +92,14 @@ else
             lngOrigenPedido = lngOrigenPedido.replace(",", ".");
             var numLng = parseFloat(lngOrigenPedido);
 
+
+            //INICIALIZAR EL MAPA
             //Centrar el mapa en el pedido
             if ((numLat != null && numLat != "") && (numLng != null && numLng != "")) {
                 initMap(16, numLat, numLng)
+            }
+            else {
+                initMap(15, -31.2531394, -61.4937747)
             }
 
             PosicionarPedidoSeguimiento(numLat, numLng);
