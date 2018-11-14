@@ -1,7 +1,22 @@
-﻿
+﻿@using Datos
+@model List<Notificaciones>
+
 @{
     ViewBag.Title = "Notificaciones";
 }
 
 <h2>@ViewBag.Title</h2>
-
+<hr />
+@foreach (var notificacion in Model)
+{
+    <div class="card" style="margin:10px 0px;">
+        <div class="card-header">
+            Notificación
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@notificacion.Descripcion</h5>
+            <p class="card-text"><b>Estado: </b>@notificacion.Estados.Descripcion</p>
+            <a href="@Url.Action("Notificacion", new { idActividad = notificacion.IdActividad, idTipoActividad = notificacion.IdTipoActividad, idNotificacion = notificacion.IdNotificacion })" class="btn btn-dark">Ver</a>
+        </div>
+    </div>
+}

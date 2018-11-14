@@ -129,9 +129,11 @@ namespace TeLoBusco.Controllers
             return View();
         }
 
-        public ActionResult PostulacionRechazada()
+        public ActionResult PostulacionRechazada(int idPostulacion)
         {
-            return View();
+            var idPedido = Servicios.AccesoDatos.PostulacionesServicio.Obtener(idPostulacion).IdPedido;
+            var pedido = Servicios.AccesoDatos.PedidosServicio.ObtenerPedidoPorId(idPedido);
+            return View(pedido);
         }
     }
 }

@@ -42,7 +42,10 @@
                     </li>
                     <li id="Notifications" class="nav-item dropdown active">
                         <a id="ViewNotifications" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Notificaciones <span id="NotificationCounter" class="badge badge-danger">0</span></a>
-                        <div id="NotificationList" class="dropdown-menu bg-black"></div>                       
+                        <div id="NotificationList" class="dropdown-menu bg-black">
+                            <a class="dropdown-item itemsPrincipal" href="/Notificaciones/Index">Todas las notificaciones</a>
+                            <div class="dropdown-divider bg-dark"></div>
+                        </div>          
                     </li>
                     @if (User.IsInRole("Administrador"))
                     {

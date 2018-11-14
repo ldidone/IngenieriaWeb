@@ -13,7 +13,10 @@ namespace TeLoBusco.Controllers
         // GET: Notificaciones
         public ActionResult Index()
         {
-            return View();
+            var userName = User.Identity.Name;
+            var IdCliente = Servicios.AspNetUsersServicio.obtenerIdUsuarioPorUserName(userName);
+            var listaNotificaciones = Servicios.AccesoDatos.NotificacionesServicio.ObtenerTodasNotificacionesUsuario(IdCliente);
+            return View(listaNotificaciones);
         }
 
         // GET: Notificaciones/Details/5
@@ -130,11 +133,12 @@ namespace TeLoBusco.Controllers
                     return RedirectToAction("Index", "Pedidos");
                 case "Postulación":
                     /*Redireccionar a donde corresponda*/
-                    return RedirectToAction("Postulacion", "Postulaciones", routeValues: new { idPostulacion = idActividad } );
+                    return RedirectToAction("Postulacion", "Postulaciones", routeValues: new { idPostulacion = idActividad });
                 case "Postulación Aceptada":
-                    return RedirectToAction("PostulacionAceptada", "Postulaciones");
+                    int idPedido = Servicios.AccesoDatos.PostulacionesServicio.Obtener(idActividad).IdPedido;
+                    return RedirectToAction("SeguimientoPedido", "Pedidos", routeValues: new { id = idPedido, seguimiento  = false});
                 case "Postulación Rechazada":
-                    return RedirectToAction("PostulacionAceptada", "Postulaciones");
+                    return RedirectToAction("PostulacionRechazada", "Postulaciones", routeValues: new { idPostulacion = idActividad });
                 default:
                     return RedirectToAction("Index", "Pedidos");
             }

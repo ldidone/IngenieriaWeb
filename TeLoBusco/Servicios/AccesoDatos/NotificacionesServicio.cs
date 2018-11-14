@@ -34,6 +34,29 @@ namespace Servicios.AccesoDatos
             }
         }
 
+        public static List<Notificaciones> ObtenerTodasNotificacionesUsuario(string idUsuario)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    db.Configuration.ProxyCreationEnabled = false;
+                    int idNoVisto = EstadosServicio.obtenerIdPorDescripcion("No vista");
+                    return db.Notificaciones.Include("TiposActividades")
+                                            .Include("Estados")
+                                            .Include("AspNetUsers")
+                                            .Include("Postulaciones")
+                                            .Where(x => x.IdUsuarioReceptor == idUsuario)
+                                            .ToList();
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         public static List<Notificaciones> ObtenerTodasNotificaciones()
         {
             using (TeloBuscoEntities db = new TeloBuscoEntities())

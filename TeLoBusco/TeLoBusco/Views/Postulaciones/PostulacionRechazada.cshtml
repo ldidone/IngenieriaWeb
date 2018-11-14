@@ -1,7 +1,11 @@
-﻿
+﻿@using Datos
+@model Pedidos
+
 @{
     ViewBag.Title = "Postulación Rechazada";
 }
 
 <h2>@ViewBag.Title</h2>
+<hr />
+<h5>Lo sentimos, su postulación a el pedido @Model.descripcion_pedido ha sido rechazada. Puede postularse a nuevos pedidos haciendo click <a href="/Pedidos/Pedidos">aquí</a></h5>
 
