@@ -17,19 +17,37 @@ namespace TeLoBusco.Controllers
     {
         [HttpGet]
         [Route("obtenerpendientes")]
-        public IEnumerable<PedidoMapa> ObtenerPendientes()
+        public IEnumerable<PedidoMapa> ObtenerPendientes(string emailDelivery, string JWT)
         {
-            var pedidosPendientes = PedidosServicio.ObtenerPendientesApi();
-            return pedidosPendientes;
+            var user = AspNetUsersServicio.obtenerPorEmail(emailDelivery);
+            if (user != null)
+            {
+                if (user.JWT == JWT)
+                {
+                    var pedidosPendientes = PedidosServicio.ObtenerPendientesApi();
+                    return pedidosPendientes;
+                }              
+            }
+            List<PedidoMapa> listaVacia = new List<PedidoMapa>();
+            return listaVacia;
         }
 
         [HttpGet]
         [Route("obtenerasignados")]
-        public IEnumerable<PedidoMapa> ObtenerAsignados(string emailDelivery)
+        public IEnumerable<PedidoMapa> ObtenerAsignados(string emailDelivery, string JWT)
         {
-            var IdDelivery = AspNetUsersServicio.obtenerIdPorEmail(emailDelivery);
-            var pedidosAsignados = PedidosServicio.ObtenerPedidosAsignadosApi(IdDelivery);
-            return pedidosAsignados;
+            var user = AspNetUsersServicio.obtenerPorEmail(emailDelivery);
+            if (user != null)
+            {
+                if (user.JWT == JWT)
+                {
+                    var IdDelivery = user.Id;
+                    var pedidosAsignados = PedidosServicio.ObtenerPedidosAsignadosApi(IdDelivery);
+                    return pedidosAsignados;
+                }                    
+            }
+            List<PedidoMapa> listaVacia = new List<PedidoMapa>();
+            return listaVacia;
         }
     }
 }
