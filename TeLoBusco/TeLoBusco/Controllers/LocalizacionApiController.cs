@@ -1,4 +1,5 @@
 ﻿using RepositorioClases;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,14 @@ namespace TeLoBusco.Controllers
         {
             if (coordenada != null)
             {
-                Servicios.AccesoDatos.PosicionesDeliverysService.Crear(coordenada);
+                var user = AspNetUsersServicio.obtenerPorEmail(coordenada.Email);
+                if (user != null)
+                {
+                    if (user.JWT == coordenada.JWT)
+                    {
+                        Servicios.AccesoDatos.PosicionesDeliverysService.Crear(coordenada);
+                    }                   
+                }               
             }           
         }
     }
