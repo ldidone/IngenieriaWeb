@@ -103,7 +103,8 @@ namespace TeLoBusco.Controllers
                 pedidoDetalles = pedidoDetalles,
                 IdPostulado = postulacion.IdUsuarioPostulado,
                 PostuladoNombreApellido = postulacion.AspNetUsers.NombreApellido,
-                ValoracionDelivery = valoracion
+                ValoracionDelivery = valoracion,
+                Estado = postulacion.Estados.Descripcion
             };
 
             return View(postulacionesViewModel);

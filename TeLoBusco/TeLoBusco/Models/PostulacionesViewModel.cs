@@ -28,6 +28,7 @@ namespace TeLoBusco.Models
         public decimal precioMinimo { get; set; }
         public decimal precioMaximo { get; set; }
         public double ValoracionDelivery { get; set; }
+        public string Estado { get; set; }
 
         public PostulacionesViewModel()
         {
