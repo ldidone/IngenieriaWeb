@@ -28,11 +28,11 @@ namespace Datos
         public double TiempoEstimado { get; set; }
         public decimal Precio { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual TiposActividades TiposActividades { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notificaciones> Notificaciones { get; set; }
         public virtual Pedidos Pedidos { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

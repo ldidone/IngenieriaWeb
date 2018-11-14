@@ -21,9 +21,9 @@ namespace Datos
         public string IdUsuarioReceptor { get; set; }
         public int IdActividad { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual Postulaciones Postulaciones { get; set; }
         public virtual TiposActividades TiposActividades { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

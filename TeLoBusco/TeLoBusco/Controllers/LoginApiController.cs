@@ -68,8 +68,16 @@ namespace TeLoBusco.Controllers
 
             if (isCredentialValid)
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);            
-                return Ok(token);
+                var token = TokenGenerator.GenerateTokenJwt(login.Username);
+                var almacenarExitoso = Servicios.AspNetUsersServicio.AlmacenarJWT(login.Username, token); //Ver si se almacenó
+                if (almacenarExitoso)
+                {
+                    return Ok(token);
+                }
+                else
+                {
+                    return InternalServerError();
+                }               
             }
             else
             {

@@ -29,7 +29,6 @@ namespace Datos
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Localidades> Localidades { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Actividades> Actividades { get; set; }
@@ -41,5 +40,6 @@ namespace Datos
         public virtual DbSet<Valoraciones> Valoraciones { get; set; }
         public virtual DbSet<Denuncias> Denuncias { get; set; }
         public virtual DbSet<PosicionesDeliverys> PosicionesDeliverys { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
     }
 }

@@ -21,8 +21,8 @@ namespace Datos
         public string IdUsuarioEmisor { get; set; }
         public string IdUsuarioReceptor { get; set; }
     
+        public virtual TiposActividades TiposActividades { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
-        public virtual TiposActividades TiposActividades { get; set; }
     }
 }

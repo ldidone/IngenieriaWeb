@@ -23,8 +23,8 @@ namespace Datos
         public bool valoracion_cliente { get; set; }
         public bool valoracion_delivery { get; set; }
     
+        public virtual Pedidos Pedidos { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
-        public virtual Pedidos Pedidos { get; set; }
     }
 }

@@ -176,5 +176,27 @@ namespace Servicios
                 }
             }
         }
+
+        public static bool AlmacenarJWT(string email, string JWT)
+        {
+            using (TeloBuscoEntities db = new TeloBuscoEntities())
+            {
+                try
+                {
+                    var user = db.AspNetUsers.Where(x => x.Email == email).FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.JWT = JWT;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

@@ -44,8 +44,6 @@ namespace Datos
         public bool finalizado_cliente { get; set; }
         public bool finalizado_delivery { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual AspNetUsers AspNetUsers1 { get; set; }
         public virtual Estados Estados { get; set; }
         public virtual Localidades Localidades { get; set; }
         public virtual Localidades Localidades1 { get; set; }
@@ -56,5 +54,7 @@ namespace Datos
         public virtual ICollection<Valoraciones> Valoraciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Denuncias> Denuncias { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUsers AspNetUsers1 { get; set; }
     }
 }

@@ -77,6 +77,7 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NombreApellido" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="JWT" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Denuncias">
           <Key>
@@ -645,32 +646,11 @@
           <EntitySet Name="AspNetRoles" EntityType="TeloBuscoModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="TeloBuscoModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="TeloBuscoModel.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="TeloBuscoModel.AspNetUsers" />
           <EntitySet Name="Localidades" EntityType="TeloBuscoModel.Localidades" />
           <EntitySet Name="sysdiagrams" EntityType="TeloBuscoModel.sysdiagrams" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <EntitySet Name="Actividades" EntityType="TeloBuscoModel.Actividades" />
           <EntitySet Name="Estados" EntityType="TeloBuscoModel.Estados" />
           <EntitySet Name="TiposActividades" EntityType="TeloBuscoModel.TiposActividades" />
-          <AssociationSet Name="FK_Actividades_AspNetUsers_Emisor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Actividades" EntitySet="Actividades" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Actividades_AspNetUsers_Receptor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Actividades" EntitySet="Actividades" />
-          </AssociationSet>
           <AssociationSet Name="FK_Actividades_TiposActividades" Association="TeloBuscoModel.FK_Actividades_TiposActividades">
             <End Role="TiposActividades" EntitySet="TiposActividades" />
             <End Role="Actividades" EntitySet="Actividades" />
@@ -680,10 +660,6 @@
             <End Role="Estados" EntitySet="Estados" />
           </AssociationSet>
           <EntitySet Name="Postulaciones" EntityType="TeloBuscoModel.Postulaciones" />
-          <AssociationSet Name="FK_Postulaciones_AspNetUsers" Association="TeloBuscoModel.FK_Postulaciones_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Postulaciones" EntitySet="Postulaciones" />
-          </AssociationSet>
           <AssociationSet Name="FK_Postulaciones_Estados" Association="TeloBuscoModel.FK_Postulaciones_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Postulaciones" EntitySet="Postulaciones" />
@@ -693,10 +669,6 @@
             <End Role="Postulaciones" EntitySet="Postulaciones" />
           </AssociationSet>
           <EntitySet Name="Notificaciones" EntityType="TeloBuscoModel.Notificaciones" />
-          <AssociationSet Name="FK_Notificaciones_AspNetUsers" Association="TeloBuscoModel.FK_Notificaciones_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Notificaciones" EntitySet="Notificaciones" />
-          </AssociationSet>
           <AssociationSet Name="FK_Notificaciones_Estados" Association="TeloBuscoModel.FK_Notificaciones_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Notificaciones" EntitySet="Notificaciones" />
@@ -710,14 +682,6 @@
             <End Role="Notificaciones" EntitySet="Notificaciones" />
           </AssociationSet>
           <EntitySet Name="Pedidos" EntityType="TeloBuscoModel.Pedidos" />
-          <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Pedidos" EntitySet="Pedidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pedidos_AspNetUsersDelivery" Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Pedidos" EntitySet="Pedidos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Pedidos_Estados" Association="TeloBuscoModel.FK_Pedidos_Estados">
             <End Role="Estados" EntitySet="Estados" />
             <End Role="Pedidos" EntitySet="Pedidos" />
@@ -739,14 +703,6 @@
             <End Role="Postulaciones" EntitySet="Postulaciones" />
           </AssociationSet>
           <EntitySet Name="Valoraciones" EntityType="TeloBuscoModel.Valoraciones" />
-          <AssociationSet Name="FK_Valoraciones_Cliente" Association="TeloBuscoModel.FK_Valoraciones_Cliente">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Valoraciones" EntitySet="Valoraciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Valoraciones_Delivery" Association="TeloBuscoModel.FK_Valoraciones_Delivery">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Valoraciones" EntitySet="Valoraciones" />
-          </AssociationSet>
           <AssociationSet Name="FK_Valoraciones_Pedidos" Association="TeloBuscoModel.FK_Valoraciones_Pedidos">
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="Valoraciones" EntitySet="Valoraciones" />
@@ -757,6 +713,51 @@
             <End Role="Denuncias" EntitySet="Denuncias" />
           </AssociationSet>
           <EntitySet Name="PosicionesDeliverys" EntityType="TeloBuscoModel.PosicionesDeliverys" />
+          <EntitySet Name="AspNetUsers" EntityType="TeloBuscoModel.AspNetUsers" />
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Emisor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actividades_AspNetUsers_Receptor" Association="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Actividades" EntitySet="Actividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notificaciones_AspNetUsers" Association="TeloBuscoModel.FK_Notificaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Notificaciones" EntitySet="Notificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_AspNetUsers" Association="TeloBuscoModel.FK_Pedidos_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedidos_AspNetUsersDelivery" Association="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Pedidos" EntitySet="Pedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Postulaciones_AspNetUsers" Association="TeloBuscoModel.FK_Postulaciones_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Postulaciones" EntitySet="Postulaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Cliente" Association="TeloBuscoModel.FK_Valoraciones_Cliente">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valoraciones_Delivery" Association="TeloBuscoModel.FK_Valoraciones_Delivery">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Valoraciones" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="TeloBuscoModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -797,35 +798,6 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="AspNetUsers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="NombreApellido" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Actividades" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" FromRole="AspNetUsers" ToRole="Actividades" />
-          <NavigationProperty Name="Actividades1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="AspNetUsers" ToRole="Actividades" />
-          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Postulaciones" />
-          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
-          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
-          <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
-          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
-          <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
-          </EntityType>
         <EntityType Name="Localidades">
           <Key>
             <PropertyRef Name="idLocalidad" />
@@ -846,38 +818,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="TeloBuscoModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="TeloBuscoModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
         <EntityType Name="Actividades">
           <Key>
             <PropertyRef Name="IdActividad" />
@@ -888,9 +828,9 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IdUsuarioEmisor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdUsuarioReceptor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Actividades_TiposActividades" FromRole="Actividades" ToRole="TiposActividades" />
           <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" FromRole="Actividades" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="Actividades" ToRole="AspNetUsers" />
-          <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Actividades_TiposActividades" FromRole="Actividades" ToRole="TiposActividades" />
         </EntityType>
         <EntityType Name="Estados">
           <Key>
@@ -916,30 +856,6 @@
           <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_TiposActividades" FromRole="TiposActividades" ToRole="Notificaciones" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_TiposActividades" FromRole="TiposActividades" ToRole="Pedidos" />
         </EntityType>
-        <Association Name="FK_Actividades_AspNetUsers_Emisor">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Actividades">
-              <PropertyRef Name="IdUsuarioEmisor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Actividades_AspNetUsers_Receptor">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Actividades">
-              <PropertyRef Name="IdUsuarioReceptor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Actividades_TiposActividades">
           <End Type="TeloBuscoModel.TiposActividades" Role="TiposActividades" Multiplicity="1" />
           <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
@@ -975,24 +891,12 @@
           <Property Name="IdEstadoPostulacion" Type="Int32" Nullable="false" />
           <Property Name="TiempoEstimado" Type="Double" Nullable="false" />
           <Property Name="Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="Postulaciones" ToRole="AspNetUsers" />
           <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Postulaciones_Estados" FromRole="Postulaciones" ToRole="Estados" />
           <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Postulaciones_TiposActividades" FromRole="Postulaciones" ToRole="TiposActividades" />
           <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_Postulaciones" FromRole="Postulaciones" ToRole="Notificaciones" />
           <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Postulaciones" ToRole="Pedidos" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="Postulaciones" ToRole="AspNetUsers" />
         </EntityType>
-        <Association Name="FK_Postulaciones_AspNetUsers">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Postulaciones">
-              <PropertyRef Name="IdUsuarioPostulado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Postulaciones_Estados">
           <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
@@ -1027,23 +931,11 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IdUsuarioReceptor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IdActividad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="Notificaciones" ToRole="AspNetUsers" />
           <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Notificaciones_Estados" FromRole="Notificaciones" ToRole="Estados" />
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Notificaciones_Postulaciones" FromRole="Notificaciones" ToRole="Postulaciones" />
           <NavigationProperty Name="TiposActividades" Relationship="TeloBuscoModel.FK_Notificaciones_TiposActividades" FromRole="Notificaciones" ToRole="TiposActividades" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="Notificaciones" ToRole="AspNetUsers" />
         </EntityType>
-        <Association Name="FK_Notificaciones_AspNetUsers">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notificaciones">
-              <PropertyRef Name="IdUsuarioReceptor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Notificaciones_Estados">
           <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
@@ -1105,8 +997,6 @@
           <Property Name="lng_destino" Type="Double" />
           <Property Name="finalizado_cliente" Type="Boolean" Nullable="false" />
           <Property Name="finalizado_delivery" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
           <NavigationProperty Name="Estados" Relationship="TeloBuscoModel.FK_Pedidos_Estados" FromRole="Pedidos" ToRole="Estados" />
           <NavigationProperty Name="Localidades" Relationship="TeloBuscoModel.FK_Pedidos_Localidades" FromRole="Pedidos" ToRole="Localidades" />
           <NavigationProperty Name="Localidades1" Relationship="TeloBuscoModel.FK_Pedidos_Localidades_Destino" FromRole="Pedidos" ToRole="Localidades" />
@@ -1114,31 +1004,9 @@
           <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_Pedidos" FromRole="Pedidos" ToRole="Postulaciones" />
           <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Pedidos" ToRole="Valoraciones" />
           <NavigationProperty Name="Denuncias" Relationship="TeloBuscoModel.FK_Denuncias_Pedidos" FromRole="Pedidos" ToRole="Denuncias" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="Pedidos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="Pedidos" ToRole="AspNetUsers" />
         </EntityType>
-        <Association Name="FK_Pedidos_AspNetUsers">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedidos">
-              <PropertyRef Name="idCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedidos_AspNetUsersDelivery">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Pedidos">
-              <PropertyRef Name="idDelivery" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Pedidos_Estados">
           <End Type="TeloBuscoModel.Estados" Role="Estados" Multiplicity="1" />
           <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
@@ -1211,34 +1079,10 @@
           <Property Name="Comentario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="valoracion_cliente" Type="Boolean" Nullable="false" />
           <Property Name="valoracion_delivery" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Valoraciones" ToRole="Pedidos" />
           <NavigationProperty Name="AspNetUsers" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="Valoraciones" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="Valoraciones" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Valoraciones_Pedidos" FromRole="Valoraciones" ToRole="Pedidos" />
         </EntityType>
-        <Association Name="FK_Valoraciones_Cliente">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Valoraciones">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Valoraciones_Delivery">
-          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Valoraciones">
-              <PropertyRef Name="IdDelivery" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Valoraciones_Pedidos">
           <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="1" />
           <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
@@ -1284,6 +1128,164 @@
           <Property Name="lng" Type="Double" Nullable="false" />
           <Property Name="FechaHoraUltimaPos" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NombreApellido" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="JWT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Actividades" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Emisor" FromRole="AspNetUsers" ToRole="Actividades" />
+          <NavigationProperty Name="Actividades1" Relationship="TeloBuscoModel.FK_Actividades_AspNetUsers_Receptor" FromRole="AspNetUsers" ToRole="Actividades" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="TeloBuscoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="TeloBuscoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Notificaciones" Relationship="TeloBuscoModel.FK_Notificaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Notificaciones" />
+          <NavigationProperty Name="Pedidos" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsers" FromRole="AspNetUsers" ToRole="Pedidos" />
+          <NavigationProperty Name="Pedidos1" Relationship="TeloBuscoModel.FK_Pedidos_AspNetUsersDelivery" FromRole="AspNetUsers" ToRole="Pedidos" />
+          <NavigationProperty Name="Postulaciones" Relationship="TeloBuscoModel.FK_Postulaciones_AspNetUsers" FromRole="AspNetUsers" ToRole="Postulaciones" />
+          <NavigationProperty Name="Valoraciones" Relationship="TeloBuscoModel.FK_Valoraciones_Cliente" FromRole="AspNetUsers" ToRole="Valoraciones" />
+          <NavigationProperty Name="Valoraciones1" Relationship="TeloBuscoModel.FK_Valoraciones_Delivery" FromRole="AspNetUsers" ToRole="Valoraciones" />
+          <NavigationProperty Name="AspNetRoles" Relationship="TeloBuscoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <Association Name="FK_Actividades_AspNetUsers_Emisor">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actividades_AspNetUsers_Receptor">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Actividades" Role="Actividades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actividades">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TeloBuscoModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TeloBuscoModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notificaciones_AspNetUsers">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Notificaciones" Role="Notificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notificaciones">
+              <PropertyRef Name="IdUsuarioReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_AspNetUsers">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedidos_AspNetUsersDelivery">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="TeloBuscoModel.Pedidos" Role="Pedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pedidos">
+              <PropertyRef Name="idDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Postulaciones_AspNetUsers">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Postulaciones" Role="Postulaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Postulaciones">
+              <PropertyRef Name="IdUsuarioPostulado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Cliente">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valoraciones_Delivery">
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="TeloBuscoModel.Valoraciones" Role="Valoraciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoraciones">
+              <PropertyRef Name="IdDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="TeloBuscoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="TeloBuscoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1327,25 +1329,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="TeloBuscoModel.AspNetUsers">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="NombreApellido" ColumnName="NombreApellido" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Localidades">
             <EntityTypeMapping TypeName="TeloBuscoModel.Localidades">
               <MappingFragment StoreEntitySet="Localidades">
@@ -1366,14 +1349,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TeloBuscoModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Actividades">
             <EntityTypeMapping TypeName="TeloBuscoModel.Actividades">
               <MappingFragment StoreEntitySet="Actividades">
@@ -1491,6 +1466,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="TeloBuscoModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="JWT" ColumnName="JWT" />
+                <ScalarProperty Name="NombreApellido" ColumnName="NombreApellido" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TeloBuscoModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
