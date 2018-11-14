@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordenadaApi.cs" />
     <Compile Include="Denuncia.cs" />
     <Compile Include="LoginRequest.cs" />
     <Compile Include="NotificacionApi.cs" />
