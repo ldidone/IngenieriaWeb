@@ -13,8 +13,16 @@ namespace TeLoBusco.Controllers
         [HttpPost]
         public bool Postularse(RepositorioClases.PostulacionApi postulacionApi)
         {
-            bool result = PostulacionesServicio.PostularseApi(postulacionApi);
-            return result;
+            var user = Servicios.AspNetUsersServicio.obtenerPorEmail(postulacionApi.EmailUsuario);
+            if (user != null)
+            {
+                if (user.JWT == postulacionApi.JWT)
+                {
+                    bool result = PostulacionesServicio.PostularseApi(postulacionApi);
+                    return result;
+                }               
+            }
+            return false;
         }
     }
 }
