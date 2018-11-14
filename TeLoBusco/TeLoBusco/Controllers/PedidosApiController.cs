@@ -10,7 +10,8 @@ using Servicios.AccesoDatos;
 
 namespace TeLoBusco.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [AllowAnonymous]
     [RoutePrefix("api/pedidos")]
     public class PedidosApiController : ApiController
     {
